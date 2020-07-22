@@ -4,14 +4,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
   </head>
   <body>
-    <div id='map' style='width: 400px; height: 300px;'></div>
+    <div id='map' style='width: 100%; height: 100vh;'></div>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiY3JlYXRpdmVhbGNoZW15IiwiYSI6ImNrY3hncmZsaDAzd2Uycm1kMDMzendla2oifQ.Ipc4OYyTLjhevQR9_Y8TBA';
     var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11'
+      container: 'map',
+      style: 'mapbox://styles/creativealchemy/ckcxibvcp0wb01iml0xpco9o2',
+      center: [-74.2179, 43.2994], // center on New York
+      zoom: 6 // starting zoom
     });
     </script>
   </body>
