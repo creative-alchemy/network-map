@@ -9,21 +9,10 @@
         margin: 0px;
         padding: 0px;
       }
-
-      #features {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 50%;
-        overflow: auto;
-        background: rgba(255, 255, 255, 0.8);
-      }
     </style>
   </head>
   <body>
     <div id='map' style='width: 100%; height: 100vh;'></div>
-    <pre id="features"></pre>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiY3JlYXRpdmVhbGNoZW15IiwiYSI6ImNrY3hncmZsaDAzd2Uycm1kMDMzendla2oifQ.Ipc4OYyTLjhevQR9_Y8TBA';
     var map = new mapboxgl.Map({
@@ -38,58 +27,31 @@
 
     map.on('load', function() {
       // Find all features in one source layer in a vector source
-      var features = map.querySourceFeatures('creativealchemy.ckcxhzso402ny2ammst7pym75-2u3id', {});
-      var sources = map.getSource('creativealchemy.ckcxhzso402ny2ammst7pym75-2u3id')
-    });
-
-    // When a click event occurs on a feature in the school_data layer, open a popup at the
-    // location of the feature, with description HTML from its properties.
-    map.on('click', 'school-data-07-22-20', function(e) {
-      var coordinates = e.features[0].geometry.coordinates.slice();
-      var description = e.features[0].properties.description;
-      
-      // Ensure that if the map is zoomed out such that multiple
-      // copies of the feature are visible, the popup appears
-      // over the copy being pointed to.
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-      
-      new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(map);
-    });
-  
-  map.on('mousemove', function(e) {
-    var features = map.queryRenderedFeatures(e.point);
-    
-    // Limit the number of properties we're displaying for
-    // legibility and performance
-    var displayProperties = [
-      'type',
-      'properties',
-      'id',
-      'layer',
-      'source',
-      'sourceLayer',
-      'state'
-    ];
-    
-    var displayFeatures = features.map(function(feat) {
-      var displayFeat = {};
-      displayProperties.forEach(function(prop) {
-        displayFeat[prop] = feat[prop];
+      var features = map.querySourceFeatures('composite', {
+        'sourceLayer': "school_data_07_22_20"
       });
-      return displayFeat;
+
+      // When a click event occurs on a feature in the school_data layer, open a popup at the
+      // location of the feature, with description HTML from its properties.
+      map.on('click', 'school-data-07-22-20', function(e) {
+        var features = map.queryRenderedFeatures(e.point);
+
+        var coordinates = features[0].geometry.coordinates.slice();
+        var description = JSON.stringify(features[0].properties);
+        
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map);
+      });
     });
-    
-    document.getElementById('features').innerHTML = JSON.stringify(
-      displayFeatures,
-      null,
-      2
-    );
-  });
     
     </script>
   </body>
