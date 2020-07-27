@@ -31,6 +31,12 @@
         'sourceLayer': "school_data_07_22_20"
       });
 
+      var bounds = new mapboxgl.LngLatBounds();
+      features.forEach(function(feature) {
+        bounds.extend(feature.geometry.coordinates);
+      });
+      map.fitBounds(bounds, { padding: 100 });
+
       // When a click event occurs on a feature in the school_data layer, open a popup at the
       // location of the feature, with description HTML from its properties.
       map.on('click', 'school-data-07-22-20', function(e) {
