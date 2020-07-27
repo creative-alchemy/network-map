@@ -57,6 +57,14 @@
           .setHTML(description)
           .addTo(map);
       });
+
+      map.on('mousemove', 'school-data-07-22-20', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      map.on("mouseleave", 'school-data-07-22-20', function() {
+        map.getCanvas().style.cursor = '';
+      });
     });
     
     </script>
