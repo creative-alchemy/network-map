@@ -27,9 +27,15 @@
 
     map.on('load', function() {
       // Find all features in one source layer in a vector source
-      var features = map.querySourceFeatures('composite', {
+      var schoolFeatures = map.querySourceFeatures('composite', {
         'sourceLayer': "school_data_07_22_20"
       });
+
+      var universityFeatures = map.querySourceFeatures('composite', {
+        'sourceLayer': "university_data_07_22_20"
+      });
+
+      var features = schoolFeatures.concat(universityFeatures);
 
       var bounds = new mapboxgl.LngLatBounds();
       features.forEach(function(feature) {
