@@ -43,9 +43,7 @@
       });
       map.fitBounds(bounds, { padding: 100 });
 
-      // When a click event occurs on a feature in the school_data layer, open a popup at the
-      // location of the feature, with description HTML from its properties.
-      map.on('click', 'school-data-07-22-20', function(e) {
+      var handleClick = function(e) {
         var features = map.queryRenderedFeatures(e.point);
 
         var coordinates = features[0].geometry.coordinates.slice();
@@ -62,15 +60,20 @@
           .setLngLat(coordinates)
           .setHTML(description)
           .addTo(map);
-      });
+      }
 
-      map.on('mousemove', 'school-data-07-22-20', (e) => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
+      var setCursorPointer = function() { map.getCanvas().style.cursor = 'pointer'; };
+      var setCursorDefault = function() { map.getCanvas().style.cursor = 'pointer'; };
 
-      map.on("mouseleave", 'school-data-07-22-20', function() {
-        map.getCanvas().style.cursor = '';
-      });
+      // When a click event occurs on a feature in the school_data layer, open a popup at the
+      // location of the feature, with description HTML from its properties.
+      map.on('click', 'school-data-07-22-20', handleClick);
+      map.on('click', 'university-data-07-22-20', handleClick);
+
+      map.on('mousemove', 'school-data-07-22-20', setCursorPointer);
+      map.on("mouseleave", 'school-data-07-22-20', setCursorDefault);
+      map.on('mousemove', 'university-data-07-22-20', setCursorPointer);
+      map.on("mouseleave", 'university-data-07-22-20', setCursorDefault);
     });
     
     </script>
