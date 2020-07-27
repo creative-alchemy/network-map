@@ -9,10 +9,21 @@
         margin: 0px;
         padding: 0px;
       }
+
+      #features {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 50%;
+        overflow: auto;
+        background: rgba(255, 255, 255, 0.8);
+      }
     </style>
   </head>
   <body>
     <div id='map' style='width: 100%; height: 100vh;'></div>
+    <pre id="features"></pre>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiY3JlYXRpdmVhbGNoZW15IiwiYSI6ImNrY3hncmZsaDAzd2Uycm1kMDMzendla2oifQ.Ipc4OYyTLjhevQR9_Y8TBA';
     var map = new mapboxgl.Map({
@@ -49,6 +60,36 @@
         .setHTML(description)
         .addTo(map);
     });
+  
+  map.on('mousemove', function(e) {
+    var features = map.queryRenderedFeatures(e.point);
+    
+    // Limit the number of properties we're displaying for
+    // legibility and performance
+    var displayProperties = [
+      'type',
+      'properties',
+      'id',
+      'layer',
+      'source',
+      'sourceLayer',
+      'state'
+    ];
+    
+    var displayFeatures = features.map(function(feat) {
+      var displayFeat = {};
+      displayProperties.forEach(function(prop) {
+        displayFeat[prop] = feat[prop];
+      });
+      return displayFeat;
+    });
+    
+    document.getElementById('features').innerHTML = JSON.stringify(
+      displayFeatures,
+      null,
+      2
+    );
+  });
     
     </script>
   </body>
