@@ -25,6 +25,12 @@
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());
 
+    map.on('load', function() {
+      // Find all features in one source layer in a vector source
+      var features = map.querySourceFeatures('creativealchemy.ckcxhzso402ny2ammst7pym75-2u3id', {});
+      var sources = map.getSource('creativealchemy.ckcxhzso402ny2ammst7pym75-2u3id')
+    });
+
     // When a click event occurs on a feature in the school_data layer, open a popup at the
     // location of the feature, with description HTML from its properties.
     map.on('click', 'school-data-07-22-20', function(e) {
