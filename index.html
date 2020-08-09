@@ -50,6 +50,17 @@
         map.setFilter('university-data-08-06-20', filterOptions);
       }
 
+      window.showOnlyVisualArtsIHEs = function() {
+        var filterOptions = ['any'];
+
+        for (var licensureAreaNumber = 1; licensureAreaNumber <= 37; licensureAreaNumber++) {
+          filterOptions.push(['==', ['get', 'Licensure Area ' + licensureAreaNumber], 'Visual Arts']);
+        }
+
+        map.setFilter('school-data-08-06-20', filterOptions);
+        map.setFilter('university-data-08-06-20', filterOptions);
+      }
+
       var isItPTT = function(PTTNetwork) {
         // console.log('PTTNetwork', PTTNetwork);
       }
