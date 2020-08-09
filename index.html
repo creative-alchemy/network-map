@@ -35,12 +35,21 @@
         'sourceLayer': "university_data_08_06_20"
       });
 
+      window.showOnlyCharterSchools = function() {
+        map.setFilter('school-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
+        map.setFilter('university-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
+      }
+
       var isItPTT = function(PTTNetwork) {
-        console.log('PTTNetwork', PTTNetwork);
+        // console.log('PTTNetwork', PTTNetwork);
       }
 
       var isItCharterSchool = function(charterSchool) {
-        console.log('charterSchool', charterSchool);
+        // console.log('charterSchool', charterSchool);
+
+        if (charterSchool === 'Yes') {
+          console.count(charterSchool);
+        }
       }
 
       var features = schoolFeatures.concat(universityFeatures);
