@@ -40,6 +40,16 @@
         map.setFilter('university-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
       }
 
+      window.showOnlyElementaryCharterSchools = function() {
+        var filterOptions = ['all',
+          ['==', ['get', 'Charter School'], 'Yes'],
+          ['==', ['get', 'Grade Level'], 'Elementary']
+        ];
+
+        map.setFilter('school-data-08-06-20', filterOptions);
+        map.setFilter('university-data-08-06-20', filterOptions);
+      }
+
       var isItPTT = function(PTTNetwork) {
         // console.log('PTTNetwork', PTTNetwork);
       }
@@ -48,7 +58,9 @@
         // console.log('charterSchool', charterSchool);
 
         if (charterSchool === 'Yes') {
-          console.count(charterSchool);
+          return true;
+        } else {
+          return false;
         }
       }
 
@@ -56,7 +68,9 @@
 
       features.forEach(function(feature) {
         isItPTT(feature.properties['PTT Network']);
-        isItCharterSchool(feature.properties['Charter School']);
+        if (isItCharterSchool(feature.properties['Charter School'])) {
+          console.log('feature:', feature);
+        }
       });
 
       console.log('features:', features);
