@@ -28,11 +28,11 @@
     map.on('load', function() {
       // Find all features in one source layer in a vector source
       var schoolFeatures = map.querySourceFeatures('composite', {
-        'sourceLayer': "school_data_07_22_20"
+        'sourceLayer': "school_data_08_06_20"
       });
 
       var universityFeatures = map.querySourceFeatures('composite', {
-        'sourceLayer': "university_data_07_22_20"
+        'sourceLayer': "university_data_08_06_20"
       });
 
       var features = schoolFeatures.concat(universityFeatures);
@@ -67,13 +67,13 @@
 
       // When a click event occurs on a feature in the school_data layer, open a popup at the
       // location of the feature, with description HTML from its properties.
-      map.on('click', 'school-data-07-22-20', handleClick);
-      map.on('click', 'university-data-07-22-20', handleClick);
+      map.on('click', 'school-data-08-06-20', handleClick);
+      map.on('click', 'university-data-08-06-20', handleClick);
 
-      map.on('mousemove', 'school-data-07-22-20', setCursorPointer);
-      map.on("mouseleave", 'school-data-07-22-20', setCursorDefault);
-      map.on('mousemove', 'university-data-07-22-20', setCursorPointer);
-      map.on("mouseleave", 'university-data-07-22-20', setCursorDefault);
+      map.on('mousemove', 'school-data-08-06-20', setCursorPointer);
+      map.on("mouseleave", 'school-data-08-06-20', setCursorDefault);
+      map.on('mousemove', 'university-data-08-06-20', setCursorPointer);
+      map.on("mouseleave", 'university-data-08-06-20', setCursorDefault);
     });
     
     </script>
