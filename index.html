@@ -35,7 +35,22 @@
         'sourceLayer': "university_data_08_06_20"
       });
 
+      var isItPTT = function(PTTNetwork) {
+        console.log('PTTNetwork', PTTNetwork);
+      }
+
+      var isItCharterSchool = function(charterSchool) {
+        console.log('charterSchool', charterSchool);
+      }
+
       var features = schoolFeatures.concat(universityFeatures);
+
+      features.forEach(function(feature) {
+        isItPTT(feature.properties['PTT Network']);
+        isItCharterSchool(feature.properties['Charter School']);
+      });
+
+      console.log('features:', features);
 
       var bounds = new mapboxgl.LngLatBounds();
       features.forEach(function(feature) {
