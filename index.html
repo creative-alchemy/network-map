@@ -35,6 +35,23 @@
         'sourceLayer': "university_data_08_06_20"
       });
 
+      var reformatUniversityFeatures = universityFeatures.map(function(university) {
+        var universityFeature = university.properties;
+        var licensureAreas = [];
+
+        for (var key in universityFeature) {
+          if (key.includes('Licensure Area') && universityFeature[key]) {
+            licensureAreas.push(universityFeature[key]);
+          }
+        }
+
+        universityFeature.licensureAreas = licensureAreas;
+        return university;
+      });
+
+      console.log('universityFeatures', universityFeatures);
+      console.log('reformatUniversityFeatures:', reformatUniversityFeatures);
+
       window.showOnlyCharterSchools = function() {
         map.setFilter('school-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
         map.setFilter('university-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
@@ -50,15 +67,15 @@
         map.setFilter('university-data-08-06-20', filterOptions);
       }
 
-      window.showOnlyVisualArtsIHEs = function() {
-        var filterOptions = ['any'];
+      window.showOnlyMusicAndPhysicalEducationIHEs = function() {
+        var filterOptions1 = ['any'];
 
         for (var licensureAreaNumber = 1; licensureAreaNumber <= 37; licensureAreaNumber++) {
-          filterOptions.push(['==', ['get', 'Licensure Area ' + licensureAreaNumber], 'Visual Arts']);
+          filterOptions1.push(['==', ['get', 'Licensure Area ' + licensureAreaNumber], 'Music']);
         }
 
-        map.setFilter('school-data-08-06-20', filterOptions);
-        map.setFilter('university-data-08-06-20', filterOptions);
+        map.setFilter('school-data-08-06-20', filterOptions1);
+        map.setFilter('university-data-08-06-20', filterOptions1);
       }
 
       var isItPTT = function(PTTNetwork) {
@@ -104,7 +121,7 @@
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
-        
+
         new mapboxgl.Popup()
           .setLngLat(coordinates)
           .setHTML(description)
