@@ -35,7 +35,7 @@
         'sourceLayer': "university_data_08_06_20"
       });
 
-      var reformatUniversityFeatures = universityFeatures.map(function(university) {
+      var reformattedUniversityFeatures = universityFeatures.map(function(university) {
         var universityFeature = university.properties;
         var licensureAreas = [];
 
@@ -50,7 +50,7 @@
       });
 
       console.log('universityFeatures', universityFeatures);
-      console.log('reformatUniversityFeatures:', reformatUniversityFeatures);
+      console.log('reformatUniversityFeatures:', reformattedUniversityFeatures);
 
       window.showOnlyCharterSchools = function() {
         map.setFilter('school-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
@@ -68,14 +68,31 @@
       }
 
       window.showOnlyMusicAndPhysicalEducationIHEs = function() {
-        var filterOptions1 = ['any'];
+        // Filter array of universities
+        var filteredUniversities = reformattedUniversityFeatures.filter(function(universityFeature) {
+          var licensureAreas = universityFeature.properties.licensureAreas;
+          // If the licensureAreas array includes 'Music' and 'Physical Education'
+          if (licensureAreas.includes('Music') && licensureAreas.includes('Visual Arts')) {
+            // return the university object
+            return universityFeature;
+          }
+        });
 
-        for (var licensureAreaNumber = 1; licensureAreaNumber <= 37; licensureAreaNumber++) {
-          filterOptions1.push(['==', ['get', 'Licensure Area ' + licensureAreaNumber], 'Music']);
-        }
+        // Grab the university names and save it as universitiesArray
+        var universityNames = filteredUniversities.map(function(university) {
+          return university.properties['IHE Name '];
+        });
 
-        map.setFilter('school-data-08-06-20', filterOptions1);
-        map.setFilter('university-data-08-06-20', filterOptions1);
+        // Pass the universitiesArray into the filterOptions ['get', 'IHE Name ']
+        // Render universities that has both music and physical education by passing in the universitiesArray 
+        var filterOptions = ['all'];
+
+        universityNames.forEach(function(name) {
+          filterOptions.push(['==', ['get', 'IHE Name '], name]);
+        });
+
+        map.setFilter('school-data-08-06-20', filterOptions);
+        map.setFilter('university-data-08-06-20', filterOptions);
       }
 
       var isItPTT = function(PTTNetwork) {
