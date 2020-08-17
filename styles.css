@@ -4,9 +4,12 @@
 
 #filter-results-by {
   background-color: white;
+  bottom: 20px;
   font-family: Arial;
-  position: absolute;
   left: 20px;
+  opacity: 0.8;
+  overflow-y: scroll;
   padding: 20px;
+  position: absolute;
   top: 20px;
 }
