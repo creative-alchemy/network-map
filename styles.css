@@ -1,0 +1,12 @@
+#map {
+  position: absolute;
+}
+
+#filter-results-by {
+  background-color: white;
+  font-family: Arial;
+  position: absolute;
+  left: 20px;
+  padding: 20px;
+  top: 20px;
+}
