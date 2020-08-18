@@ -19,7 +19,34 @@
       }
     </style>
     <script>
-      var checkedFilters = {};
+      var checkedFilters = {
+        "global:ptt-network": true,
+        "global:locale:urban": true,
+        "global:locale:suburban": true,
+        "global:locale:rural": true,
+        "preparation-programs:type:public": true,
+        "preparation-programs:type:private": true,
+        "preparation-programs:size:large": true,
+        "preparation-programs:size:medium": true,
+        "preparation-programs:size:small": true,
+        "preparation-programs:clinical-placement:year-long": true,
+        "preparation-programs:partnership:district-level": true,
+        "school:type:public": true,
+        "school:type:private": true,
+        "school:type:charter": true,
+        "school:size:large": true,
+        "school:size:medium": true,
+        "school:size:small": true,
+        "school:grade-level:elementary": true,
+        "school:grade-level:middle": true,
+        "school:grade-level:high": true,
+        "school:grade-level:high-needs": true,
+        "school:hosts:pre-clinical-hours": true,
+        "school:hosts-culminating-clinical-placements": true,
+        "school:hosts-year-long-clinical-placements": true,
+        "school:hosts-enrichment-programs": true,
+        "school:profressional-development-school": true
+      };
 
       var updateFilters = function(element) {
         if (element.type === 'checkbox') {
@@ -37,24 +64,24 @@
       <div id="filter-results-by__title">Filter results by</div>
       <form id="filter-form">
         <div>
-          <input id="prepared-to-teach-learning-network" name="Prepared To Teach Learning Network" type="checkbox" value="Prepared To Teach Learning Network" checked>
+          <input id="prepared-to-teach-learning-network" onchange="updateFilters(this)" name="global:ptt-network" type="checkbox" value="Prepared To Teach Learning Network" checked autocomplete="off">
           <label for="prepared-to-teach-learning-network">Prepared To Teach Learning Network</label>
         </div>
         <div>
-          <input id="urban" onchange="updateFilters(this)" name="Urban" type="checkbox" value="Urban" checked>
+          <input id="urban" onchange="updateFilters(this)" name="global:locale:urban" type="checkbox" value="Urban" checked>
           <label for="urban">Urban</label>
         </div>
         <div>
-          <input id="suburban" onchange="updateFilters(this)" name="Suburban" type="checkbox" value="suburban" checked>
+          <input id="suburban" onchange="updateFilters(this)" name="global:locale:suburban" type="checkbox" value="suburban" checked>
           <label for="suburban">Suburban</label>
         </div>
         <div>
-          <input id="rural" onchange="updateFilters(this)" name="Rural" type="checkbox" value="Rural" checked>
+          <input id="rural" onchange="updateFilters(this)" name="global:locale:rural" type="checkbox" value="Rural" checked>
           <label for="rural">Rural</label>
         </div>
         <div>
           <div>
-            <input id="state-all" onchange="updateFilters(this)" name="state:all" type="checkbox" value="state:all" checked>
+            <input id="state-all" onchange="updateFilters(this)" name="state:all" type="checkbox" value="state:all" checked autocomplete="off">
             <label for="state-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#state__collapse" aria-expanded="false" aria-controls="state">States</a>
               <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +97,7 @@
         </div>
         <div>
           <div>
-            <input id="preparation-programs-all" onchange="updateFilters(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" checked>
+            <input id="preparation-programs-all" onchange="updateFilters(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" checked autocomplete="off">
             <label for="preparation-programs-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#preparation-programs__collapse" aria-expanded="false" aria-controls="preparation-programs__collapse">Preparation Programs</a>
               <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +113,7 @@
         </div>
         <div>
           <div>
-            <input id="schools-all" onchange="updateFilters(this)" name="schools:all" type="checkbox" value="schools:all" checked>
+            <input id="schools-all" onchange="updateFilters(this)" name="schools:all" type="checkbox" value="schools:all" checked autocomplete="off">
             <label for="schools-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#schools__collapse" aria-expanded="false" aria-controls="schools__collapse">Schools</a>
               <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -195,7 +222,7 @@
         }
       }
 
-      var features = schoolFeatures.concat(universityFeatures);
+      window.features = schoolFeatures.concat(universityFeatures);
 
       features.forEach(function(feature) {
         isItPTT(feature.properties['PTT Network']);
