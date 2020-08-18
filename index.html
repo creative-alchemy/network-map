@@ -56,8 +56,6 @@
           filters[element.name] = element.checked;
         }
 
-        console.log({ filters });
-
         // Filters by disqualification
         var filteredFeatures = features.filter(function(feature) {
           // Check ptt-network
@@ -82,13 +80,38 @@
             return false;
           }
           
-          // For IHEs, check type
+          if (feature.properties["IHE Name "]) {
+            // For IHEs, check type
+            var foundAnIHETypeMatch = false;
+            if (
+              filters["preparation-programs:type:public"] === true && feature.properties["Type"] === "Public" ||
+              filters["preparation-programs:type:private"] === true && feature.properties["Type"] === "Private"
+            ) {
+              foundAnIHETypeMatch = true;
+            }
 
-          // For IHEs, check size
+            if (foundAnIHETypeMatch === false) {
+              return false;
+            }
+  
+            // For IHEs, check size
+            var foundAnIHESizeMatch = false;
+            if (
+              filters["preparation-programs:size:large"] && feature.properties["Size"] === "Large" ||
+              filters["preparation-programs:size:medium"] && feature.properties["Size"] === "Mid" ||
+              filters["preparation-programs:size:small"] && feature.properties["Size"] === "Small"
+            ) {
+              foundAnIHETypeMatch = true;
+            }
 
-          // For IHEs, check clinical-placement:year-long
-
-          // For IHEs check partnership:district-level
+            if (foundAnIHETypeMatch === false) {
+              return false;
+            }
+  
+            // For IHEs, check clinical-placement:year-long
+  
+            // For IHEs check partnership:district-level
+          }
 
           // For schools, check type
 
@@ -119,7 +142,6 @@
         filteredFeatures.forEach(function(feature) {
           bounds.extend(feature.geometry.coordinates);
         });
-        console.log(bounds);
         map.fitBounds(bounds, { padding: 100 });
 
         console.log('features length', filteredFeatures.length)
@@ -205,7 +227,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <div class="collapse multi-collapse sub-contents" id="preparation-programs__collapse"></div>
+              <div class="collapse multi-collapse sub-contents show" id="preparation-programs__collapse"></div>
             </div>
           </div>
         </div>
@@ -223,7 +245,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <div class="collapse multi-collapse sub-contents" id="schools__collapse"></div>
+              <div class="collapse multi-collapse sub-contents show" id="schools__collapse"></div>
             </div>
           </div>
         </div>
@@ -265,79 +287,7 @@
         return university;
       });
 
-      window.showOnlyCharterSchools = function() {
-        map.setFilter('school-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
-        map.setFilter('university-data-08-06-20', ['==', ['get', 'Charter School'], 'Yes']);
-      }
-
-      window.showOnlyElementaryCharterSchools = function() {
-        var filterOptions = ['all',
-          ['==', ['get', 'Charter School'], 'Yes'],
-          ['==', ['get', 'Grade Level'], 'Elementary']
-        ];
-
-        map.setFilter('school-data-08-06-20', filterOptions);
-        map.setFilter('university-data-08-06-20', filterOptions);
-      }
-
-      window.showOnlyMusicAndPhysicalEducationIHEs = function() {
-        // Filter array of universities
-        var filteredUniversities = reformattedUniversityFeatures.filter(function(universityFeature) {
-          var licensureAreas = universityFeature.properties.licensureAreas;
-          // If the licensureAreas array includes 'Music' and 'Physical Education'
-          if (licensureAreas.includes('Music') && licensureAreas.includes('Visual Arts')) {
-            // return the university object
-            return universityFeature;
-          }
-        });
-
-        // Grab the university names and save it as universitiesArray
-        var universityNames = filteredUniversities.map(function(university) {
-          return university.properties['IHE Name '];
-        });
-
-        // Pass the universitiesArray into the filterOptions ['get', 'IHE Name ']
-        // Render universities that has both music and physical education by passing in the universitiesArray 
-        var filterOptions = ['all'];
-
-        universityNames.forEach(function(name) {
-          filterOptions.push(['==', ['get', 'IHE Name '], name]);
-        });
-
-        map.setFilter('school-data-08-06-20', filterOptions);
-        map.setFilter('university-data-08-06-20', filterOptions);
-      }
-
-      var isItPTT = function(PTTNetwork) {
-        // console.log('PTTNetwork', PTTNetwork);
-      }
-
-      var isItCharterSchool = function(charterSchool) {
-        // console.log('charterSchool', charterSchool);
-
-        if (charterSchool === 'Yes') {
-          return true;
-        } else {
-          return false;
-        }
-      }
-
       window.features = schoolFeatures.concat(universityFeatures);
-
-      features.forEach(function(feature) {
-        isItPTT(feature.properties['PTT Network']);
-        if (isItCharterSchool(feature.properties['Charter School'])) {
-          console.log('feature:', feature);
-        }
-      });
-
-      console.log('features:', features);
-
-      // var bounds = new mapboxgl.LngLatBounds();
-      // features.forEach(function(feature) {
-      //   bounds.extend(feature.geometry.coordinates);
-      // });
-      // map.fitBounds(bounds, { padding: 100 });
 
       var handleClick = function(e) {
         var features = map.queryRenderedFeatures(e.point);

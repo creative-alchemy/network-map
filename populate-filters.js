@@ -100,9 +100,10 @@ var populateFilters = function(group, filters) {
 
   filters.forEach(function(filterObject) {
     var label = filterObject.label;
+    var name = group + ":" + filterObject.name;
     var filterContainer = document.createElement('div');
     var filterString =
-      '<input type="checkbox" id="' + label.toLowerCase() + '" value="' + label + '" name="' + group + label + '" onchange="updateFilters(this)" checked autocomplete="off"> ' +
+      '<input type="checkbox" id="' + label.toLowerCase() + '" value="' + label + '" name="' + name + '" onchange="updateFilters(this)" checked autocomplete="off"> ' +
       '<label for="' + label.toLowerCase() + '">' + label + '</label>';
 
     filterContainer.innerHTML = filterString;
