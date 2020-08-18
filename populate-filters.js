@@ -18,10 +18,15 @@ var populateFilters = function(collapseId, filters) {
 
   if (collapseId === 'preparation-programs__collapse') {
     var licensureAreasCollapse =
-      '<a data-toggle="collapse" aria-expanded="false" aria-controls="licensure-areas__collapse" href="#licensure-areas__collapse">+ Licensure Areas</a>' +
+      '<div>' +
+        '<input id="licensure-areas-all" onchange="updateFilters(this)" name="licensure-areas:all" type="checkbox" value="licensure-areas:all" checked>&nbsp;' +
+        '<label for="licensure-areas-all">' +
+          '<a data-toggle="collapse" aria-expanded="false" aria-controls="licensure-areas__collapse" href="#licensure-areas__collapse">Licensure Areas</a>' +
+        '</label>' +
+      '</div>' +
       '<div class="row">' +
         '<div class="col">' +
-          '<div class="collapse multi-collapse" id="licensure-areas__collapse"></div>' +
+          '<div class="collapse multi-collapse sub-contents" id="licensure-areas__collapse"></div>' +
         '</div>' +
       '</div>';
     collapse.insertAdjacentHTML('beforeend', licensureAreasCollapse);
