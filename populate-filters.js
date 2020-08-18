@@ -21,7 +21,7 @@ var populateFilters = function(collapseId, filters) {
       '<div>' +
         '<input id="licensure-areas-all" onchange="updateFilters(this)" name="licensure-areas:all" type="checkbox" value="licensure-areas:all" checked>&nbsp;' +
         '<label for="licensure-areas-all">' +
-          '<a data-toggle="collapse" aria-expanded="false" aria-controls="licensure-areas__collapse" href="#licensure-areas__collapse">Licensure Areas</a>' +
+          '<a class="collapse-toggle" data-toggle="collapse" aria-expanded="false" aria-controls="licensure-areas__collapse" href="#licensure-areas__collapse">Licensure Areas</a>' +
         '</label>' +
       '</div>' +
       '<div class="row">' +
