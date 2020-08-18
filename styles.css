@@ -17,3 +17,8 @@
 .sub-contents {
   padding-left: 20px;
 }
+
+.collapse-toggle, .collapse-toggle:hover {
+  color: rgb(33, 37, 41);
+  text-decoration: none;
+}
