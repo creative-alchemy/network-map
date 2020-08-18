@@ -18,14 +18,6 @@ var preparationPrograms = [
   {
     name: 'size:small',
     label: 'Small'
-  },
-  {
-    name: 'clinical-placement:year-long',
-    label: 'Full-year clinical placements available'
-  },
-  {
-    name: 'partnership:district-level',
-    label: 'District-level partnership'
   }
 ];
 
@@ -67,7 +59,7 @@ var schools = [
     label: 'High school'
   },
   {
-    name: 'grade-level:high-needs',
+    name: 'high-needs',
     label: 'High-needs school'
   },
   {

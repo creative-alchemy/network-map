@@ -33,21 +33,21 @@
         "preparation-programs:size:small": true,
         "preparation-programs:clinical-placement:year-long": true,
         "preparation-programs:partnership:district-level": true,
-        "school:type:public": true,
-        "school:type:private": true,
-        "school:type:charter": true,
-        "school:size:large": true,
-        "school:size:medium": true,
-        "school:size:small": true,
-        "school:grade-level:elementary": true,
-        "school:grade-level:middle": true,
-        "school:grade-level:high": true,
-        "school:grade-level:high-needs": true,
-        "school:hosts-pre-clinical-hours": true,
-        "school:hosts-culminating-clinical-placements": true,
-        "school:hosts-year-long-clinical-placements": true,
-        "school:hosts-enrichment-programs": true,
-        "school:professional-development-school": true
+        "schools:type:public": true,
+        "schools:type:private": true,
+        "schools:type:charter": true,
+        "schools:size:large": true,
+        "schools:size:medium": true,
+        "schools:size:small": true,
+        "schools:grade-level:elementary": true,
+        "schools:grade-level:middle": true,
+        "schools:grade-level:high": true,
+        "schools:grade-level:high-needs": true,
+        "schools:hosts-pre-clinical-hours": true,
+        "schools:hosts-culminating-clinical-placements": true,
+        "schools:hosts-year-long-clinical-placements": true,
+        "schools:hosts-enrichment-programs": true,
+        "schools:professional-development-school": true
       };
 
       var updateFilters = function(element) {
@@ -107,21 +107,86 @@
             if (foundAnIHESizeMatch === false) {
               return false;
             }
-  
-            // For IHEs, check clinical-placement:year-long
-  
-            // For IHEs check partnership:district-level
           }
 
-          // For schools, check type
+          if (feature.properties["School Name"]) {
+            console.log('inside school name');
+            // For schools, check type
+            var foundASchoolTypeMatch = false;
+            if (
+              filters["schools:type:public"] === true && feature.properties["Type"] === "Public" ||
+              filters["schools:type:private"] === true && feature.properties["Type"] === "Private" ||
+              filters["schools:type:charter"] === true && feature.properties["Type"] === "Charter"
+            ) {
+              foundASchoolTypeMatch = true;
+            }
 
-          // For schools, check size
+            if (foundASchoolTypeMatch === false) {
+              return false;
+            }
 
-          // For schools, check grade-level
+            // For schools, check size
+            var foundASchoolSizeMatch = false;
+            if (
+              filters["schools:size:large"] && feature.properties["Type/Size"] === "Large" ||
+              filters["schools:size:medium"] && feature.properties["Type/Size"] === "Mid" ||
+              filters["schools:size:small"] && feature.properties["Type/Size"] === "Small"
+            ) {
+              foundASchoolSizeMatch = true;
+            }
 
-          // For schools, check for what they host
+            if (foundASchoolSizeMatch === false) {
+              return false;
+            }
 
-          // For schools, check if it is or isn't a professional development school
+            // For schools, check grade-level
+            var foundAGradeLevelMatch = false;
+            if (
+              filters["schools:grade-level:elementary"] && feature.properties["Grade Level"] === "Elementary" ||
+              filters["schools:grade-level:middle"] && feature.properties["Grade Level"] === "Middle" ||
+              filters["schools:grade-level:high"] && feature.properties["Grade Level"] === "High" ||
+              feature.properties["Grade Level"] === "Other"
+            ) {
+              foundAGradeLevelMatch = true;
+            }
+
+            if (foundAGradeLevelMatch === false) {
+              return false;
+            }
+
+            // Check if school supports high-needs
+            var HighNeedsCheckboxValue = filters["schools:high-needs"] ? "Yes" : "No";
+            if (feature.properties["High-Needs School"] !== HighNeedsCheckboxValue) {
+              return false;
+            }
+
+            // // For schools, check for what they host
+            // var HostsPreClinicalHoursCheckboxValue = filters["schools:hosts-pre-clinical-hours"] ? "Yes" : "No";
+            // if (feature.properties["Hosts Pre-Clinical Placement (Field-Placement)"] !== HostsPreClinicalHoursCheckboxValue) {
+            //   return false;
+            // }
+
+            // var HostsCulminatingClinicalPlacementsCheckboxValue = filters["schools:hosts-culminating-clinical-placements"] ? "Yes" : "No";
+            // if (feature.properties["Hosts Culminating Clinical Placement"] !== HostsCulminatingClinicalPlacementsCheckboxValue) {
+            //   return false;
+            // }
+
+            // var HostsYearLongClinicalPlacementsCheckboxValue = filters["schools:hosts-year-long-clinical-placements"] ? "Yes" : "No";
+            // if (feature.properties["Hosts Culminating Year-Long Clinical Placement"] !== HostsYearLongClinicalPlacementsCheckboxValue) {
+            //   return false;
+            // }
+
+            // var HostsEnrichmentProgramsCheckboxValue = filters["schools:hosts-enrichment-programs"] ? "Yes" : "No";
+            // if (feature.properties["Hosts Enrichment Program"] !== HostsEnrichmentProgramsCheckboxValue) {
+            //   return false;
+            // }
+
+            // // For schools, check if it is or isn't a professional development school
+            // var ProfessionalDevelopmentSchoolCheckboxValue = filters["schools:professional-development-school"] ? "Yes" : "No";
+            // if (feature.properties["Professional Development School (PDS Model)"] !== ProfessionalDevelopmentSchoolCheckboxValue) {
+            //   return false;
+            // }
+          }
 
           return true;
         });
