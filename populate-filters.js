@@ -9,7 +9,7 @@ var populateFilters = function(collapseId, filters) {
   filters.forEach(function(filter) {
     var filterContainer = document.createElement('div');
     var filterString =
-      '<input type="checkbox" id="' + filter.toLowerCase() + '" value="' + filter + '" onchange="updateFilters(this)"> ' +
+      '<input type="checkbox" id="' + filter.toLowerCase() + '" value="' + filter + '" onchange="updateFilters(this)" checked> ' +
       '<label for="' + filter.toLowerCase() + '">' + filter + '</label>';
 
     filterContainer.innerHTML = filterString;
