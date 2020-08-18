@@ -83,8 +83,8 @@
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/creativealchemy/ckcxibvcp0wb01iml0xpco9o2',
-      center: [-74.2179, 43.2994], // center on New York
-      zoom: 6 // starting zoom
+      center: [-100.5795, 39.8283], // center on New York
+      zoom: 4 // starting zoom
     });
 
     // Add zoom and rotation controls to the map.
@@ -182,11 +182,11 @@
 
       console.log('features:', features);
 
-      var bounds = new mapboxgl.LngLatBounds();
-      features.forEach(function(feature) {
-        bounds.extend(feature.geometry.coordinates);
-      });
-      map.fitBounds(bounds, { padding: 100 });
+      // var bounds = new mapboxgl.LngLatBounds();
+      // features.forEach(function(feature) {
+      //   bounds.extend(feature.geometry.coordinates);
+      // });
+      // map.fitBounds(bounds, { padding: 100 });
 
       var handleClick = function(e) {
         var features = map.queryRenderedFeatures(e.point);
