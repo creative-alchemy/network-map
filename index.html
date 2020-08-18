@@ -101,10 +101,10 @@
               filters["preparation-programs:size:medium"] && feature.properties["Size"] === "Mid" ||
               filters["preparation-programs:size:small"] && feature.properties["Size"] === "Small"
             ) {
-              foundAnIHETypeMatch = true;
+              foundAnIHESizeMatch = true;
             }
 
-            if (foundAnIHETypeMatch === false) {
+            if (foundAnIHESizeMatch === false) {
               return false;
             }
   
