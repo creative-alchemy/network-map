@@ -115,6 +115,12 @@
         map.setFilter('school-data-08-06-20', filterOptions);
         map.setFilter('university-data-08-06-20', filterOptions);
 
+        var bounds = new mapboxgl.LngLatBounds();
+        filteredFeatures.forEach(function(feature) {
+          bounds.extend(feature.geometry.coordinates);
+        });
+        console.log(bounds);
+        map.fitBounds(bounds, { padding: 100 });
 
         console.log('features length', filteredFeatures.length)
       }
