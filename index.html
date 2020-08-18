@@ -24,6 +24,8 @@
         "global:locale:urban": true,
         "global:locale:suburban": true,
         "global:locale:rural": true,
+        "global:locale:city": true,
+        "global:locale:town": true,
         "preparation-programs:type:public": true,
         "preparation-programs:type:private": true,
         "preparation-programs:size:large": true,
@@ -56,15 +58,30 @@
 
         console.log({ filters });
 
+        // Filters by disqualification
         var filteredFeatures = features.filter(function(feature) {
           // Check ptt-network
-          var PTTNetworkValue = filters["global:ptt-network"] ? "Yes" : "No";
-          if (feature.properties["PTT Network"] !== PTTNetworkValue) {
+          var PTTNetworkCheckboxValue = filters["global:ptt-network"] ? "Yes" : "No";
+          if (feature.properties["PTT Network"] !== PTTNetworkCheckboxValue) {
             return false;
           }
           
-          // Check locale
+          // If none of the locales match, return false
+          var foundALocaleMatch = false;
+          if (
+            filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
+            filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
+            filters["global:locale:rural"] && feature.properties["Locale"] === "Rural" ||
+            filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
+            filters["global:locale:town"] && feature.properties["Locale"] === "Town"
+          ) {
+            foundALocaleMatch = true;
+          }
 
+          if (foundALocaleMatch === false) {
+            return false;
+          }
+          
           // For IHEs, check type
 
           // For IHEs, check size
@@ -124,6 +141,14 @@
         <div>
           <input id="rural" onchange="updateFilters(this)" name="global:locale:rural" type="checkbox" value="Rural" checked>
           <label for="rural">Rural</label>
+        </div>
+        <div>
+          <input id="city" onchange="updateFilters(this)" name="global:locale:city" type="checkbox" value="City" checked>
+          <label for="city">City</label>
+        </div>
+        <div>
+          <input id="town" onchange="updateFilters(this)" name="global:locale:town" type="checkbox" value="Town" checked>
+          <label for="town">Town</label>
         </div>
         <div>
           <div>
