@@ -19,7 +19,7 @@
       }
     </style>
     <script>
-      var checkedFilters = {
+      var filters = {
         "global:ptt-network": true,
         "global:locale:urban": true,
         "global:locale:suburban": true,
@@ -51,13 +51,17 @@
       var updateFilters = function(element) {
         // update state
         if (element.type === 'checkbox') {
-          checkedFilters[element.name] = element.checked;
+          filters[element.name] = element.checked;
         }
 
-        console.log({ checkedFilters });
+        console.log({ filters });
 
-        features.forEach(function(feature) {
+        var filteredFeatures = features.filter(function(feature) {
           // Check ptt-network
+          var PTTNetworkValue = filters["global:ptt-network"] ? "Yes" : "No";
+          if (feature.properties["PTT Network"] !== PTTNetworkValue) {
+            return false;
+          }
           
           // Check locale
 
@@ -78,7 +82,24 @@
           // For schools, check for what they host
 
           // For schools, check if it is or isn't a professional development school
+
+          return true;
         });
+
+        var filterOptions = ['any'];
+        filteredFeatures.forEach(function(filterFeature) {
+          if (filterFeature.properties["IHE Name "]) {
+            filterOptions.push(['==', ['get', 'IHE Name '], filterFeature.properties["IHE Name "]]);
+          } else if (filterFeature.properties["School Name"]) {
+            filterOptions.push(['==', ['get', 'School Name'], filterFeature.properties["School Name"]]);
+          }
+        })
+
+        map.setFilter('school-data-08-06-20', filterOptions);
+        map.setFilter('university-data-08-06-20', filterOptions);
+
+
+        console.log('features length', filteredFeatures.length)
       }
 
     </script>
