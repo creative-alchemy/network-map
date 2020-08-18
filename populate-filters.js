@@ -71,7 +71,7 @@ var schools = [
     label: 'High-needs school'
   },
   {
-    name: 'hosts:pre-clinical-hours',
+    name: 'hosts-pre-clinical-hours',
     label: 'Hosts pre-clinical hours'
   },
     {
@@ -87,7 +87,7 @@ var schools = [
     label: 'Hosts enrichment programs'
   },
   {
-    name: 'profressional-development-school',
+    name: 'professional-development-school',
     label: 'Professional development school'
   },
 ];

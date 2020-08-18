@@ -41,19 +41,44 @@
         "school:grade-level:middle": true,
         "school:grade-level:high": true,
         "school:grade-level:high-needs": true,
-        "school:hosts:pre-clinical-hours": true,
+        "school:hosts-pre-clinical-hours": true,
         "school:hosts-culminating-clinical-placements": true,
         "school:hosts-year-long-clinical-placements": true,
         "school:hosts-enrichment-programs": true,
-        "school:profressional-development-school": true
+        "school:professional-development-school": true
       };
 
       var updateFilters = function(element) {
+        // update state
         if (element.type === 'checkbox') {
           checkedFilters[element.name] = element.checked;
         }
 
         console.log({ checkedFilters });
+
+        features.forEach(function(feature) {
+          // Check ptt-network
+          
+          // Check locale
+
+          // For IHEs, check type
+
+          // For IHEs, check size
+
+          // For IHEs, check clinical-placement:year-long
+
+          // For IHEs check partnership:district-level
+
+          // For schools, check type
+
+          // For schools, check size
+
+          // For schools, check grade-level
+
+          // For schools, check for what they host
+
+          // For schools, check if it is or isn't a professional development school
+        });
       }
 
     </script>
