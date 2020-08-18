@@ -56,9 +56,7 @@
           <div>
             <input id="state-all" onchange="updateFilters(this)" name="state:all" type="checkbox" value="state:all" checked>
             <label for="state-all">
-              <a data-toggle="collapse" href="#state__collapse" aria-expanded="false" aria-controls="state">
-                State (all)
-              </a>
+              <a data-toggle="collapse" href="#state__collapse" aria-expanded="false" aria-controls="state">State (all)</a>
             </label>
           </div>
           <div class="row">
@@ -68,7 +66,12 @@
           </div>
         </div>
         <div>
-          <a data-toggle="collapse" href="#preparation-programs__collapse" aria-expanded="false" aria-controls="preparation-programs__collapse">+ Preparation Programs (all)</a>
+          <div>
+            <input id="preparation-programs-all" onchange="updateFilters(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" checked>
+            <label for="preparation-programs-all">
+              <a data-toggle="collapse" href="#preparation-programs__collapse" aria-expanded="false" aria-controls="preparation-programs__collapse">Preparation Programs (all)</a>
+            </label>
+          </div>
           <div class="row">
             <div class="col">
               <div class="collapse multi-collapse sub-contents-level-1" id="preparation-programs__collapse"></div>
@@ -76,7 +79,12 @@
           </div>
         </div>
         <div>
-          <a data-toggle="collapse" href="#schools__collapse" aria-expanded="false" aria-controls="schools__collapse">+ Schools (all)</a>
+          <div>
+            <input id="schools-all" onchange="updateFilters(this)" name="schools:all" type="checkbox" value="schools:all" checked>
+            <label for="schools-all">
+              <a data-toggle="collapse" href="#schools__collapse" aria-expanded="false" aria-controls="schools__collapse">Schools (all)</a>
+            </label>
+          </div>
           <div class="row">
             <div class="col">
               <div class="collapse multi-collapse sub-contents-level-1" id="schools__collapse"></div>
