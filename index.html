@@ -19,42 +19,15 @@
       }
     </style>
     <script>
-      var filters = {
-        "global:ptt-network": false,
-        "global:locale:urban": false,
-        "global:locale:suburban": false,
-        "global:locale:rural": false,
-        "global:locale:city": false,
-        "global:locale:town": false,
-        "preparation-programs:type:public": false,
-        "preparation-programs:type:private": false,
-        "preparation-programs:size:large": false,
-        "preparation-programs:size:medium": false,
-        "preparation-programs:size:small": false,
-        "preparation-programs:clinical-placement:year-long": false,
-        "preparation-programs:partnership:district-level": false,
-        "schools:type:public": false,
-        "schools:type:private": false,
-        "schools:type:charter": false,
-        "schools:size:large": false,
-        "schools:size:medium": false,
-        "schools:size:small": false,
-        "schools:grade-level:elementary": false,
-        "schools:grade-level:middle": false,
-        "schools:grade-level:high": false,
-        "schools:grade-level:high-needs": false,
-        "schools:hosts-pre-clinical-hours": false,
-        "schools:hosts-culminating-clinical-placements": false,
-        "schools:hosts-year-long-clinical-placements": false,
-        "schools:hosts-enrichment-programs": false,
-        "schools:professional-development-school": false
-      };
+      var filters = {};
 
       var updateFilters = function(element) {
         // update state
         if (element.type === 'checkbox') {
           filters[element.name] = element.checked;
         }
+
+        console.log({ filters });
 
         // Filters by disqualification
         var filteredFeatures = features.filter(function(feature) {
@@ -67,6 +40,8 @@
             filters["global:locale:town"]
           ) {
             var foundALocaleMatch = false;
+            console.log("filter:", filters["global:locale:urban"]);
+            console.log("feature:", feature.properties["Locale"]);
             if (
               filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
               filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
@@ -74,6 +49,7 @@
               filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
               filters["global:locale:town"] && feature.properties["Locale"] === "Town"
             ) {
+              console.log('found a match');
               foundALocaleMatch = true;
             }
 
@@ -193,32 +169,47 @@
               }
             }
 
-            // // For schools, check for what they host
-            // var HostsPreClinicalHoursCheckboxValue = filters["schools:hosts-pre-clinical-hours"] ? "Yes" : "No";
-            // if (feature.properties["Hosts Pre-Clinical Placement (Field-Placement)"] !== HostsPreClinicalHoursCheckboxValue) {
-            //   return false;
-            // }
+            // For schools, check for what they host
+            if (filters["schools:hosts-pre-clinical-hours"]) {
+              if (feature.properties["Hosts Pre-Clinical Placement (Field-Placement)"] === "Yes") {
+                return true;
+              } else {
+                return false;
+              }
+            }
 
-            // var HostsCulminatingClinicalPlacementsCheckboxValue = filters["schools:hosts-culminating-clinical-placements"] ? "Yes" : "No";
-            // if (feature.properties["Hosts Culminating Clinical Placement"] !== HostsCulminatingClinicalPlacementsCheckboxValue) {
-            //   return false;
-            // }
+            if (filters["schools:hosts-culminating-clinical-placements"]) {
+              if (feature.properties["Hosts Culminating Clinical Placement"] =foundAnIHETypeMatch== "Yes") {
+                return true;
+              } else {
+                return false;
+              }
+            }
 
-            // var HostsYearLongClinicalPlacementsCheckboxValue = filters["schools:hosts-year-long-clinical-placements"] ? "Yes" : "No";
-            // if (feature.properties["Hosts Culminating Year-Long Clinical Placement"] !== HostsYearLongClinicalPlacementsCheckboxValue) {
-            //   return false;
-            // }
+            if (filters["schools:hosts-year-long-clinical-placements"]) {
+              if (feature.properties["Hosts Culminating Year-Long Clinical Placement"] === "Yes") {
+                return true;
+              } else {
+                return false;
+              }
+            }
 
-            // var HostsEnrichmentProgramsCheckboxValue = filters["schools:hosts-enrichment-programs"] ? "Yes" : "No";
-            // if (feature.properties["Hosts Enrichment Program"] !== HostsEnrichmentProgramsCheckboxValue) {
-            //   return false;
-            // }
+            if (filters["schools:hosts-enrichment-programs"]) {
+              if (feature.properties["Hosts Enrichment Program"] === "Yes") {
+                return true;
+              } else {
+                return false;
+              }
+            }
 
-            // // For schools, check if it is or isn't a professional development school
-            // var ProfessionalDevelopmentSchoolCheckboxValue = filters["schools:professional-development-school"] ? "Yes" : "No";
-            // if (feature.properties["Professional Development School (PDS Model)"] !== ProfessionalDevelopmentSchoolCheckboxValue) {
-            //   return false;
-            // }
+            // For schools, check if it is or isn't a professional development school
+            if (filters["schools:professional-development-school"]) {
+              if (feature.properties["Professional Development School (PDS Model)"] === "Yes") {
+                return true;
+              } else {
+                return false;
+              }
+            }
           }
 
           // Check ptt-network
@@ -230,7 +221,7 @@
             }
           }
 
-          return false;
+          return true;
         });
 
         var filterOptions = ['any'];
