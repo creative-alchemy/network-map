@@ -457,8 +457,23 @@
         var features = map.queryRenderedFeatures(e.point);
 
         var coordinates = features[0].geometry.coordinates.slice();
-        var description = JSON.stringify(features[0].properties);
-        
+        var description = ""
+        for (var key in features[0].properties) {
+          if (!key.includes("Licensure Area")) {
+            description += "<div><b>" + key + ":</b> " + features[0].properties[key] + "</div>";
+          }
+        }
+
+        var licensureAreas = [];
+        for (var key in features[0].properties) {
+          if (key.includes('Licensure Area ') && features[0].properties[key]) {
+            licensureAreas.push(features[0].properties[key]);
+          }
+        }
+        if (licensureAreas.length > 0) {
+          description += "<div><b>Licensure Areas:</b> " + licensureAreas.join(", ") + "</div>";
+        }
+
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
         // over the copy being pointed to.
