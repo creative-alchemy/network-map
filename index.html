@@ -273,8 +273,8 @@
           }
         })
 
-        map.setFilter('school-data-08-06-20', filterOptions);
-        map.setFilter('university-data-08-06-20', filterOptions);
+        map.setFilter('school_data', filterOptions);
+        map.setFilter('ihe_data', filterOptions);
 
         if (filteredFeatures.length > 1) {
           var bounds = new mapboxgl.LngLatBounds();
@@ -427,11 +427,11 @@
     map.on('load', function() {
       // Find all features in one source layer in a vector source
       var schoolFeatures = map.querySourceFeatures('composite', {
-        'sourceLayer': "school_data_08_06_20"
+        'sourceLayer': "school_data"
       });
 
       var universityFeatures = map.querySourceFeatures('composite', {
-        'sourceLayer': "university_data_08_06_20"
+        'sourceLayer': "ihe_data"
       });
 
       var reformattedUniversityFeatures = universityFeatures.map(function(university) {
@@ -489,13 +489,15 @@
 
       // When a click event occurs on a feature in the school_data layer, open a popup at the
       // location of the feature, with description HTML from its properties.
-      map.on('click', 'school-data-08-06-20', handleClick);
-      map.on('click', 'university-data-08-06-20', handleClick);
+      map.on('click', 'school_data', handleClick);
+      map.on('click', 'ihe_data', handleClick);
 
-      map.on('mousemove', 'school-data-08-06-20', setCursorPointer);
-      map.on("mouseleave", 'school-data-08-06-20', setCursorDefault);
-      map.on('mousemove', 'university-data-08-06-20', setCursorPointer);
-      map.on("mouseleave", 'university-data-08-06-20', setCursorDefault);
+      map.on('mousemove', 'school_data', setCursorPointer);
+      map.on("mouseleave", 'school_data', setCursorDefault);
+      map.on('mousemove', 'ihe_data', setCursorPointer);
+      map.on("mouseleave", 'ihe_data', setCursorDefault);
+
+      console.log(map.getSource('composite'));
     });
     
     </script>
