@@ -289,8 +289,6 @@
               zoom: 6,
             });
         }
-
-        console.log('features length', filteredFeatures.length);
       }
 
       var toggleAll = function(element) {
@@ -302,7 +300,6 @@
           checkboxChildren = $(element).parent().siblings().find('input:not(.licensure-areas)');
         }
         
-        console.log({ currentCheckboxState })
         if (currentCheckboxState === true) {
           checkboxChildren.prop('checked', true).change();
         } else {
