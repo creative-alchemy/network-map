@@ -273,8 +273,8 @@
           }
         })
 
-        map.setFilter('school_data', filterOptions);
-        map.setFilter('ihe_data', filterOptions);
+        map.setFilter('school-data', filterOptions);
+        map.setFilter('ihe-data', filterOptions);
 
         if (filteredFeatures.length > 1) {
           var bounds = new mapboxgl.LngLatBounds();
@@ -489,13 +489,13 @@
 
       // When a click event occurs on a feature in the school_data layer, open a popup at the
       // location of the feature, with description HTML from its properties.
-      map.on('click', 'school_data', handleClick);
-      map.on('click', 'ihe_data', handleClick);
+      map.on('click', 'school-data', handleClick);
+      map.on('click', 'ihe-data', handleClick);
 
-      map.on('mousemove', 'school_data', setCursorPointer);
-      map.on("mouseleave", 'school_data', setCursorDefault);
-      map.on('mousemove', 'ihe_data', setCursorPointer);
-      map.on("mouseleave", 'ihe_data', setCursorDefault);
+      map.on('mousemove', 'school-data', setCursorPointer);
+      map.on("mouseleave", 'school-data', setCursorDefault);
+      map.on('mousemove', 'ihe-data', setCursorPointer);
+      map.on("mouseleave", 'ihe-data', setCursorDefault);
     });
     
     </script>
