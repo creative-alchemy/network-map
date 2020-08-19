@@ -23,6 +23,31 @@
       var activeLicensureAreas = {};
 
       var updateFilters = function(element) {
+        // Check if all siblings are checked
+        var allChecked = true;
+        var container = $(element).parent().parent();
+        var parentCheckbox = container.parent().parent().parent().find('input').first();
+
+        if ($(element).hasClass('licensure-areas')) {
+          container.find('input').each(function() {
+            if ($(this).prop('checked') === false) {
+              allChecked = false;
+            }
+          });
+        } else {
+          container.find('input:not(.licensure-areas)').each(function() {
+            if ($(this).prop('checked') === false) {
+              allChecked = false;
+            }
+          });
+        }
+
+        if (allChecked) {
+          parentCheckbox.prop('checked', true);
+        } else {
+          parentCheckbox.prop('checked', false);
+        }
+
         // update application state
         if (element.type === 'checkbox') {
           filters[element.name] = element.checked;
@@ -268,6 +293,22 @@
         console.log('features length', filteredFeatures.length);
       }
 
+      var toggleAll = function(element) {
+        var currentCheckboxState = $(element).prop('checked');
+        var checkboxChildren;
+        if ($(element).hasClass('licensure-areas')) {
+          checkboxChildren = $(element).parent().siblings().find('input');
+        } else {
+          checkboxChildren = $(element).parent().siblings().find('input:not(.licensure-areas)');
+        }
+        
+        console.log({ currentCheckboxState })
+        if (currentCheckboxState === true) {
+          checkboxChildren.prop('checked', true).change();
+        } else {
+          checkboxChildren.prop('checked', false).change();
+        }
+      }
     </script>
   </head>
   <body>
@@ -275,13 +316,15 @@
     <div id="filter-results-by">
       <div id="filter-results-by__title"><b>Filter results by</b></div>
       <form id="filter-form">
-        <div class="custom-control custom-checkbox">
-          <input class="custom-control-input" id="prepared-to-teach-learning-network" onchange="updateFilters(this)" name="global:ptt-network" type="checkbox" value="Prepared To Teach Learning Network" autocomplete="off">
-          <label class="custom-control-label" for="prepared-to-teach-learning-network">Prepared To Teach Learning Network</label>
+        <div>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" id="prepared-to-teach-learning-network" onchange="updateFilters(this)" name="global:ptt-network" type="checkbox" value="Prepared To Teach Learning Network" autocomplete="off">
+            <label class="custom-control-label" for="prepared-to-teach-learning-network">Prepared To Teach Learning Network</label>
+          </div>
         </div>
         <div>
           <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" id="locales-all" onchange="updateFilters(this)" name="locales:all" type="checkbox" value="locales:all" autocomplete="off">
+            <input class="custom-control-input" id="locales-all" onchange="toggleAll(this)" name="locales:all" type="checkbox" value="locales:all" autocomplete="off">
             <label class="custom-control-label" for="locales-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#locales__collapse" aria-expanded="false" aria-controls="locales__collapse">
                 Locales
@@ -336,7 +379,7 @@
         </div> -->
         <div>
           <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" id="preparation-programs-all" onchange="updateFilters(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" autocomplete="off">
+            <input class="custom-control-input" id="preparation-programs-all" onchange="toggleAll(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" autocomplete="off">
             <label class="custom-control-label" for="preparation-programs-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#preparation-programs__collapse" aria-expanded="false" aria-controls="preparation-programs__collapse">
                 Preparation Programs
@@ -354,7 +397,7 @@
         </div>
         <div>
           <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" id="schools-all" onchange="updateFilters(this)" name="schools:all" type="checkbox" value="schools:all" autocomplete="off">
+            <input class="custom-control-input" id="schools-all" onchange="toggleAll(this)" name="schools:all" type="checkbox" value="schools:all" autocomplete="off">
             <label class="custom-control-label" for="schools-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#schools__collapse" aria-expanded="false" aria-controls="schools__collapse">
                 Schools

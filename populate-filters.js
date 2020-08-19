@@ -195,12 +195,11 @@ var populateFilters = function(group, filters) {
     var label = filterObject.label;
     var name = group + ":" + filterObject.name;
     var filterContainer = document.createElement('div');
+    filterContainer.classList.add("custom-control");
+    filterContainer.classList.add("custom-checkbox");
     var filterString =
-      '<div class="custom-control custom-checkbox">' +
-        '<input class="custom-control-input" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" onchange="updateFilters(this)" autocomplete="off"> ' +
-        '<label class="custom-control-label" for="' + name + '">' + label + '</label>' +
-      '</div>';
-
+        '<input class="custom-control-input ' + group + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" onchange="updateFilters(this)" autocomplete="off"> ' +
+        '<label class="custom-control-label" for="' + name + '">' + label + '</label>';
     filterContainer.innerHTML = filterString;
     collapse.append(filterContainer);
   });
@@ -209,7 +208,7 @@ var populateFilters = function(group, filters) {
     var licensureAreasCollapse =
       '<div>' +
         '<div class="custom-control custom-checkbox">' +
-          '<input class="custom-control-input" id="licensure-areas-all" onchange="updateFilters(this)" name="licensure-areas:all" type="checkbox" value="licensure-areas:all" autocomplete="off">' +
+          '<input class="custom-control-input licensure-areas" id="licensure-areas-all" onchange="toggleAll(this)" name="licensure-areas:all" type="checkbox" value="licensure-areas:all" autocomplete="off">' +
           '<label class="custom-control-label" for="licensure-areas-all">' +
             '<a class="collapse-toggle" data-toggle="collapse" aria-expanded="false" aria-controls="licensure-areas__collapse" href="#licensure-areas__collapse">Licensure Areas&nbsp;</a>' +
             '<svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
