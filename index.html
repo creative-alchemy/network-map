@@ -123,6 +123,30 @@
                 return false;
               }
             }
+
+            if (filters["preparation-programs:full-year-clinical-placements-available"]) {
+              foundAnIHESizeMatch = false;
+
+              if (feature.properties["Year-long Residency (Any Program)"] === 'Yes') {
+                foundAnIHESizeMatch = true;
+              }
+
+              if (foundAnIHESizeMatch === false) {
+                  return false;
+              }
+            }
+
+            if (filters["preparation-programs:district-level-partnership"]) {
+              foundAnIHESizeMatch = false;
+
+              if (feature.properties["District Level Partnership"] === 'Yes') {
+                foundAnIHESizeMatch = true;
+              }
+
+              if (foundAnIHESizeMatch === false) {
+                return false;
+              }
+            }
           }
 
           if (feature.properties["School Name"]) {

@@ -18,6 +18,14 @@ var preparationPrograms = [
   {
     name: 'size:small',
     label: 'Small'
+  },
+  {
+    name: 'full-year-clinical-placements-available',
+    label: 'Full-year clinical placements available'
+  },
+  {
+    name: 'district-level-partnership',
+    label: 'District-level partnership'
   }
 ];
 
