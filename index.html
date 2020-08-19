@@ -242,7 +242,8 @@
         });
         map.fitBounds(bounds, { padding: 100 });
 
-        console.log('features length', filteredFeatures.length)
+        console.log('features length', filteredFeatures.length);
+        console.log('features:', features);
       }
 
     </script>
@@ -376,12 +377,12 @@
         var licensureAreas = [];
 
         for (var key in universityFeature) {
-          if (key.includes('Licensure Area') && universityFeature[key]) {
+          if (key.includes('Licensure Area ') && universityFeature[key]) {
             licensureAreas.push(universityFeature[key]);
           }
         }
 
-        universityFeature.licensureAreas = licensureAreas;
+        universityFeature['Licensure Areas'] = licensureAreas;
         return university;
       });
 
