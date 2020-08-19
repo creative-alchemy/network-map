@@ -196,8 +196,8 @@ var populateFilters = function(group, filters) {
     var name = group + ":" + filterObject.name;
     var filterContainer = document.createElement('div');
     var filterString =
-      '<input type="checkbox" id="' + label.toLowerCase() + '" value="' + label + '" name="' + name + '" onchange="updateFilters(this)" autocomplete="off"> ' +
-      '<label for="' + label.toLowerCase() + '">' + label + '</label>';
+      '<input type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" onchange="updateFilters(this)" autocomplete="off"> ' +
+      '<label for="' + name + '">' + label + '</label>';
 
     filterContainer.innerHTML = filterString;
     collapse.append(filterContainer);
