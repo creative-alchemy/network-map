@@ -26,3 +26,9 @@
   color: rgb(33, 37, 41);
   text-decoration: none;
 }
+
+/* Mapbox tweaks */
+.mapboxgl-popup-content {
+  max-width: 360px;
+  width: 100vw;
+}
