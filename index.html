@@ -84,7 +84,7 @@
             }
           }
 
-          
+
           if (feature.properties["IHE Name "]) {
             // For IHEs, check type
             if (
@@ -98,12 +98,12 @@
               ) {
                 foundAnIHETypeMatch = true;
               }
-  
+
               if (foundAnIHETypeMatch === false) {
                 return false;
               }
             }
-  
+
             // For IHEs, check size
             if (
               filters["preparation-programs:size:large"] ||
@@ -118,7 +118,7 @@
               ) {
                 foundAnIHESizeMatch = true;
               }
-  
+
               if (foundAnIHESizeMatch === false) {
                 return false;
               }
@@ -140,7 +140,7 @@
               ) {
                 foundASchoolTypeMatch = true;
               }
-  
+
               if (foundASchoolTypeMatch === false) {
                 return false;
               }
@@ -160,7 +160,7 @@
               ) {
                 foundASchoolSizeMatch = true;
               }
-  
+
               if (foundASchoolSizeMatch === false) {
                 return false;
               }
@@ -299,7 +299,7 @@
         } else {
           checkboxChildren = $(element).parent().siblings().find('input:not(.licensure-areas)');
         }
-        
+
         if (currentCheckboxState === true) {
           checkboxChildren.prop('checked', true).change();
         } else {
@@ -497,7 +497,7 @@
       map.on('mousemove', 'ihe-data', setCursorPointer);
       map.on("mouseleave", 'ihe-data', setCursorDefault);
     });
-    
+
     </script>
     <script src="./populate-filters.js"></script>
   </body>
