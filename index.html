@@ -20,34 +20,34 @@
     </style>
     <script>
       var filters = {
-        "global:ptt-network": true,
-        "global:locale:urban": true,
-        "global:locale:suburban": true,
-        "global:locale:rural": true,
-        "global:locale:city": true,
-        "global:locale:town": true,
-        "preparation-programs:type:public": true,
-        "preparation-programs:type:private": true,
-        "preparation-programs:size:large": true,
-        "preparation-programs:size:medium": true,
-        "preparation-programs:size:small": true,
-        "preparation-programs:clinical-placement:year-long": true,
-        "preparation-programs:partnership:district-level": true,
-        "schools:type:public": true,
-        "schools:type:private": true,
-        "schools:type:charter": true,
-        "schools:size:large": true,
-        "schools:size:medium": true,
-        "schools:size:small": true,
-        "schools:grade-level:elementary": true,
-        "schools:grade-level:middle": true,
-        "schools:grade-level:high": true,
-        "schools:grade-level:high-needs": true,
-        "schools:hosts-pre-clinical-hours": true,
-        "schools:hosts-culminating-clinical-placements": true,
-        "schools:hosts-year-long-clinical-placements": true,
-        "schools:hosts-enrichment-programs": true,
-        "schools:professional-development-school": true
+        "global:ptt-network": false,
+        "global:locale:urban": false,
+        "global:locale:suburban": false,
+        "global:locale:rural": false,
+        "global:locale:city": false,
+        "global:locale:town": false,
+        "preparation-programs:type:public": false,
+        "preparation-programs:type:private": false,
+        "preparation-programs:size:large": false,
+        "preparation-programs:size:medium": false,
+        "preparation-programs:size:small": false,
+        "preparation-programs:clinical-placement:year-long": false,
+        "preparation-programs:partnership:district-level": false,
+        "schools:type:public": false,
+        "schools:type:private": false,
+        "schools:type:charter": false,
+        "schools:size:large": false,
+        "schools:size:medium": false,
+        "schools:size:small": false,
+        "schools:grade-level:elementary": false,
+        "schools:grade-level:middle": false,
+        "schools:grade-level:high": false,
+        "schools:grade-level:high-needs": false,
+        "schools:hosts-pre-clinical-hours": false,
+        "schools:hosts-culminating-clinical-placements": false,
+        "schools:hosts-year-long-clinical-placements": false,
+        "schools:hosts-enrichment-programs": false,
+        "schools:professional-development-school": false
       };
 
       var updateFilters = function(element) {
@@ -58,106 +58,139 @@
 
         // Filters by disqualification
         var filteredFeatures = features.filter(function(feature) {
-          // Check ptt-network
-          var PTTNetworkCheckboxValue = filters["global:ptt-network"] ? "Yes" : "No";
-          if (feature.properties["PTT Network"] !== PTTNetworkCheckboxValue) {
-            return false;
-          }
-          
           // If none of the locales match, return false
-          var foundALocaleMatch = false;
           if (
-            filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
-            filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
-            filters["global:locale:rural"] && feature.properties["Locale"] === "Rural" ||
-            filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
-            filters["global:locale:town"] && feature.properties["Locale"] === "Town"
+            filters["global:locale:urban"] ||
+            filters["global:locale:suburban"] ||
+            filters["global:locale:rural"] ||
+            filters["global:locale:city"] ||
+            filters["global:locale:town"]
           ) {
-            foundALocaleMatch = true;
+            var foundALocaleMatch = false;
+            if (
+              filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
+              filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
+              filters["global:locale:rural"] && feature.properties["Locale"] === "Rural" ||
+              filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
+              filters["global:locale:town"] && feature.properties["Locale"] === "Town"
+            ) {
+              foundALocaleMatch = true;
+            }
+
+            if (foundALocaleMatch === false) {
+              return false;
+            }
           }
 
-          if (foundALocaleMatch === false) {
-            return false;
-          }
           
           if (feature.properties["IHE Name "]) {
             // For IHEs, check type
-            var foundAnIHETypeMatch = false;
             if (
-              filters["preparation-programs:type:public"] === true && feature.properties["Type"] === "Public" ||
-              filters["preparation-programs:type:private"] === true && feature.properties["Type"] === "Private"
+              filters["preparation-programs:type:public"] ||
+              filters["preparation-programs:type:private"]
             ) {
-              foundAnIHETypeMatch = true;
-            }
-
-            if (foundAnIHETypeMatch === false) {
-              return false;
+              var foundAnIHETypeMatch = false;
+              if (
+                filters["preparation-programs:type:public"] && feature.properties["Type"] === "Public" ||
+                filters["preparation-programs:type:private"] && feature.properties["Type"] === "Private"
+              ) {
+                foundAnIHETypeMatch = true;
+              }
+  
+              if (foundAnIHETypeMatch === false) {
+                return false;
+              }
             }
   
             // For IHEs, check size
-            var foundAnIHESizeMatch = false;
             if (
-              filters["preparation-programs:size:large"] && feature.properties["Size"] === "Large" ||
-              filters["preparation-programs:size:medium"] && feature.properties["Size"] === "Mid" ||
-              filters["preparation-programs:size:small"] && feature.properties["Size"] === "Small"
+              filters["preparation-programs:size:large"] ||
+              filters["preparation-programs:size:medium"] ||
+              filters["preparation-programs:size:small"]
             ) {
-              foundAnIHESizeMatch = true;
-            }
-
-            if (foundAnIHESizeMatch === false) {
-              return false;
+              var foundAnIHESizeMatch = false;
+              if (
+                filters["preparation-programs:size:large"] && feature.properties["Size"] === "Large" ||
+                filters["preparation-programs:size:medium"] && feature.properties["Size"] === "Mid" ||
+                filters["preparation-programs:size:small"] && feature.properties["Size"] === "Small"
+              ) {
+                foundAnIHESizeMatch = true;
+              }
+  
+              if (foundAnIHESizeMatch === false) {
+                return false;
+              }
             }
           }
 
           if (feature.properties["School Name"]) {
-            console.log('inside school name');
             // For schools, check type
-            var foundASchoolTypeMatch = false;
             if (
-              filters["schools:type:public"] === true && feature.properties["Type"] === "Public" ||
-              filters["schools:type:private"] === true && feature.properties["Type"] === "Private" ||
-              filters["schools:type:charter"] === true && feature.properties["Type"] === "Charter"
+              filters["schools:type:public"] ||
+              filters["schools:type:private"] ||
+              filters["schools:type:charter"]
             ) {
-              foundASchoolTypeMatch = true;
-            }
-
-            if (foundASchoolTypeMatch === false) {
-              return false;
+              var foundASchoolTypeMatch = false;
+              if (
+                filters["schools:type:public"] && feature.properties["Type"] === "Public" ||
+                filters["schools:type:private"] && feature.properties["Type"] === "Private" ||
+                filters["schools:type:charter"] && feature.properties["Type"] === "Charter"
+              ) {
+                foundASchoolTypeMatch = true;
+              }
+  
+              if (foundASchoolTypeMatch === false) {
+                return false;
+              }
             }
 
             // For schools, check size
-            var foundASchoolSizeMatch = false;
             if (
-              filters["schools:size:large"] && feature.properties["Type/Size"] === "Large" ||
-              filters["schools:size:medium"] && feature.properties["Type/Size"] === "Mid" ||
-              filters["schools:size:small"] && feature.properties["Type/Size"] === "Small"
+              filters["schools:size:large"] ||
+              filters["schools:size:medium"] ||
+              filters["schools:size:small"]
             ) {
-              foundASchoolSizeMatch = true;
-            }
-
-            if (foundASchoolSizeMatch === false) {
-              return false;
+              var foundASchoolSizeMatch = false;
+              if (
+                filters["schools:size:large"] && feature.properties["Type/Size"] === "Large" ||
+                filters["schools:size:medium"] && feature.properties["Type/Size"] === "Mid" ||
+                filters["schools:size:small"] && feature.properties["Type/Size"] === "Small"
+              ) {
+                foundASchoolSizeMatch = true;
+              }
+  
+              if (foundASchoolSizeMatch === false) {
+                return false;
+              }
             }
 
             // For schools, check grade-level
-            var foundAGradeLevelMatch = false;
             if (
-              filters["schools:grade-level:elementary"] && feature.properties["Grade Level"] === "Elementary" ||
-              filters["schools:grade-level:middle"] && feature.properties["Grade Level"] === "Middle" ||
-              filters["schools:grade-level:high"] && feature.properties["Grade Level"] === "High" ||
-              feature.properties["Grade Level"] === "Other"
+              filters["schools:grade-level:elementary"] ||
+              filters["schools:grade-level:middle"] ||
+              filters["schools:grade-level:high"]
             ) {
-              foundAGradeLevelMatch = true;
+              var foundAGradeLevelMatch = false;
+              if (
+                filters["schools:grade-level:elementary"] && feature.properties["Grade Level"] === "Elementary" ||
+                filters["schools:grade-level:middle"] && feature.properties["Grade Level"] === "Middle" ||
+                filters["schools:grade-level:high"] && feature.properties["Grade Level"] === "High" ||
+                feature.properties["Grade Level"] === "Other"
+              ) {
+                foundAGradeLevelMatch = true;
+              }
+
+              if (foundAGradeLevelMatch === false) {
+                return false;
+              }
             }
 
-            if (foundAGradeLevelMatch === false) {
-              return false;
-            }
 
             // Check if school supports high-needs
-            var HighNeedsCheckboxValue = filters["schools:high-needs"] ? "Yes" : "No";
-            if (feature.properties["High-Needs School"] !== HighNeedsCheckboxValue) {
-              return false;
+            if (filters["schools:high-needs"]) {
+              if (feature.properties["High-Needs School"] === "Yes") {
+                return true;
+              }
             }
 
             // // For schools, check for what they host
@@ -188,7 +221,16 @@
             // }
           }
 
-          return true;
+          // Check ptt-network
+          if (filters["global:ptt-network"]) {
+            if (feature.properties["PTT Network"] === "Yes") {
+              return true;
+            } else {
+              return false;
+            }
+          }
+
+          return false;
         });
 
         var filterOptions = ['any'];
@@ -220,12 +262,12 @@
       <div id="filter-results-by__title">Filter results by</div>
       <form id="filter-form">
         <div>
-          <input id="prepared-to-teach-learning-network" onchange="updateFilters(this)" name="global:ptt-network" type="checkbox" value="Prepared To Teach Learning Network" checked autocomplete="off">
+          <input id="prepared-to-teach-learning-network" onchange="updateFilters(this)" name="global:ptt-network" type="checkbox" value="Prepared To Teach Learning Network" autocomplete="off">
           <label for="prepared-to-teach-learning-network">Prepared To Teach Learning Network</label>
         </div>
         <div>
           <div>
-            <input id="locales-all" onchange="updateFilters(this)" name="locales:all" type="checkbox" value="locales:all" checked autocomplete="off">
+            <input id="locales-all" onchange="updateFilters(this)" name="locales:all" type="checkbox" value="locales:all" autocomplete="off">
             <label for="locales-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#locales__collapse" aria-expanded="false" aria-controls="locales__collapse">
                 Locales
@@ -239,23 +281,23 @@
             <div class="col">
               <div class="collapse multi-collapse sub-contents show" id="locales__collapse">
                 <div>
-                  <input id="urban" onchange="updateFilters(this)" name="global:locale:urban" type="checkbox" value="Urban" checked>
+                  <input id="urban" onchange="updateFilters(this)" name="global:locale:urban" type="checkbox" value="Urban" autocomplete="off">
                   <label for="urban">Urban</label>
                 </div>
                 <div>
-                  <input id="suburban" onchange="updateFilters(this)" name="global:locale:suburban" type="checkbox" value="suburban" checked>
+                  <input id="suburban" onchange="updateFilters(this)" name="global:locale:suburban" type="checkbox" value="suburban" autocomplete="off">
                   <label for="suburban">Suburban</label>
                 </div>
                 <div>
-                  <input id="rural" onchange="updateFilters(this)" name="global:locale:rural" type="checkbox" value="Rural" checked>
+                  <input id="rural" onchange="updateFilters(this)" name="global:locale:rural" type="checkbox" value="Rural" autocomplete="off">
                   <label for="rural">Rural</label>
                 </div>
                 <div>
-                  <input id="city" onchange="updateFilters(this)" name="global:locale:city" type="checkbox" value="City" checked>
+                  <input id="city" onchange="updateFilters(this)" name="global:locale:city" type="checkbox" value="City" autocomplete="off">
                   <label for="city">City</label>
                 </div>
                 <div>
-                  <input id="town" onchange="updateFilters(this)" name="global:locale:town" type="checkbox" value="Town" checked>
+                  <input id="town" onchange="updateFilters(this)" name="global:locale:town" type="checkbox" value="Town" autocomplete="off">
                   <label for="town">Town</label>
                 </div>
               </div>
@@ -264,7 +306,7 @@
         </div>
         <!-- <div>
           <div>
-            <input id="state-all" onchange="updateFilters(this)" name="state:all" type="checkbox" value="state:all" checked autocomplete="off">
+            <input id="state-all" onchange="updateFilters(this)" name="state:all" type="checkbox" value="state:all" autocomplete="off">
             <label for="state-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#state__collapse" aria-expanded="false" aria-controls="state">States</a>
               <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -280,7 +322,7 @@
         </div> -->
         <div>
           <div>
-            <input id="preparation-programs-all" onchange="updateFilters(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" checked autocomplete="off">
+            <input id="preparation-programs-all" onchange="updateFilters(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" autocomplete="off">
             <label for="preparation-programs-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#preparation-programs__collapse" aria-expanded="false" aria-controls="preparation-programs__collapse">
                 Preparation Programs
@@ -298,7 +340,7 @@
         </div>
         <div>
           <div>
-            <input id="schools-all" onchange="updateFilters(this)" name="schools:all" type="checkbox" value="schools:all" checked autocomplete="off">
+            <input id="schools-all" onchange="updateFilters(this)" name="schools:all" type="checkbox" value="schools:all" autocomplete="off">
             <label for="schools-all">
               <a class="collapse-toggle" data-toggle="collapse" href="#schools__collapse" aria-expanded="false" aria-controls="schools__collapse">
                 Schools
