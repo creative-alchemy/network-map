@@ -20,14 +20,18 @@
     </style>
     <script>
       var filters = {};
+      var activeLicensureAreas = {};
 
       var updateFilters = function(element) {
         // update application state
         if (element.type === 'checkbox') {
           filters[element.name] = element.checked;
+          if (element.name.includes('licensure-areas') && element.checked === true) {
+            activeLicensureAreas[element.value] = element.checked;
+          } else if (element.name.includes('licensure-areas') && element.checked === false) {
+            delete activeLicensureAreas[element.value];
+          }
         }
-
-        console.log({ filters });
 
         // Filters by disqualification
         var filteredFeatures = features.filter(function(feature) {
@@ -40,8 +44,6 @@
             filters["global:locale:town"]
           ) {
             var foundALocaleMatch = false;
-            console.log("filter:", filters["global:locale:urban"]);
-            console.log("feature:", feature.properties["Locale"]);
             if (
               filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
               filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
@@ -49,7 +51,6 @@
               filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
               filters["global:locale:town"] && feature.properties["Locale"] === "Town"
             ) {
-              console.log('found a match');
               foundALocaleMatch = true;
             }
 
@@ -97,9 +98,6 @@
                 return false;
               }
             }
-
-            // Check licensure areas
-            const 
           }
 
           if (feature.properties["School Name"]) {
@@ -215,6 +213,20 @@
             }
           }
 
+          // Check licensure areas
+          if (element.name.includes("licensure-areas")) {
+            var currentLicensureAreas = Object.keys(activeLicensureAreas);
+            if (currentLicensureAreas.length > 0) {
+              var foundLicensureAreaMatch = false;
+              currentLicensureAreas.forEach(function(licensureArea) {
+                if (feature.properties["Licensure Areas"] && feature.properties["Licensure Areas"].includes(licensureArea)) {
+                  foundLicensureAreaMatch = true;
+                }
+              });
+              return foundLicensureAreaMatch;
+            }
+          }
+
           // Check ptt-network
           if (filters["global:ptt-network"]) {
             if (feature.properties["PTT Network"] === "Yes") {
@@ -239,14 +251,21 @@
         map.setFilter('school-data-08-06-20', filterOptions);
         map.setFilter('university-data-08-06-20', filterOptions);
 
-        var bounds = new mapboxgl.LngLatBounds();
-        filteredFeatures.forEach(function(feature) {
-          bounds.extend(feature.geometry.coordinates);
-        });
-        map.fitBounds(bounds, { padding: 100 });
+        if (filteredFeatures.length > 1) {
+          var bounds = new mapboxgl.LngLatBounds();
+          filteredFeatures.forEach(function(feature) {
+            bounds.extend(feature.geometry.coordinates);
+          });
+          map.fitBounds(bounds, { padding: 100 });
+        } else if (filteredFeatures.length === 1) {
+            map.flyTo({
+              center: filteredFeatures[0].geometry.coordinates,
+              essential: true,
+              zoom: 6,
+            });
+        }
 
         console.log('features length', filteredFeatures.length);
-        console.log('features:', features);
       }
 
     </script>

@@ -206,9 +206,9 @@ var populateFilters = function(group, filters) {
   if (collapseId === 'preparation-programs__collapse') {
     var licensureAreasCollapse =
       '<div>' +
-        '<input id="licensure-areas-all" onchange="updateFilters(this)" name="licensure-areas:all" type="checkbox" value="licensure-areas:all" checked autocomplete="off">&nbsp;' +
+        '<input id="licensure-areas-all" onchange="updateFilters(this)" name="licensure-areas:all" type="checkbox" value="licensure-areas:all" autocomplete="off">&nbsp;' +
         '<label for="licensure-areas-all">' +
-          '<a class="collapse-toggle" data-toggle="collapse" aria-expanded="false" aria-controls="licensure-areas__collapse" href="#licensure-areas__collapse">Licensure Areas</a>' +
+          '<a class="collapse-toggle" data-toggle="collapse" aria-expanded="false" aria-controls="licensure-areas__collapse" href="#licensure-areas__collapse">Licensure Areas&nbsp;</a>' +
           '<svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
             '<path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>' +
           '</svg>' +
