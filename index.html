@@ -12,6 +12,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+      type="text/css"
+    />
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
     <style>
       body {
         margin: 0px;
@@ -132,6 +141,17 @@
       zoom: 4 // starting zoom
     });
 
+    map.addControl(
+        new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          countries: 'us',
+          localGeocoder: forwardGeocoder,
+          placeholder: 'Search for a school/university',
+          mapboxgl: mapboxgl,
+          zoom: 8
+        })
+      );
+
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());
 
@@ -208,6 +228,22 @@
       map.on('mousemove', 'ihe-data', setCursorPointer);
       map.on("mouseleave", 'ihe-data', setCursorDefault);
     });
+
+    function forwardGeocoder(query) {
+        var matchingFeatures = [];
+
+        features.forEach(function(feature) {
+          var schoolOrUniversityName = feature.properties['School Name'] || feature.properties['IHE Name '];
+
+          if (schoolOrUniversityName.toLowerCase().search(query.toLowerCase()) !== -1) {
+            feature['place_name'] = schoolOrUniversityName;
+            feature['center'] = feature.geometry.coordinates;
+            matchingFeatures.push(feature);
+          }
+        });
+
+        return matchingFeatures;
+      }
 
     </script>
     <script src="./populate-filters.js"></script>
