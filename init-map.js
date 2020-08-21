@@ -44,6 +44,35 @@ map.on('load', function() {
     return university;
   });
 
+  var createIHEPartnersDictionary = function() {
+    var IHEPartnersDictionary = {};
+
+    schoolFeatures.forEach(function(schoolFeature) {
+      var IHEPartner1 = schoolFeature.properties['IHE Partner 1'];
+      var IHEPartner2 = schoolFeature.properties['IHE Partner 2'];
+      var IHEPartner3 = schoolFeature.properties['IHE Partner 3'];
+      var IHEPartner4 = schoolFeature.properties['IHE Partner 4'];
+
+      var IHEPartners = [IHEPartner1, IHEPartner2, IHEPartner3, IHEPartner4];
+
+      IHEPartners.forEach(function(IHEPartner) {
+        if (IHEPartner) {
+          var schoolName = schoolFeature.properties['School Name'];
+
+          if (IHEPartnersDictionary[IHEPartner]) {
+            IHEPartnersDictionary[IHEPartner].push(schoolName);
+          } else {
+            IHEPartnersDictionary[IHEPartner] = [schoolName]
+          }
+        }
+      });
+    });
+
+    return IHEPartnersDictionary;
+  }
+
+  var IHEPartnersDictionary = createIHEPartnersDictionary();
+
   window.features = schoolFeatures.concat(universityFeatures);
 
   var handleClick = function(e) {
