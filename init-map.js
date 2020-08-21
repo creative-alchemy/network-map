@@ -75,7 +75,7 @@ map.on('load', function() {
 
   window.features = schoolFeatures.concat(universityFeatures);
 
-  var handleClick = function(e) {
+  var handleClick = function(educationType, e) {
     var features = map.queryRenderedFeatures(e.point);
 
     var coordinates = features[0].geometry.coordinates.slice();
@@ -109,6 +109,22 @@ map.on('load', function() {
       .setLngLat(coordinates)
       .setHTML(description)
       .addTo(map);
+
+    if (educationType === 'university') {
+      var universityName = features[0].properties['IHE Name '];
+      // Get IHE Partners of the clicked university
+      var IHEPartners = IHEPartnersDictionary[universityName];
+      var filterOptions = ['any'];
+
+      if (IHEPartners) {
+        IHEPartners.forEach(function(IHEPartner) {
+          filterOptions.push(['==', ['get', 'School Name'], IHEPartner]);
+        });
+
+        map.setFilter('school-data', filterOptions);
+        map.setFilter('ihe-data', ['==', ['get', 'IHE Name '], universityName]);
+      }
+    }
   }
 
   var setCursorPointer = function() { map.getCanvas().style.cursor = 'pointer'; };
@@ -116,8 +132,8 @@ map.on('load', function() {
 
   // When a click event occurs on a feature in the school_data layer, open a popup at the
   // location of the feature, with description HTML from its properties.
-  map.on('click', 'school-data', handleClick);
-  map.on('click', 'ihe-data', handleClick);
+  map.on('click', 'school-data', handleClick.bind(this, 'school'));
+  map.on('click', 'ihe-data', handleClick.bind(this, 'university'));
 
   map.on('mousemove', 'school-data', setCursorPointer);
   map.on("mouseleave", 'school-data', setCursorDefault);
