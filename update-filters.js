@@ -38,7 +38,7 @@ var updateFilters = function(element) {
   }
 
   // Filters by disqualification
-  var filteredFeatures = features.filter(function(feature) {
+  window.filteredFeatures = features.filter(function(feature) {
     // If none of the locales match, return false
     if (
       filters["global:locale:urban"] ||

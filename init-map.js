@@ -112,18 +112,16 @@ map.on('load', function() {
 
     if (educationType === 'university') {
       var universityName = features[0].properties['IHE Name '];
-      // Get IHE Partners of the clicked university
-      var IHEPartners = IHEPartnersDictionary[universityName];
+      // Get partners of the clicked university
+      var IHEPartners = IHEPartnersDictionary[universityName] || [];
       var filterOptions = ['any'];
 
-      if (IHEPartners) {
-        IHEPartners.forEach(function(IHEPartner) {
-          filterOptions.push(['==', ['get', 'School Name'], IHEPartner]);
-        });
+      IHEPartners.forEach(function(IHEPartner) {
+        filterOptions.push(['==', ['get', 'School Name'], IHEPartner]);
+      });
 
-        map.setFilter('school-data', filterOptions);
-        map.setFilter('ihe-data', ['==', ['get', 'IHE Name '], universityName]);
-      }
+      map.setFilter('school-data', filterOptions);
+      map.setFilter('ihe-data', ['==', ['get', 'IHE Name '], universityName]);
     }
   }
 
@@ -132,6 +130,25 @@ map.on('load', function() {
 
   // When a click event occurs on a feature in the school_data layer, open a popup at the
   // location of the feature, with description HTML from its properties.
+  map.on('click', function(e) {
+    var features = map.queryRenderedFeatures(e.point);
+
+    // check if clicked feature is not a school or instituation
+    if (features.length === 0 || !features[0].properties["IHE Name "] || !features[0].properties["School Name"]) {
+      var previousFeatures = window.filteredFeatures || window.features;
+      var filterOptions = ['any'];
+      previousFeatures.forEach(function(filterFeature) {
+        if (filterFeature.properties["IHE Name "]) {
+          filterOptions.push(['==', ['get', 'IHE Name '], filterFeature.properties["IHE Name "]]);
+        } else if (filterFeature.properties["School Name"]) {
+          filterOptions.push(['==', ['get', 'School Name'], filterFeature.properties["School Name"]]);
+        }
+      })
+
+      map.setFilter('school-data', filterOptions);
+      map.setFilter('ihe-data', filterOptions);
+    }
+  });
   map.on('click', 'school-data', handleClick.bind(this, 'school'));
   map.on('click', 'ihe-data', handleClick.bind(this, 'university'));
 
