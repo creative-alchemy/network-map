@@ -442,4 +442,4 @@ var populateFilters = function(group, filters) {
 populateFilters('preparation-programs', preparationPrograms);
 populateFilters('schools', schools);
 populateFilters('licensure-areas', licensureAreas);
-// populateFilters('state', states);
+populateFilters('states', states);
