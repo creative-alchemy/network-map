@@ -18,7 +18,7 @@ map.addControl(
   );
 
 // Add zoom and rotation controls to the map.
-map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 map.on('load', function() {
   // Find all features in one source layer in a vector source
