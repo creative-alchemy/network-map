@@ -15,6 +15,45 @@
   margin-bottom: 0px;
 }
 
+#map-legend {
+  position: absolute;
+  display: flex;
+  top: 80px;
+  left: 30px;
+}
+
+#map-legend__preparation-program {
+  display: flex;
+  align-items: center;
+}
+
+#map-legend__preparation-program #preparation-program__icon {
+  border-radius: 100%;
+  height: 15px;
+  width: 15px;
+  background-color: rgb(255, 96, 29);
+}
+
+#map-legend__school {
+  display: flex;
+  align-items: center;
+}
+
+#map-legend__school #school__icon {
+  background-color: #c31fff;
+  height: 15px;
+  margin-left: 20px;
+  width: 15px;
+}
+
+#map-legend__school span {
+  margin-left: 5px;
+}
+
+#map-legend__preparation-program span {
+  margin-left: 5px;
+}
+
 #filter-results-by {
   background-color: white;
   bottom: 20px;
@@ -24,7 +63,7 @@
   overflow-y: scroll;
   padding: 20px;
   position: absolute;
-  top: 80px;
+  top: 120px;
 }
 
 #filter-results-by__title {
