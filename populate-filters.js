@@ -91,7 +91,212 @@ var schools = [
     label: 'Professional development school'
   },
 ];
-var states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+var states = [
+  {
+    name: 'AL',
+    label: 'Alabama'
+  },
+  {
+    name: 'AK',
+    label: 'Alaska'
+  },
+  {
+    name: 'AZ',
+    label: 'Arizona'
+  },
+  {
+    name: 'AR',
+    label: 'Arkansas'
+  },
+  {
+    name: 'CA',
+    label: 'California'
+  },
+  {
+    name: 'CO',
+    label: 'Colorado'
+  },
+  {
+    name: 'CT',
+    label: 'Connecticut'
+  },
+  {
+    name: 'DE',
+    label: 'Delaware'
+  },
+  {
+    name: 'DC',
+    label: 'District of Columbia'
+  },
+  {
+    name: 'FL',
+    label: 'Florida'
+  },
+  {
+    name: 'GA',
+    label: 'Georgia'
+  },
+  {
+    name: 'HI',
+    label: 'Hawaii'
+  },
+  {
+    name: 'ID',
+    label: 'Idaho'
+  },
+  {
+    name: 'IL',
+    label: 'Illinois'
+  },
+  {
+    name: 'IN',
+    label: 'Indiana'
+  },
+  {
+    name: 'IA',
+    label: 'Iowa'
+  },
+  {
+    name: 'KS',
+    label: 'Kansas'
+  },
+  {
+    name: 'KY',
+    label: 'Kentucky'
+  },
+  {
+    name: 'LA',
+    label: 'Louisiana'
+  },
+  {
+     name: 'MA',
+     label: 'Maine'
+  },
+  {
+    name: 'MD',
+    label: 'Maryland'
+  },
+  {
+    name: 'MA',
+    label: 'Massachusetts'
+  },
+  {
+    name: 'MI',
+    label:'Michigan'
+  },
+  {
+    name: 'MN',
+    label: 'Minnesota'
+  },
+  {
+    name: 'MS',
+    label: 'Mississippi',
+  },
+  {
+    name: 'MI',
+    label: 'Missouri'
+  },
+  {
+    name: 'MT',
+    label: 'Montana'
+  },
+  {
+    name: 'NE',
+    label: 'Nebraska'
+  },
+  {
+    name: 'NV',
+    label: 'Nevada'
+  },
+  {
+    name: 'NH',
+    label: 'New Hampshire'
+  },
+  {
+    name: 'NJ',
+    label: 'New Jersey'
+  },
+  {
+    name: 'NM',
+    label: 'New Mexico'
+  },
+  {
+    name: 'NY',
+    label: 'New York'
+  },
+  {
+    name: 'NC',
+    label: 'North Carolina'
+  },
+  {
+    name: 'ND',
+    label: 'North Dakota'
+  },
+  {
+    name: 'OH',
+    label: 'Ohio'
+  },
+  {
+    name: 'OK',
+    label: 'Oklahoma'
+  },
+  {
+    name: 'OR',
+    label: 'Oregon'
+  },
+  {
+    name: 'PA',
+    label: 'Pennsylvania'
+  },
+  {
+    name: 'RI',
+    label: 'Rhode Island'
+  },
+  {
+    name: 'SC',
+    label: 'South Carolina'
+  },
+  {
+    name: 'SD',
+    label: 'South Dakota'
+  },
+  {
+    name: 'TN',
+    label: 'Tennessee'
+  },
+  {
+    name: 'TX',
+    label: 'Texas'
+  },
+  {
+    name: 'UT',
+    label: 'Utah'
+  },
+  {
+    name: 'VT',
+    label: 'Vermont'
+  },
+  {
+    name: 'VA',
+    label: 'Virginia'
+  },
+  {
+    name: 'WA',
+    label: 'Washington'
+  },
+  {
+    name: 'WV',
+    label: 'West Virginia'
+  },
+  {
+    name: 'WI',
+    label: 'Wisconsin'
+  },
+  {
+    name: 'WY',
+    label: 'Wyoming'
+  }];
+
 var licensureAreas = [
   {
     name: 'licensure-areas:agriculture',
