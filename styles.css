@@ -2,6 +2,19 @@
   position: absolute;
 }
 
+#map-title {
+  background: rgba(255, 96, 29, 0.3);
+  left: 20px;
+  padding: 5px 20px;
+  position: absolute;
+  top: 15px;
+}
+
+#map-title h1 {
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+
 #filter-results-by {
   background-color: white;
   bottom: 20px;
@@ -11,7 +24,7 @@
   overflow-y: scroll;
   padding: 20px;
   position: absolute;
-  top: 20px;
+  top: 80px;
 }
 
 #filter-results-by__title {
