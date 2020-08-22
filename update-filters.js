@@ -208,7 +208,7 @@ var updateFilters = function(element) {
       }
 
       if (filters["schools:hosts-culminating-clinical-placements"]) {
-        if (feature.properties["Hosts Culminating Clinical Placement"] =foundAnIHETypeMatch== "Yes") {
+        if (feature.properties["Hosts Culminating Clinical Placement"] === "Yes") {
           return true;
         } else {
           return false;
@@ -264,9 +264,30 @@ var updateFilters = function(element) {
       }
     }
 
+    var foundMatchingState = false;
+    var filterByStateEnabled = false;
+  
+    for (var key in filters) {
+      if (key.includes('states:') && filters[key]) {
+        filterByStateEnabled = true;
+        var statesCode = key.split(':')[1];
+
+        var address = feature.properties['Address/Location'] || feature.properties['Address'];
+       
+        if (address.includes(' ' + statesCode + ' ')) {
+          foundMatchingState = true;
+        }
+      }
+    }
+
+    if (foundMatchingState === false && filterByStateEnabled) {
+      return false;
+    }
+
     return true;
   });
 
+  // Combine all the filters and set them in Mapbox
   var filterOptions = ['any'];
   filteredFeatures.forEach(function(filterFeature) {
     if (filterFeature.properties["IHE Name "]) {
