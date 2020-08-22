@@ -78,14 +78,16 @@
             </div>
           </div>
         </div>
-        <!-- <div>
-          <div>
-            <input id="state-all" onchange="updateFilters(this)" name="state:all" type="checkbox" value="state:all" autocomplete="off">
-            <label for="state-all">
-              <a class="collapse-toggle" data-toggle="collapse" href="#state__collapse" aria-expanded="false" aria-controls="state">States</a>
-              <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-              </svg>
+        <div>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" id="states-all" onchange="toggleAll(this)" name="states:all" type="checkbox" value="states:all" autocomplete="off">
+            <label class="custom-control-label" for="states-all">
+              <a class="collapse-toggle" data-toggle="collapse" href="#states__collapse" aria-expanded="false" aria-controls="states__collapse">
+                States
+                <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+              </a>
             </label>
           </div>
           <div class="row">
@@ -93,7 +95,7 @@
               <div class="collapse multi-collapse sub-contents" id="state__collapse"></div>
             </div>
           </div>
-        </div> -->
+        </div>
         <div>
           <div class="custom-control custom-checkbox">
             <input class="custom-control-input" id="preparation-programs-all" onchange="toggleAll(this)" name="preparation-programs:all" type="checkbox" value="preparation-programs:all" autocomplete="off">
