@@ -15,6 +15,17 @@
   margin-bottom: 0px;
 }
 
+#geocoder {
+  position: absolute;
+  top: 20px;
+  left: 540px;
+  width: 300px;
+}
+
+#geocoder .mapboxgl-ctrl-geocoder {
+  width: initial;
+}
+
 #map-legend {
   position: absolute;
   display: flex;

@@ -6,16 +6,17 @@ var map = new mapboxgl.Map({
   zoom: 4 // starting zoom
 });
 
-map.addControl(
-    new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      countries: 'us',
-      localGeocoder: forwardGeocoder,
-      placeholder: 'Search for a school/university',
-      mapboxgl: mapboxgl,
-      zoom: 8
-    })
-  );
+
+ var geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  countries: 'us',
+  localGeocoder: forwardGeocoder,
+  placeholder: 'Search for a school/university',
+  mapboxgl: mapboxgl,
+  zoom: 8
+});
+
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
