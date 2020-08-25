@@ -61,9 +61,9 @@ map.on('load', function() {
           var schoolName = schoolFeature.properties['School Name'];
 
           if (IHEPartnersDictionary[IHEPartner]) {
-            IHEPartnersDictionary[IHEPartner].push(schoolName);
+            IHEPartnersDictionary[IHEPartner].push(schoolFeature);
           } else {
-            IHEPartnersDictionary[IHEPartner] = [schoolName]
+            IHEPartnersDictionary[IHEPartner] = [schoolFeature]
           }
         }
       });
@@ -118,8 +118,22 @@ map.on('load', function() {
       var filterOptions = ['any'];
 
       IHEPartners.forEach(function(IHEPartner) {
-        filterOptions.push(['==', ['get', 'School Name'], IHEPartner]);
+        filterOptions.push(['==', ['get', 'School Name'], IHEPartner.properties['School Name']]);
       });
+
+      if (IHEPartners.length > 1) {
+        var bounds = new mapboxgl.LngLatBounds();
+        IHEPartners.forEach(function(feature) {
+          bounds.extend(feature.geometry.coordinates);
+        });
+        map.fitBounds(bounds, { padding: 50, offset: [100, 0] });
+      } else if (IHEPartners.length === 1) {
+          map.flyTo({
+            center: IHEPartners[0].geometry.coordinates,
+            essential: true,
+            zoom: 6,
+          });
+      }
 
       map.setFilter('school-data', filterOptions);
       map.setFilter('ihe-data', ['==', ['get', 'IHE Name '], universityName]);
