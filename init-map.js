@@ -104,6 +104,21 @@ map.on('load', function() {
     }
     description += "<li><b>Locale:</b> " + properties["Locale"] + "</li>";
     description += "<li><b>Size:</b> " + (properties["Size"] || properties["Type/Size"]) + "</li>";
+    if (properties["Grade Level"]) {
+      description += "<li><b>Grade Level:</b> " + properties["Grade Level"] + "</li>";
+    }
+    if (properties["Type"]) {
+      description += "<li><b>Type:</b> " + properties["Type"] + "</li>";
+    }
+    if (properties["High-Needs School"]) {
+      description += "<li><b>High-Needs School:</b> " + properties["High-Needs School"] + "</li>";
+    }
+    if (properties["Hosts Culminating Year-Long Clinical Placement"]) {
+      description += "<li><b>Hosts Culminating Year-Long Clinical Placement:</b> " + properties["Hosts Culminating Year-Long Clinical Placement"] + "</li>";
+    }
+    if (properties["Year-long Residency (Any Program)"]) {
+      description += "<li><b>Year-long Residency (Any Program):</b> " + properties["Year-long Residency (Any Program)"] + "</li>";
+    }
     if (licensureAreas.length > 0) {
       description += "<li><b>Licensure Areas:</b> <ul>";
       licensureAreas.forEach(function(licensureArea) {
@@ -111,8 +126,20 @@ map.on('load', function() {
       });
       description += "</ul></li>";
     }
-    description += "</ul>";    
 
+    var universityName = features[0].properties['IHE Name '];
+    // Get partners of the clicked university
+    var IHEPartners = IHEPartnersDictionary[universityName] || [];
+
+    if (IHEPartners.length > 0) {
+      description += "<li><b>School Partners:</b> <ul>";
+      IHEPartners.forEach(function(IHEPartner) {
+        description += "<li>" + IHEPartner.properties["School Name"] + "</li>";
+      });
+      description += "</ul></li>";
+    }
+
+    description += "</ul>";
     description += "<div>" + (properties["Partnerships Description"] || properties["Specific Partnership Level Information for ALL IHE partners in one text box"]) + "</div>";
 
     description += "</div>"
