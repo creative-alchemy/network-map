@@ -134,7 +134,7 @@ map.on('load', function() {
         zoomFeatures.forEach(function(feature) {
           bounds.extend(feature.geometry.coordinates);
         });
-        map.fitBounds(bounds, { padding: 50, offset: [100, 0] });
+        map.fitBounds(bounds, { padding: 100, offset: [150, 0] });
       } else if (zoomFeatures.length === 1) {
           map.flyTo({
             center: zoomFeatures[0].geometry.coordinates,
