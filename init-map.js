@@ -76,6 +76,14 @@ map.on('load', function() {
 
   window.features = schoolFeatures.concat(universityFeatures);
 
+  if (window.features.length > 1) {
+    var bounds = new mapboxgl.LngLatBounds();
+    window.features.forEach(function(feature) {
+      bounds.extend(feature.geometry.coordinates);
+    });
+    map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
+  }
+
   var popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false,
