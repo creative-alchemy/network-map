@@ -76,7 +76,14 @@ map.on('load', function() {
 
   window.features = schoolFeatures.concat(universityFeatures);
 
+  var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false,
+  });
+
   var handleClick = function(educationType, e) {
+    map.getCanvas().style.cursor = 'pointer';
+
     var features = map.queryRenderedFeatures(e.point);
 
     var coordinates = features[0].geometry.coordinates.slice();
@@ -106,8 +113,7 @@ map.on('load', function() {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    new mapboxgl.Popup()
-      .setLngLat(coordinates)
+    popup.setLngLat(coordinates)
       .setHTML(description)
       .addTo(map);
 
@@ -121,15 +127,17 @@ map.on('load', function() {
         filterOptions.push(['==', ['get', 'School Name'], IHEPartner.properties['School Name']]);
       });
 
-      if (IHEPartners.length > 1) {
+      var zoomFeatures = IHEPartners.concat(features);
+
+      if (zoomFeatures.length > 1) {
         var bounds = new mapboxgl.LngLatBounds();
-        IHEPartners.forEach(function(feature) {
+        zoomFeatures.forEach(function(feature) {
           bounds.extend(feature.geometry.coordinates);
         });
         map.fitBounds(bounds, { padding: 50, offset: [100, 0] });
-      } else if (IHEPartners.length === 1) {
+      } else if (zoomFeatures.length === 1) {
           map.flyTo({
-            center: IHEPartners[0].geometry.coordinates,
+            center: zoomFeatures[0].geometry.coordinates,
             essential: true,
             zoom: 6,
           });
@@ -140,8 +148,10 @@ map.on('load', function() {
     }
   }
 
-  var setCursorPointer = function() { map.getCanvas().style.cursor = 'pointer'; };
-  var setCursorDefault = function() { map.getCanvas().style.cursor = 'pointer'; };
+  var removePopup = function() {
+    map.getCanvas().style.cursor = 'move';
+    popup.remove();
+  };
 
   // When a click event occurs on a feature in the school_data layer, open a popup at the
   // location of the feature, with description HTML from its properties.
@@ -162,15 +172,29 @@ map.on('load', function() {
 
       map.setFilter('school-data', filterOptions);
       map.setFilter('ihe-data', filterOptions);
+
+      if (previousFeatures.length > 1) {
+        var bounds = new mapboxgl.LngLatBounds();
+        previousFeatures.forEach(function(feature) {
+          bounds.extend(feature.geometry.coordinates);
+        });
+        map.fitBounds(bounds, { padding: 50, offset: [100, 0] });
+      } else if (previousFeatures.length === 1) {
+          map.flyTo({
+            center: previousFeatures[0].geometry.coordinates,
+            essential: true,
+            zoom: 6,
+          });
+      }
     }
   });
   map.on('click', 'school-data', handleClick.bind(this, 'school'));
   map.on('click', 'ihe-data', handleClick.bind(this, 'university'));
 
-  map.on('mousemove', 'school-data', setCursorPointer);
-  map.on("mouseleave", 'school-data', setCursorDefault);
-  map.on('mousemove', 'ihe-data', setCursorPointer);
-  map.on("mouseleave", 'ihe-data', setCursorDefault);
+  map.on('mouseenter', 'school-data', handleClick.bind(this, 'school'));
+  map.on("mouseleave", 'school-data', removePopup);
+  map.on('mouseenter', 'ihe-data', handleClick.bind(this, 'school'));
+  map.on("mouseleave", 'ihe-data', removePopup);
 });
 
 function forwardGeocoder(query) {
