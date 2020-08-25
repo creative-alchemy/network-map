@@ -74,7 +74,12 @@
   overflow-y: scroll;
   padding: 20px;
   position: absolute;
+  scrollbar-width: none;
   top: 120px;
+}
+
+#filter-results-by:hover {
+  scrollbar-width: auto;
 }
 
 #filter-results-by__title {
