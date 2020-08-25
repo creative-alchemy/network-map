@@ -87,24 +87,35 @@ map.on('load', function() {
     var features = map.queryRenderedFeatures(e.point);
 
     var coordinates = features[0].geometry.coordinates.slice();
-    var description = ""
-    for (var key in features[0].properties) {
-      if (!key.includes("Licensure Area")) {
-        description += "<div><b>" + key + ":</b> " + features[0].properties[key] + "</div>";
-      }
-    }
-
+    var description = "<div>"
+    var properties = features[0].properties;
     var licensureAreas = [];
-
     for (var key in features[0].properties) {
       if (key.includes('Licensure Area ') && features[0].properties[key]) {
         licensureAreas.push(features[0].properties[key]);
       }
     }
-
-    if (licensureAreas.length > 0) {
-      description += "<div><b>Licensure Areas:</b> " + licensureAreas.join(", ") + "</div>";
+    
+    
+    description += "<h5><b>" + (properties["IHE Name "] || properties["School Name"]) + "</b></h5>";
+    description += "<ul>";
+    if (properties["PTT Network"] == "Yes") {
+      description += "<li><b>Prepared To Teach Learning Network</b></li>";
     }
+    description += "<li><b>Locale:</b> " + properties["Locale"] + "</li>";
+    description += "<li><b>Size:</b> " + (properties["Size"] || properties["Type/Size"]) + "</li>";
+    if (licensureAreas.length > 0) {
+      description += "<li><b>Licensure Areas:</b> <ul>";
+      licensureAreas.forEach(function(licensureArea) {
+        description += "<li>" + licensureArea + "</li>";
+      });
+      description += "</ul></li>";
+    }
+    description += "</ul>";    
+
+    description += "<div>" + (properties["Partnerships Description"] || properties["Specific Partnership Level Information for ALL IHE partners in one text box"]) + "</div>";
+
+    description += "</div>"
 
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
