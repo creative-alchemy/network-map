@@ -91,6 +91,7 @@ var schools = [
     label: 'Professional development school'
   },
 ];
+
 var states = [
   {
     name: 'AL',
