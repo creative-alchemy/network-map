@@ -6,8 +6,7 @@ var map = new mapboxgl.Map({
   zoom: 4 // starting zoom
 });
 
-
- var geocoder = new MapboxGeocoder({
+var geocoder = new MapboxGeocoder({
   accessToken: mapboxgl.accessToken,
   countries: 'us',
   localGeocoder: forwardGeocoder,
