@@ -6,6 +6,7 @@ var map = new mapboxgl.Map({
   zoom: 4 // starting zoom
 });
 
+
 var geocoder = new MapboxGeocoder({
   accessToken: mapboxgl.accessToken,
   countries: 'us',
@@ -71,17 +72,23 @@ map.on('load', function() {
     return IHEPartnersDictionary;
   }
 
+  var zoomToAllFeatures = function() {
+    if (window.features.length > 1) {
+      var bounds = new mapboxgl.LngLatBounds();
+
+      window.features.forEach(function(feature) {
+        bounds.extend(feature.geometry.coordinates);
+      });
+
+      map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
+    }
+  }
+
   var IHEPartnersDictionary = createIHEPartnersDictionary();
 
   window.features = schoolFeatures.concat(universityFeatures);
 
-  if (window.features.length > 1) {
-    var bounds = new mapboxgl.LngLatBounds();
-    window.features.forEach(function(feature) {
-      bounds.extend(feature.geometry.coordinates);
-    });
-    map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
-  }
+  zoomToAllFeatures();
 
   var popup = new mapboxgl.Popup({
     closeButton: false,

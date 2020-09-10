@@ -30,10 +30,24 @@ var updateFilters = function(element) {
   // update application state
   if (element.type === 'checkbox') {
     filters[element.name] = element.checked;
+
     if (element.name.includes('licensure-areas') && element.checked === true) {
       activeLicensureAreas[element.value] = element.checked;
     } else if (element.name.includes('licensure-areas') && element.checked === false) {
       delete activeLicensureAreas[element.value];
+    }
+
+    // If a state checkbox has been checked
+    if ($(element).hasClass('states')) {
+      if (element.checked) {
+        // Grab the bounding box of the checked state
+        var bboxString = $(element).data('bbox');
+        var bboxSplit = bboxString.split(',');
+        var bbox = [[bboxSplit[0], bboxSplit[1]], [bboxSplit[2], bboxSplit[3]]];
+
+        // Set state property to its bounding box
+        filters[element.name] = bbox;
+      }
     }
   }
 
@@ -266,17 +280,34 @@ var updateFilters = function(element) {
 
     var foundMatchingState = false;
     var filterByStateEnabled = false;
+    var stateBounds = new mapboxgl.LngLatBounds();
+    var numOfCheckedStates = 0;
   
     for (var key in filters) {
+      // If a state has been checked and it contains its bounding box
       if (key.includes('states:') && filters[key]) {
-        filterByStateEnabled = true;
+        numOfCheckedStates = numOfCheckedStates + 1;
+
+        // Grab the bounding box of checked state
+        var bbox = filters[key];
         var statesCode = key.split(':')[1];
 
-        var address = feature.properties['Address/Location'] || feature.properties['Address'];
-       
-        if (address.includes(' ' + statesCode + ' ')) {
-          foundMatchingState = true;
+        filterByStateEnabled = true;
+
+        stateBounds.extend(bbox);
+
+        // Zoom to checked state(s)
+        if (numOfCheckedStates > 1) {
+          map.fitBounds(stateBounds, { padding: 250, offset: [100, 0]});
+        } else {
+          map.fitBounds(stateBounds);
         }
+      }
+
+      var address = feature.properties['Address/Location'] || feature.properties['Address'];
+
+      if (address.includes(' ' + statesCode + ' ')) {
+        foundMatchingState = true;
       }
     }
 
@@ -300,19 +331,20 @@ var updateFilters = function(element) {
   map.setFilter('school-data', filterOptions);
   map.setFilter('ihe-data', filterOptions);
 
-  if (filteredFeatures.length > 1) {
-    var bounds = new mapboxgl.LngLatBounds();
-    filteredFeatures.forEach(function(feature) {
-      bounds.extend(feature.geometry.coordinates);
-    });
-    map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
-  } else if (filteredFeatures.length === 1) {
-      map.flyTo({
-        center: filteredFeatures[0].geometry.coordinates,
-        essential: true,
-        zoom: 6,
-      });
-  }
+  // Commented out because the specifications have changed: J.A
+  // if (filteredFeatures.length > 1) {
+  //   var bounds = new mapboxgl.LngLatBounds();
+  //   filteredFeatures.forEach(function(feature) {
+  //     bounds.extend(feature.geometry.coordinates);
+  //   });
+  //   map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
+  // } else if (filteredFeatures.length === 1) {
+  //     map.flyTo({
+  //       center: filteredFeatures[0].geometry.coordinates,
+  //       essential: true,
+  //       zoom: 6,
+  //     });
+  // }
 }
 
 var toggleAll = function(element) {
