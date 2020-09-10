@@ -95,207 +95,258 @@ var schools = [
 var states = [
   {
     name: 'AL',
-    label: 'Alabama'
+    label: 'Alabama',
+    bbox: '-88.473227,30.223334,-84.88908,35.008028'
   },
   {
     name: 'AK',
-    label: 'Alaska'
+    label: 'Alaska',
+    bbox: '-179.148909,51.214183,179.77847,71.365162'
   },
   {
     name: 'AZ',
-    label: 'Arizona'
+    label: 'Arizona',
+    bbox: '-114.81651,31.332177,-109.045223,37.00426'
   },
   {
     name: 'AR',
-    label: 'Arkansas'
+    label: 'Arkansas',
+    bbox: '-94.617919,33.004106,-89.644395,36.4996'
   },
   {
     name: 'CA',
-    label: 'California'
+    label: 'California',
+    bbox: '-124.409591,32.534156,-114.131211,42.009518'
   },
   {
     name: 'CO',
-    label: 'Colorado'
+    label: 'Colorado',
+    bbox: '-109.060253,36.992426,-102.041524,41.003444'
   },
   {
     name: 'CT',
-    label: 'Connecticut'
+    label: 'Connecticut',
+    bbox: '-73.727775,40.980144,-71.786994,42.050587'
   },
   {
     name: 'DE',
-    label: 'Delaware'
+    label: 'Delaware',
+    bbox: '-75.788658,38.451013,-75.048939,39.839007'
   },
   {
     name: 'DC',
-    label: 'District of Columbia'
+    label: 'District of Columbia',
+    bbox: '-77.119759,38.791645,-76.909395,38.99511'
   },
   {
     name: 'FL',
-    label: 'Florida'
+    label: 'Florida',
+    bbox: '-87.634938,24.523096,-80.031362,31.000888'
   },
   {
     name: 'GA',
-    label: 'Georgia'
+    label: 'Georgia',
+    bbox: '-85.605165,30.357851,-80.839729,35.000659'
   },
   {
     name: 'HI',
-    label: 'Hawaii'
+    label: 'Hawaii',
+    bbox: '-178.334698,18.910361,-154.806773,28.402123'
   },
   {
     name: 'ID',
-    label: 'Idaho'
+    label: 'Idaho',
+    bbox: '-117.243027,41.988057,-111.043564,49.001146'
   },
   {
     name: 'IL',
-    label: 'Illinois'
+    label: 'Illinois',
+    bbox: '-91.513079,36.970298,-87.494756,42.508481'
   },
   {
     name: 'IN',
-    label: 'Indiana'
+    label: 'Indiana',
+    bbox: '-88.09776,37.771742,-84.784579,41.760592'
   },
   {
     name: 'IA',
-    label: 'Iowa'
+    label: 'Iowa',
+    bbox: '-96.639704,40.375501,-90.140061,43.501196'
   },
   {
     name: 'KS',
-    label: 'Kansas'
+    label: 'Kansas',
+    bbox: '-102.051744,36.993016,-94.588413,40.003162'
   },
   {
     name: 'KY',
-    label: 'Kentucky'
+    label: 'Kentucky',
+    bbox: '-89.571509,36.497129,-81.964971,39.147458'
   },
   {
     name: 'LA',
-    label: 'Louisiana'
+    label: 'Louisiana',
+    bbox: '-94.043147,28.928609,-88.817017,33.019457'
   },
   {
-     name: 'MA',
-     label: 'Maine'
+     name: 'ME',
+     label: 'Maine',
+     bbox: '-71.083924,42.977764,-66.949895,47.459686'
   },
   {
     name: 'MD',
-    label: 'Maryland'
+    label: 'Maryland',
+    bbox: '-79.487651,37.911717,-75.048939,39.723043'
   },
   {
     name: 'MA',
-    label: 'Massachusetts'
+    label: 'Massachusetts',
+    bbox: '-73.508142,41.237964,-69.928393,42.886589'
   },
   {
     name: 'MI',
-    label:'Michigan'
+    label:'Michigan',
+    bbox: '-90.418136,41.696118,-82.413474,48.2388'
   },
   {
     name: 'MN',
-    label: 'Minnesota'
+    label: 'Minnesota',
+    bbox: '-97.239209,43.499356,-89.491739,49.384358'
   },
   {
     name: 'MS',
     label: 'Mississippi',
+    bbox: '-91.655009,30.173943,-88.097888,34.996052'
   },
   {
-    name: 'MI',
-    label: 'Missouri'
+    name: 'MO',
+    label: 'Missouri',
+    bbox: '-95.774704,35.995683,-89.098843,40.61364'
   },
   {
     name: 'MT',
-    label: 'Montana'
+    label: 'Montana',
+    bbox: '-116.050003,44.358221,-104.039138,49.00139'
   },
   {
     name: 'NE',
-    label: 'Nebraska'
+    label: 'Nebraska',
+    bbox: '-104.053514,39.999998,-95.30829,43.001708'
   },
   {
     name: 'NV',
-    label: 'Nevada'
+    label: 'Nevada',
+    bbox: '-120.005746,35.001857,-114.039648,42.002207'
   },
   {
     name: 'NH',
-    label: 'New Hampshire'
+    label: 'New Hampshire',
+    bbox: '-72.557247,42.69699,-70.610621,45.305476'
   },
   {
     name: 'NJ',
-    label: 'New Jersey'
+    label: 'New Jersey',
+    bbox: '-75.559614,38.928519,-73.893979,41.357423'
   },
   {
     name: 'NM',
-    label: 'New Mexico'
+    label: 'New Mexico',
+    bbox: '-109.050173,31.332301,-103.001964,37.000232'
   },
   {
     name: 'NY',
-    label: 'New York'
+    label: 'New York',
+    bbox: '-79.762152,40.496103,-71.856214,45.01585'
   },
   {
     name: 'NC',
-    label: 'North Carolina'
+    label: 'North Carolina',
+    bbox: '-84.321869,33.842316,-75.460621,36.588117'
   },
   {
     name: 'ND',
-    label: 'North Dakota'
+    label: 'North Dakota',
+    bbox: '-104.0489,45.935054,-96.554507,49.000574'
   },
   {
     name: 'OH',
-    label: 'Ohio'
+    label: 'Ohio',
+    bbox: '-84.820159,38.403202,-80.518693,41.977523'
   },
   {
     name: 'OK',
-    label: 'Oklahoma'
+    label: 'Oklahoma',
+    bbox: '-103.002565,33.615833,-94.430662,37.002206'
   },
   {
     name: 'OR',
-    label: 'Oregon'
+    label: 'Oregon',
+    bbox: '-124.566244,41.991794,-116.463504,46.292035'
   },
   {
     name: 'PA',
-    label: 'Pennsylvania'
+    label: 'Pennsylvania',
+    bbox: '-80.519891,39.7198,-74.689516,42.26986'
   },
   {
     name: 'RI',
-    label: 'Rhode Island'
+    label: 'Rhode Island',
+    bbox: '-71.862772,41.146339,-71.12057,42.018798'
   },
   {
     name: 'SC',
-    label: 'South Carolina'
+    label: 'South Carolina',
+    bbox: '-83.35391,32.0346,-78.54203,35.215402'
   },
   {
     name: 'SD',
-    label: 'South Dakota'
+    label: 'South Dakota',
+    bbox: '-104.057698,42.479635,-96.436589,45.94545'
   },
   {
     name: 'TN',
-    label: 'Tennessee'
+    label: 'Tennessee',
+    bbox: '-90.310298,34.982972,-81.6469,36.678118'
   },
   {
     name: 'TX',
-    label: 'Texas'
+    label: 'Texas',
+    bbox: '-106.645646,25.837377,-93.508292,36.500704'
   },
   {
     name: 'UT',
-    label: 'Utah'
+    label: 'Utah',
+    bbox: '-114.052962,36.997968,-109.041058,42.001567'
   },
   {
     name: 'VT',
-    label: 'Vermont'
+    label: 'Vermont',
+    bbox: '-73.43774,42.726853,-71.464555,45.016659'
   },
   {
     name: 'VA',
-    label: 'Virginia'
+    label: 'Virginia',
+    bbox: '-83.675395,36.540738,-75.242266,39.466012'
   },
   {
     name: 'WA',
-    label: 'Washington'
+    label: 'Washington',
+    bbox: '-124.763068,45.543541,-116.915989,49.002494'
   },
   {
     name: 'WV',
-    label: 'West Virginia'
+    label: 'West Virginia',
+    bbox: '-82.644739,37.201483,-77.719519,40.638801'
   },
   {
     name: 'WI',
-    label: 'Wisconsin'
+    label: 'Wisconsin',
+    bbox: '-92.888114,42.491983,-86.805415,47.080621'
   },
   {
     name: 'WY',
-    label: 'Wyoming'
+    label: 'Wyoming',
+    bbox: '-111.056888,40.994746,-104.05216,45.005904'
   }];
 
 var licensureAreas = [
@@ -408,11 +459,12 @@ var populateFilters = function(group, filters) {
   filters.forEach(function(filterObject) {
     var label = filterObject.label;
     var name = group + ":" + filterObject.name;
+
     var filterContainer = document.createElement('div');
     filterContainer.classList.add("custom-control");
     filterContainer.classList.add("custom-checkbox");
     var filterString =
-        '<input class="custom-control-input ' + group + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" onchange="updateFilters(this)" autocomplete="off"> ' +
+        '<input class="custom-control-input ' + group + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" data-bbox=' + filterObject.bbox + ' onchange="updateFilters(this)" autocomplete="off"> ' +
         '<label class="custom-control-label" for="' + name + '">' + label + '</label>';
     filterContainer.innerHTML = filterString;
     collapse.append(filterContainer);

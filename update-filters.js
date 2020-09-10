@@ -35,6 +35,13 @@ var updateFilters = function(element) {
     } else if (element.name.includes('licensure-areas') && element.checked === false) {
       delete activeLicensureAreas[element.value];
     }
+
+    if ($(element).hasClass('states')) {
+      var bboxString = $(element).data('bbox');
+      var bboxSplit = bboxString.split(',');
+      var bbox = [[bboxSplit[0], bboxSplit[1]], [bboxSplit[2], bboxSplit[3]]];
+      filters[element.name] = bbox;
+    }
   }
 
   // Filters by disqualification
@@ -268,9 +275,13 @@ var updateFilters = function(element) {
     var filterByStateEnabled = false;
   
     for (var key in filters) {
-      if (key.includes('states:') && filters[key]) {
+      var bbox = filters[key];
+
+      if (key.includes('states:') && bbox) {
         filterByStateEnabled = true;
         var statesCode = key.split(':')[1];
+
+        map.fitBounds(bbox);
 
         var address = feature.properties['Address/Location'] || feature.properties['Address'];
        
