@@ -91,7 +91,6 @@ map.on('load', function() {
   zoomToAllFeatures();
 
   var popup = new mapboxgl.Popup({
-    closeButton: false,
     closeOnClick: false,
   });
 
@@ -244,9 +243,9 @@ map.on('load', function() {
   map.on('click', 'ihe-data', handleClick.bind(this, 'university'));
 
   map.on('mouseenter', 'school-data', handleClick.bind(this, 'school'));
-  map.on("mouseleave", 'school-data', removePopup);
+  // map.on("mouseleave", 'school-data', removePopup);
   map.on('mouseenter', 'ihe-data', handleClick.bind(this, 'school'));
-  map.on("mouseleave", 'ihe-data', removePopup);
+  // map.on("mouseleave", 'ihe-data', removePopup);
 });
 
 function forwardGeocoder(query) {
