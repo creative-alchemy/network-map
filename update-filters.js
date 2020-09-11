@@ -280,18 +280,28 @@ var updateFilters = function(element) {
 
     var foundMatchingState = false;
     var filterByStateEnabled = false;
+    var stateBounds = new mapboxgl.LngLatBounds();
+    var numOfCheckedStates = 0;
   
     for (var key in filters) {
       // If a state has been checked and it contains its bounding box
       if (key.includes('states:') && filters[key]) {
+        numOfCheckedStates = numOfCheckedStates + 1;
+
         // Grab the bounding box of checked state
         var bbox = filters[key];
         var statesCode = key.split(':')[1];
 
         filterByStateEnabled = true;
 
+        stateBounds.extend(bbox);
+
         // Zoom to checked state(s)
-        map.fitBounds(bbox);
+        if (numOfCheckedStates > 1) {
+          map.fitBounds(stateBounds, { padding: 250, offset: [100, 0]});
+        } else {
+          map.fitBounds(stateBounds);
+        }
       }
 
       var address = feature.properties['Address/Location'] || feature.properties['Address'];
@@ -321,19 +331,20 @@ var updateFilters = function(element) {
   map.setFilter('school-data', filterOptions);
   map.setFilter('ihe-data', filterOptions);
 
-  if (filteredFeatures.length > 1) {
-    var bounds = new mapboxgl.LngLatBounds();
-    filteredFeatures.forEach(function(feature) {
-      bounds.extend(feature.geometry.coordinates);
-    });
-    map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
-  } else if (filteredFeatures.length === 1) {
-      map.flyTo({
-        center: filteredFeatures[0].geometry.coordinates,
-        essential: true,
-        zoom: 6,
-      });
-  }
+  // Commented out because the specifications have changed: J.A
+  // if (filteredFeatures.length > 1) {
+  //   var bounds = new mapboxgl.LngLatBounds();
+  //   filteredFeatures.forEach(function(feature) {
+  //     bounds.extend(feature.geometry.coordinates);
+  //   });
+  //   map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
+  // } else if (filteredFeatures.length === 1) {
+  //     map.flyTo({
+  //       center: filteredFeatures[0].geometry.coordinates,
+  //       essential: true,
+  //       zoom: 6,
+  //     });
+  // }
 }
 
 var toggleAll = function(element) {
