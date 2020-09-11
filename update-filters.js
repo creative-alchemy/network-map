@@ -30,17 +30,24 @@ var updateFilters = function(element) {
   // update application state
   if (element.type === 'checkbox') {
     filters[element.name] = element.checked;
+
     if (element.name.includes('licensure-areas') && element.checked === true) {
       activeLicensureAreas[element.value] = element.checked;
     } else if (element.name.includes('licensure-areas') && element.checked === false) {
       delete activeLicensureAreas[element.value];
     }
 
+    // If a state checkbox has been checked
     if ($(element).hasClass('states')) {
-      var bboxString = $(element).data('bbox');
-      var bboxSplit = bboxString.split(',');
-      var bbox = [[bboxSplit[0], bboxSplit[1]], [bboxSplit[2], bboxSplit[3]]];
-      filters[element.name] = bbox;
+      if (element.checked) {
+        // Grab the bounding box of the checked state
+        var bboxString = $(element).data('bbox');
+        var bboxSplit = bboxString.split(',');
+        var bbox = [[bboxSplit[0], bboxSplit[1]], [bboxSplit[2], bboxSplit[3]]];
+
+        // Set state property to its bounding box
+        filters[element.name] = bbox;
+      }
     }
   }
 
@@ -275,19 +282,22 @@ var updateFilters = function(element) {
     var filterByStateEnabled = false;
   
     for (var key in filters) {
-      var bbox = filters[key];
-
-      if (key.includes('states:') && bbox) {
-        filterByStateEnabled = true;
+      // If a state has been checked and it contains its bounding box
+      if (key.includes('states:') && filters[key]) {
+        // Grab the bounding box of checked state
+        var bbox = filters[key];
         var statesCode = key.split(':')[1];
 
-        map.fitBounds(bbox);
+        filterByStateEnabled = true;
 
-        var address = feature.properties['Address/Location'] || feature.properties['Address'];
-       
-        if (address.includes(' ' + statesCode + ' ')) {
-          foundMatchingState = true;
-        }
+        // Zoom to checked state(s)
+        map.fitBounds(bbox);
+      }
+
+      var address = feature.properties['Address/Location'] || feature.properties['Address'];
+
+      if (address.includes(' ' + statesCode + ' ')) {
+        foundMatchingState = true;
       }
     }
 
