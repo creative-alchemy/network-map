@@ -185,12 +185,19 @@ map.on('load', function() {
         zoomFeatures.forEach(function(feature) {
           bounds.extend(feature.geometry.coordinates);
         });
-        map.fitBounds(bounds, { padding: 100, offset: [150, 0] });
+        map.fitBounds(bounds, { padding: 300, offset: [150, 0] });
+        var IHEcenter = features[0].geometry.coordinates;
+
+        setTimeout(function() {
+          map.easeTo({
+            center: IHEcenter
+          });
+        }, 1000)
       } else if (zoomFeatures.length === 1) {
           map.flyTo({
             center: zoomFeatures[0].geometry.coordinates,
             essential: true,
-            zoom: 6,
+            zoom: 8,
           });
       }
 
