@@ -60,17 +60,6 @@ var updateFilters = function(element) {
 
   // Filters by disqualification
   window.filteredFeatures = features.filter(function(feature) {
-    // Check ptt-network
-    if (filters["global:ptt-network"] === true) {
-      if (feature.properties["PTT Network"] === "Yes") {
-        return true;
-      }
-    } else {
-      if (feature.properties["PTT Network"] === "Yes") {
-        return false;
-      }
-    }
-
     // Check locales
     var foundALocaleMatch = false;
     if (
@@ -313,6 +302,17 @@ var updateFilters = function(element) {
 
     if (foundMatchingState === false && filterByStateEnabled) {
       return false;
+    }
+
+    // Check ptt-network
+    if (filters["global:ptt-network"] === true) {
+      if (feature.properties["PTT Network"] === "Yes") {
+        return true;
+      }
+    } else {
+      if (feature.properties["PTT Network"] === "Yes") {
+        return false;
+      }
     }
 
     return true;
