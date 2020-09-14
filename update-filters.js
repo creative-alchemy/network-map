@@ -403,6 +403,14 @@ var updateFilters = function(element) {
       el.addEventListener("click", function() {
         popup.remove();
 
+        // Clear out current markers
+        var markers = document.querySelectorAll('.marker');
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].style.display = 'none';
+        }
+
+        el.style.display = 'block';
+
         var universityName = marker['IHE Name'];
 
         var titleEl = document.getElementById('modal-title');
@@ -412,6 +420,28 @@ var updateFilters = function(element) {
 
         // Get partners of the clicked university
         var zoomMarkers = IHEPartnersDictionary[universityName] || [];
+
+        zoomMarkers.forEach(function(school) {
+          // Exit early if there is no school name;
+          if (school["School Name"] === undefined || school["School Name"] === null || school["School Name"] === "") {
+            return;
+          }
+
+          // create a HTML element for each feature
+          var el = document.createElement('div');
+          el.className = 'marker marker__school marker__zoomed';
+
+          el.addEventListener("mouseenter", function() {
+            popup.setLngLat([school.Longitude, school.Latitude])
+              .setHTML(generateDetailedPopupHTML(school))
+              .addTo(map);
+          });
+
+          // make a marker for each feature and add to the map
+          new mapboxgl.Marker(el)
+            .setLngLat([school.Longitude, school.Latitude])
+            .addTo(map);
+        });
 
         zoomMarkers.push(marker);
 
@@ -472,8 +502,6 @@ var updateFilters = function(element) {
 }
 
 function generateFilterSentence() {
-  console.log(filters);
-
   var sentence = "";
   var preparationProgramType = [];
   var secondaryPreparationProgramFilters = [];
@@ -580,7 +608,6 @@ function generateFilterSentence() {
       partOfPTTNetwork = true;
     }
   }
-  console.log(secondaryPreparationProgramFilters);
 
   if (preparationProgramType.length === 0) {
     sentence += "No preparation programs ";
@@ -637,7 +664,6 @@ function generateFilterSentence() {
   sentence += ".";
 
   var capitalized = sentence.charAt(0).toUpperCase() + sentence.slice(1);
-  console.log({ capitalized })
   var explanationEl = document.getElementById('filter-explanations__explanation');
   explanationEl.innerText = capitalized;
 }
