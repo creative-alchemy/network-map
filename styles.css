@@ -97,9 +97,7 @@
 
 /* Mapbox tweaks */
 .mapboxgl-popup-content {
-  max-width: 360px;
   padding: 15px;
-  width: 100vw;
 }
 
 .mapboxgl-popup-content h5:last-child {

@@ -25,27 +25,30 @@ function generateDetailedPopupHTML(marker) {
     }
   }
 
-  description += "<div class='col-sm'>";
-  description += "<ul>";
-  if (properties["PTT Network"] == "Yes") {
-    description += "<li><b>Prepared To Teach Learning Network</b></li>";
+  if (marker["School Name"]) {
+    description += "<h5><b>" + marker["School Name"] + "</b></h5>";
   }
-  description += "<li><b>Locale:</b> " + properties["Locale"] + "</li>";
-  description += "<li><b>Size:</b> " + (properties["Size"] || properties["Type/Size"]) + "</li>";
+
+  description += "<div class='col-sm'>";
+  if (properties["PTT Network"] == "Yes") {
+    description += "<b>Prepared To Teach Learning Network</b><br />";
+  }
+  description += "<b>Locale:</b> " + properties["Locale"] + "<br />";
+  description += "<b>Size:</b> " + (properties["Size"] || properties["Type/Size"]) + "<br />";
   if (properties["Grade Level"]) {
-    description += "<li><b>Grade Level:</b> " + properties["Grade Level"] + "</li>";
+    description += "<b>Grade Level:</b> " + properties["Grade Level"] + "<br />";
   }
   if (properties["Type"]) {
-    description += "<li><b>Type:</b> " + properties["Type"] + "</li>";
+    description += "<b>Type:</b> " + properties["Type"] + "<br />";
   }
   if (properties["High-Needs School"]) {
-    description += "<li><b>High-Needs School:</b> " + properties["High-Needs School"] + "</li>";
+    description += "<b>High-Needs School:</b> " + properties["High-Needs School"] + "<br />";
   }
   if (properties["Hosts Culminating Year-Long Clinical Placement"]) {
-    description += "<li><b>Hosts Culminating Year-Long Clinical Placement:</b> " + properties["Hosts Culminating Year-Long Clinical Placement"] + "</li>";
+    description += "<b>Hosts Culminating Year-Long Clinical Placement:</b> " + properties["Hosts Culminating Year-Long Clinical Placement"] + "<br />";
   }
   if (properties["Year-long Residency (Any Program)"]) {
-    description += "<li><b>Year-long Residency (Any Program):</b> " + properties["Year-long Residency (Any Program)"] + "</li>";
+    description += "<b>Year-long Residency (Any Program):</b> " + properties["Year-long Residency (Any Program)"] + "<br />";
   }
 
   var universityName = properties['IHE Name'];
@@ -53,14 +56,16 @@ function generateDetailedPopupHTML(marker) {
   var IHEPartners = IHEPartnersDictionary[universityName] || [];
 
   if (IHEPartners.length > 0) {
-    description += "<li><b>School Partners:</b> <ul>";
+    description += "<b>School Partners:</b><br /> <ul>";
     IHEPartners.forEach(function(IHEPartner) {
-      description += "<li>" + IHEPartner["School Name"] + "</li>";
+      if (IHEPartner["School Name"]) {
+        description += "<li>" + IHEPartner["School Name"] + "</li>";
+      }
     });
     description += "</ul></li>";
   }
 
-  description += "</ul>";
+  description += "<div style='margin-top: 30px'>" + (properties["Partnerships Description"] || properties["Specific Partnership Level Information for ALL IHE partners in one text box"]) + "</div>";
   description += "</div>";
 
   if (licensureAreas.length > 0) {
@@ -73,7 +78,6 @@ function generateDetailedPopupHTML(marker) {
     description += "</div>";
   }
 
-  description += "<div>" + (properties["Partnerships Description"] || properties["Specific Partnership Level Information for ALL IHE partners in one text box"]) + "</div>";
   description += "</div></div>";
 
   return description;
@@ -135,12 +139,6 @@ function initializeMap(schoolJson, universityJson) {
 
     el.addEventListener("mouseenter", function() {
       popup.setLngLat([school.Longitude, school.Latitude])
-      .setHTML('<h5><b>' + school["School Name"] + '</b></h5>')
-      .addTo(map);
-    });
-
-    el.addEventListener("click", function() {
-      popup.setLngLat([school.Longitude, school.Latitude])
         .setHTML(generateDetailedPopupHTML(school))
         .addTo(map);
     });
@@ -200,9 +198,7 @@ function initializeMap(schoolJson, universityJson) {
     });
 
     el.addEventListener("click", function() {
-      // popup.setLngLat([university.Longitude, university.Latitude])
-      //   .setHTML(generateDetailedPopupHTML(university))
-      //   .addTo(map);
+      popup.remove();
 
       var universityName = university['IHE Name'];
 
