@@ -107,13 +107,9 @@
   cursor: pointer;
   width: 15px;
   height: 15px;
-  transition: border 50ms;
-  transition: width 50ms;
-  transition: height 50ms;
-  transition-timing-function: ease-out;
-  /* -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.25);
-  -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.25);
-  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.25); */
+  -webkit-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.05);
+  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.05);
 }
 
 .marker:hover {
