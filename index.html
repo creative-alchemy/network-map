@@ -171,7 +171,6 @@
               .then(function(universityCsv) {
                 var schoolJson = csvToJson(schoolCsv);
                 var universityJson = csvToJson(universityCsv);
-                console.log({ schoolJson, universityJson });
                 initializeMap(schoolJson, universityJson);
               })
             });
