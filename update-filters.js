@@ -1,4 +1,10 @@
-var filters = {};
+var filters = {
+  "global:locale:urban": true,
+  "global:locale:suburban": true,
+  "global:locale:rural": true,
+  "global:locale:city": true,
+  "global:locale:town": true,
+};
 var activeLicensureAreas = {};
 
 var updateFilters = function(element) {
@@ -53,30 +59,22 @@ var updateFilters = function(element) {
 
   // Filters by disqualification
   window.filteredFeatures = features.filter(function(feature) {
-    // If none of the locales match, return false
+    
+    // Check locales
+    var foundALocaleMatch = false;
     if (
-      filters["global:locale:urban"] ||
-      filters["global:locale:suburban"] ||
-      filters["global:locale:rural"] ||
-      filters["global:locale:city"] ||
-      filters["global:locale:town"]
+      filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
+      filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
+      filters["global:locale:rural"] && feature.properties["Locale"] === "Rural" ||
+      filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
+      filters["global:locale:town"] && feature.properties["Locale"] === "Town"
     ) {
-      var foundALocaleMatch = false;
-      if (
-        filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
-        filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
-        filters["global:locale:rural"] && feature.properties["Locale"] === "Rural" ||
-        filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
-        filters["global:locale:town"] && feature.properties["Locale"] === "Town"
-      ) {
-        foundALocaleMatch = true;
-      }
-
-      if (foundALocaleMatch === false) {
-        return false;
-      }
+      foundALocaleMatch = true;
     }
 
+    if (foundALocaleMatch === false) {
+      return false;
+    }
 
     if (feature.properties["IHE Name "]) {
       // For IHEs, check type
