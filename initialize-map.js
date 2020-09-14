@@ -15,6 +15,66 @@ function forwardGeocoder(query) {
   return matchingFeatures;
 }
 
+function generateDetailedPopupHTML(marker) {
+  var description = "<div>"
+  var properties = marker;
+  var licensureAreas = [];
+  for (var key in marker) {
+    if (key.includes('Licensure Area ') && marker[key]) {
+      licensureAreas.push(marker[key]);
+    }
+  }
+
+  description += "<h5><b>" + (properties["IHE Name"] || properties["School Name"]) + "</b></h5>";
+  description += "<ul>";
+  if (properties["PTT Network"] == "Yes") {
+    description += "<li><b>Prepared To Teach Learning Network</b></li>";
+  }
+  description += "<li><b>Locale:</b> " + properties["Locale"] + "</li>";
+  description += "<li><b>Size:</b> " + (properties["Size"] || properties["Type/Size"]) + "</li>";
+  if (properties["Grade Level"]) {
+    description += "<li><b>Grade Level:</b> " + properties["Grade Level"] + "</li>";
+  }
+  if (properties["Type"]) {
+    description += "<li><b>Type:</b> " + properties["Type"] + "</li>";
+  }
+  if (properties["High-Needs School"]) {
+    description += "<li><b>High-Needs School:</b> " + properties["High-Needs School"] + "</li>";
+  }
+  if (properties["Hosts Culminating Year-Long Clinical Placement"]) {
+    description += "<li><b>Hosts Culminating Year-Long Clinical Placement:</b> " + properties["Hosts Culminating Year-Long Clinical Placement"] + "</li>";
+  }
+  if (properties["Year-long Residency (Any Program)"]) {
+    description += "<li><b>Year-long Residency (Any Program):</b> " + properties["Year-long Residency (Any Program)"] + "</li>";
+  }
+  if (licensureAreas.length > 0) {
+    description += "<li><b>Licensure Areas:</b> <ul>";
+    licensureAreas.forEach(function(licensureArea) {
+      description += "<li>" + licensureArea + "</li>";
+    });
+    description += "</ul></li>";
+  }
+
+  var universityName = properties['IHE Name'];
+  // Get partners of the clicked university
+  var IHEPartners = IHEPartnersDictionary[universityName] || [];
+
+  if (IHEPartners.length > 0) {
+    description += "<li><b>School Partners:</b> <ul>";
+    IHEPartners.forEach(function(IHEPartner) {
+      description += "<li>" + IHEPartner.properties["School Name"] + "</li>";
+    });
+    description += "</ul></li>";
+  }
+
+  description += "</ul>";
+  description += "<div>" + (properties["Partnerships Description"] || properties["Specific Partnership Level Information for ALL IHE partners in one text box"]) + "</div>";
+
+  description += "</div>";
+
+  return description;
+}
+
 function zoomToMarkers(markers) {
   if (markers.length > 1) {
     var bounds = new mapboxgl.LngLatBounds();
@@ -54,7 +114,7 @@ function initializeMap(schoolJson, universityJson) {
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
   var popup = new mapboxgl.Popup({
-    closeOnClick: true,
+    closeOnClick: false,
     closeButton: false,
   });
 
@@ -75,15 +135,40 @@ function initializeMap(schoolJson, universityJson) {
         .addTo(map);
     });
 
-    el.addEventListener("mouseleave", function() {
-      // popup.remove();
-    });
-
     // make a marker for each feature and add to the map
     new mapboxgl.Marker(el)
       .setLngLat([school.Longitude, school.Latitude])
       .addTo(map);
   });
+
+  var createIHEPartnersDictionary = function() {
+    var IHEPartnersDictionary = {};
+
+    schoolJson.forEach(function(schoolMarker) {
+      var IHEPartner1 = schoolMarker['IHE Partner 1'];
+      var IHEPartner2 = schoolMarker['IHE Partner 2'];
+      var IHEPartner3 = schoolMarker['IHE Partner 3'];
+      var IHEPartner4 = schoolMarker['IHE Partner 4'];
+
+      var IHEPartners = [IHEPartner1, IHEPartner2, IHEPartner3, IHEPartner4];
+
+      IHEPartners.forEach(function(IHEPartner) {
+        if (IHEPartner) {
+          var schoolName = schoolMarker['School Name'];
+
+          if (IHEPartnersDictionary[IHEPartner]) {
+            IHEPartnersDictionary[IHEPartner].push(schoolMarker);
+          } else {
+            IHEPartnersDictionary[IHEPartner] = [schoolMarker]
+          }
+        }
+      });
+    });
+
+    return IHEPartnersDictionary;
+  }
+
+  window.IHEPartnersDictionary = createIHEPartnersDictionary();
 
   // Populate with all the universitys
   universityJson.forEach(function(university) {
@@ -102,8 +187,10 @@ function initializeMap(schoolJson, universityJson) {
         .addTo(map);
     });
 
-    el.addEventListener("mouseleave", function() {
-      // popup.remove();
+    el.addEventListener("click", function() {
+      popup.setLngLat([university.Longitude, university.Latitude])
+        .setHTML(generateDetailedPopupHTML(university))
+        .addTo(map);
     });
 
     // make a marker for each feature and add to the map
