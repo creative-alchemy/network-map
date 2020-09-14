@@ -14,9 +14,13 @@ var filters = {
   "preparation-programs:district-level-partnership": false,
   "schools:type:public": true,
   "schools:type:private": true,
+  "schools:type:charter": true,
   "schools:size:large": true,
   "schools:size:medium": true,
   "schools:size:small": true,
+  "schools:grade-level:elementary": true,
+  "schools:grade-level:middle": true,
+  "schools:grade-level:high": true,
 };
 var activeLicensureAreas = {};
 
@@ -89,18 +93,33 @@ var updateFilters = function(element) {
     }
 
     if (marker["IHE Name"]) {
-      // For IHEs, check type
-
-      var foundAnIHETypeMatch = false;
+      // Return nothing, if everything is false
       if (
-        filters["preparation-programs:type:public"] && marker["Type"] === "Public" ||
-        filters["preparation-programs:type:private"] && marker["Type"] === "Private"
+        filters["preparation-programs:type:public"] === false &&
+        filters["preparation-programs:type:private"] === false &&
+        filters["preparation-programs:size:large"] === false &&
+        filters["preparation-programs:size:medium"] === false &&
+        filters["preparation-programs:size:small"] === false
       ) {
-        foundAnIHETypeMatch = true;
+        return false;
       }
 
-      if (foundAnIHETypeMatch === false) {
-        return false;
+      // For IHEs, check type
+      if (
+        filters["preparation-programs:type:public"] ||
+        filters["preparation-programs:type:private"]
+      ) {
+        var foundAnIHETypeMatch = false;
+        if (
+          filters["preparation-programs:type:public"] && marker["Type"] === "Public" ||
+          filters["preparation-programs:type:private"] && marker["Type"] === "Private"
+        ) {
+          foundAnIHETypeMatch = true;
+        }
+
+        if (foundAnIHETypeMatch === false) {
+          return false;
+        }
       }
 
       // For IHEs, check size
@@ -149,18 +168,39 @@ var updateFilters = function(element) {
     }
 
     if (marker["School Name"]) {
-      // For schools, check type
-      var foundASchoolTypeMatch = false;
+      // Return nothing, if everything is false
       if (
-        filters["schools:type:public"] && marker["Type"] === "Public" ||
-        filters["schools:type:private"] && marker["Type"] === "Private" ||
-        filters["schools:type:charter"] && marker["Type"] === "Charter"
+        filters["schools:type:public"] === false &&
+        filters["schools:type:private"] === false &&
+        filters["schools:type:charter"] === false &&
+        filters["schools:size:large"] === false &&
+        filters["schools:size:medium"] === false &&
+        filters["schools:size:small"] === false &&
+        filters["schools:grade-level:elementary"] === false &&
+        filters["schools:grade-level:middle"] === false &&
+        filters["schools:grade-level:high"] === false
       ) {
-        foundASchoolTypeMatch = true;
+        return false;
       }
 
-      if (foundASchoolTypeMatch === false) {
-        return false;
+      // For schools, check type
+      if (
+        filters["schools:type:public"] ||
+        filters["schools:type:private"] ||
+        filters["schools:type:charter"]
+      ) {
+        var foundASchoolTypeMatch = false;
+        if (
+          filters["schools:type:public"] && marker["Type"] === "Public" ||
+          filters["schools:type:private"] && marker["Type"] === "Private" ||
+          filters["schools:type:charter"] && marker["Type"] === "Charter"
+        ) {
+          foundASchoolTypeMatch = true;
+        }
+
+        if (foundASchoolTypeMatch === false) {
+          return false;
+        }
       }
 
       // For schools, check size
