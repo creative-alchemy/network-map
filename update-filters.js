@@ -1,4 +1,5 @@
 var filters = {
+  "global:ptt-network": true,
   "global:locale:urban": true,
   "global:locale:suburban": true,
   "global:locale:rural": true,
@@ -59,7 +60,17 @@ var updateFilters = function(element) {
 
   // Filters by disqualification
   window.filteredFeatures = features.filter(function(feature) {
-    
+    // Check ptt-network
+    if (filters["global:ptt-network"] === true) {
+      if (feature.properties["PTT Network"] === "Yes") {
+        return true;
+      }
+    } else {
+      if (feature.properties["PTT Network"] === "Yes") {
+        return false;
+      }
+    }
+
     // Check locales
     var foundALocaleMatch = false;
     if (
@@ -264,15 +275,6 @@ var updateFilters = function(element) {
           }
         });
         return foundLicensureAreaMatch;
-      }
-    }
-
-    // Check ptt-network
-    if (filters["global:ptt-network"]) {
-      if (feature.properties["PTT Network"] === "Yes") {
-        return true;
-      } else {
-        return false;
       }
     }
 
