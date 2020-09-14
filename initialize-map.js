@@ -16,7 +16,7 @@ function forwardGeocoder(query) {
 }
 
 function generateDetailedPopupHTML(marker) {
-  var description = "<div>"
+  var description = "<div class='container'><div class='row'>"
   var properties = marker;
   var licensureAreas = [];
   for (var key in marker) {
@@ -25,7 +25,7 @@ function generateDetailedPopupHTML(marker) {
     }
   }
 
-  description += "<h5><b>" + (properties["IHE Name"] || properties["School Name"]) + "</b></h5>";
+  description += "<div class='col-sm'>";
   description += "<ul>";
   if (properties["PTT Network"] == "Yes") {
     description += "<li><b>Prepared To Teach Learning Network</b></li>";
@@ -47,13 +47,6 @@ function generateDetailedPopupHTML(marker) {
   if (properties["Year-long Residency (Any Program)"]) {
     description += "<li><b>Year-long Residency (Any Program):</b> " + properties["Year-long Residency (Any Program)"] + "</li>";
   }
-  if (licensureAreas.length > 0) {
-    description += "<li><b>Licensure Areas:</b> <ul>";
-    licensureAreas.forEach(function(licensureArea) {
-      description += "<li>" + licensureArea + "</li>";
-    });
-    description += "</ul></li>";
-  }
 
   var universityName = properties['IHE Name'];
   // Get partners of the clicked university
@@ -68,9 +61,20 @@ function generateDetailedPopupHTML(marker) {
   }
 
   description += "</ul>";
-  description += "<div>" + (properties["Partnerships Description"] || properties["Specific Partnership Level Information for ALL IHE partners in one text box"]) + "</div>";
-
   description += "</div>";
+
+  if (licensureAreas.length > 0) {
+    description += "<div class='col-sm'>";
+    description += "<b>Licensure Areas:</b> <ul>";
+    licensureAreas.forEach(function(licensureArea) {
+      description += "<li>" + licensureArea + "</li>";
+    });
+    description += "</ul>";
+    description += "</div>";
+  }
+
+  description += "<div>" + (properties["Partnerships Description"] || properties["Specific Partnership Level Information for ALL IHE partners in one text box"]) + "</div>";
+  description += "</div></div>";
 
   return description;
 }
@@ -150,8 +154,6 @@ function initializeMap(schoolJson, universityJson) {
   var createIHEPartnersDictionary = function() {
     var IHEPartnersDictionary = {};
 
-    console.log({ schoolJson })
-
     schoolJson.forEach(function(schoolMarker) {
       var IHEPartner1 = schoolMarker['IHE Partner 1'];
       var IHEPartner2 = schoolMarker['IHE Partner 2'];
@@ -161,7 +163,7 @@ function initializeMap(schoolJson, universityJson) {
       var IHEPartners = [IHEPartner1, IHEPartner2, IHEPartner3, IHEPartner4];
 
       IHEPartners.forEach(function(IHEPartner) {
-        if (IHEPartner) {
+        if (IHEPartner && schoolMarker['School Name']) {
           var schoolName = schoolMarker['School Name'];
 
           if (IHEPartnersDictionary[IHEPartner]) {
@@ -177,7 +179,6 @@ function initializeMap(schoolJson, universityJson) {
   }
 
   window.IHEPartnersDictionary = createIHEPartnersDictionary();
-  console.log(IHEPartnersDictionary);
 
   // Populate with all the universitys
   universityJson.forEach(function(university) {
@@ -188,6 +189,8 @@ function initializeMap(schoolJson, universityJson) {
 
     // create a HTML element for each feature
     var el = document.createElement('div');
+    el.dataset.toggle = 'modal';
+    el.dataset.target = '#modal'
     el.className = 'marker marker__preparation-program';
 
     el.addEventListener("mouseenter", function() {
@@ -197,9 +200,37 @@ function initializeMap(schoolJson, universityJson) {
     });
 
     el.addEventListener("click", function() {
-      popup.setLngLat([university.Longitude, university.Latitude])
-        .setHTML(generateDetailedPopupHTML(university))
-        .addTo(map);
+      // popup.setLngLat([university.Longitude, university.Latitude])
+      //   .setHTML(generateDetailedPopupHTML(university))
+      //   .addTo(map);
+
+      var universityName = university['IHE Name'];
+
+      var titleEl = document.getElementById('modal-title');
+      var bodyEl = document.getElementById('modal-body');
+      titleEl.innerHTML = "<b>" + universityName + "</b>";
+      bodyEl.innerHTML = generateDetailedPopupHTML(university);
+
+      // Get partners of the clicked university
+      var zoomMarkers = IHEPartnersDictionary[universityName] || [];
+
+      zoomMarkers.push(university);
+
+      var IHEcenter = [university.Longitude, university.Latitude];
+
+      if (zoomMarkers.length > 1) {
+        var bounds = new mapboxgl.LngLatBounds();
+        zoomMarkers.forEach(function(marker) {
+          bounds.extend([marker.Longitude, marker.Latitude]);
+        });
+        map.fitBounds(bounds, { padding: 100, offset: [75, 0] });
+      } else if (zoomMarkers.length === 1) {
+          map.flyTo({
+            center: IHEcenter,
+            essential: true,
+            zoom: 8,
+          });
+      }
     });
 
     // make a marker for each feature and add to the map
@@ -209,7 +240,6 @@ function initializeMap(schoolJson, universityJson) {
   });
 
   map.on("click", function(e) {
-    console.log(e);
     if (!e.originalEvent.target.classList.contains("marker")) {
       popup.remove();
     }

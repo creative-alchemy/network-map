@@ -131,3 +131,8 @@
 .marker__school {
   background-color: #c31fff;
 }
+
+.marker:active {
+  outline: none;
+  border: none;
+}
