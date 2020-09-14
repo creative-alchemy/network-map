@@ -85,7 +85,7 @@ function zoomToMarkers(markers) {
       }
     });
 
-    map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
+    map.fitBounds(bounds, { padding: 100, offset: [75, 0] });
   }
 }
 
@@ -197,6 +197,13 @@ function initializeMap(schoolJson, universityJson) {
     new mapboxgl.Marker(el)
       .setLngLat([university.Longitude, university.Latitude])
       .addTo(map);
+  });
+
+  map.on("click", function(e) {
+    console.log(e);
+    if (!e.originalEvent.target.classList.contains("marker")) {
+      popup.remove();
+    }
   });
 
   window.allMarkers = schoolJson.concat(universityJson);
