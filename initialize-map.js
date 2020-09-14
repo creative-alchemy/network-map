@@ -244,4 +244,10 @@ function initializeMap(schoolJson, universityJson) {
   window.allMarkers = schoolJson.concat(universityJson);
 
   zoomToMarkers(window.allMarkers);
+
+  preparationCountEl = document.getElementById('preparation-program__count');
+  schoolCountEl = document.getElementById('school__count');
+
+  preparationCountEl.innerText = "(" + universityJson.length + ")";
+  schoolCountEl.innerText = "(" + schoolJson.length + ")";
 }

@@ -372,11 +372,15 @@ var updateFilters = function(element) {
     markers[i].remove();
   }
 
+  preparationProgramsCount = 0;
+  schoolCount = 0;
+
   filteredFeatures.forEach(function(marker) {
     // create a HTML element for each feature
     var el = document.createElement('div');
 
     if (marker["IHE Name"]) {
+      preparationProgramsCount++;
       el.className = 'marker marker__preparation-program';
       el.dataset.toggle = 'modal';
       el.dataset.target = '#modal'
@@ -419,6 +423,7 @@ var updateFilters = function(element) {
         }
       });
     } else if (marker["School Name"]) {
+      schoolCount++;
       el.className = 'marker marker__school';
       el.addEventListener("mouseenter", function() {
         popup.setLngLat([marker.Longitude, marker.Latitude])
@@ -432,6 +437,14 @@ var updateFilters = function(element) {
       .setLngLat([marker.Longitude, marker.Latitude])
       .addTo(map);
   });
+
+  console.log({ preparationProgramsCount, schoolCount })
+
+  preparationCountEl = document.getElementById('preparation-program__count');
+  schoolCountEl = document.getElementById('school__count');
+
+  preparationCountEl.innerText = "(" + preparationProgramsCount + ")";
+  schoolCountEl.innerText = "(" + schoolCount + ")";
 
   // Commented out because the specifications have changed: J.A
   if (filteredFeatures.length > 1) {
