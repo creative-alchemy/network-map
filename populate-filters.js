@@ -562,8 +562,8 @@ var licensureAreas = [
     defaultValue: false
   },
   {
-    name: 'licensure-areas:visual-art',
-    label: 'Visual Art',
+    name: 'licensure-areas:visual-arts',
+    label: 'Visual Arts',
     defaultValue: false
   }
 ];

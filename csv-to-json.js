@@ -14,10 +14,16 @@ function csvToJson(csv){
 
         var obj = {};
         var currentline=lines[i].split(";");
+        var licensureAreas = "";
 
         for(var j=0;j<headers.length;j++){
             obj[headers[j]] = currentline[j];
+            if (headers[j].includes("Licensure Area ")) {
+                licensureAreas += currentline[j] + ", "
+            }
         }
+
+        obj["Licensure Areas"] = licensureAreas;
 
         if (obj["School Name"] !== undefined || obj["IHE Name"] !== undefined) {
             result.push(obj);

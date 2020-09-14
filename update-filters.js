@@ -309,13 +309,18 @@ var updateFilters = function(element) {
     if (element.name.includes("licensure-areas")) {
       var currentLicensureAreas = Object.keys(activeLicensureAreas);
       if (currentLicensureAreas.length > 0) {
-        var foundLicensureAreaMatch = false;
+        var matchedLicensureAreas = 0;
         currentLicensureAreas.forEach(function(licensureArea) {
           if (marker["Licensure Areas"] && marker["Licensure Areas"].includes(licensureArea)) {
-            foundLicensureAreaMatch = true;
+            matchedLicensureAreas++;
           }
         });
-        return foundLicensureAreaMatch;
+
+        if (matchedLicensureAreas === currentLicensureAreas.length) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }
 
