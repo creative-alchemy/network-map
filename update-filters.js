@@ -12,6 +12,11 @@ var filters = {
   "preparation-programs:size:small": true,
   "preparation-programs:full-year-clinical-placements-available": false,
   "preparation-programs:district-level-partnership": false,
+  "schools:type:public": true,
+  "schools:type:private": true,
+  "schools:size:large": true,
+  "schools:size:medium": true,
+  "schools:size:small": true,
 };
 var activeLicensureAreas = {};
 
@@ -145,23 +150,17 @@ var updateFilters = function(element) {
 
     if (marker["School Name"]) {
       // For schools, check type
+      var foundASchoolTypeMatch = false;
       if (
-        filters["schools:type:public"] ||
-        filters["schools:type:private"] ||
-        filters["schools:type:charter"]
+        filters["schools:type:public"] && marker["Type"] === "Public" ||
+        filters["schools:type:private"] && marker["Type"] === "Private" ||
+        filters["schools:type:charter"] && marker["Type"] === "Charter"
       ) {
-        var foundASchoolTypeMatch = false;
-        if (
-          filters["schools:type:public"] && marker["Type"] === "Public" ||
-          filters["schools:type:private"] && marker["Type"] === "Private" ||
-          filters["schools:type:charter"] && marker["Type"] === "Charter"
-        ) {
-          foundASchoolTypeMatch = true;
-        }
+        foundASchoolTypeMatch = true;
+      }
 
-        if (foundASchoolTypeMatch === false) {
-          return false;
-        }
+      if (foundASchoolTypeMatch === false) {
+        return false;
       }
 
       // For schools, check size
