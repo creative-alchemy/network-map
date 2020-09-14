@@ -602,18 +602,32 @@ function generateFilterSentence() {
     sentence += "and no schools ";
   } else if (schoolType.length === 11) {
     sentence += "and all schools ";
+  } else if (schoolType.length === 1) {
+    sentence += "and " + schoolType[0] + " schools ";
+  } else if (schoolType.length === 2) {
+    sentence += "and " + schoolType.slice(0, schoolType.length - 1).join(", ") + " or " + schoolType[schoolType.length -1] + " schools ";
   } else {
-    sentence += "and " + schoolType.join(", ") + " schools ";
+    sentence += "and " + schoolType.slice(0, schoolType.length - 1).join(", ") + ", or " + schoolType[schoolType.length -1] + " schools ";
   }
 
-  if (secondarySchoolFilters.length > 0) {
+  if (secondarySchoolFilters.length === 2) {
+    sentence += "that can " + secondarySchoolFilters.join(" and ") + " ";
+  } else if (secondarySchoolFilters.length > 2) {
+    sentence += "that can " + secondarySchoolFilters.slice(0, secondarySchoolFilters.length - 1).join(", ") + ", and " + secondarySchoolFilters[secondarySchoolFilters.length -1] + " ";
+  } else if (secondarySchoolFilters.length > 0) {
     sentence += "that can " + secondarySchoolFilters.join(", ") + " ";
   }
 
   if (locales.length === 0) {
     sentence += "in " + 0 + " locales";
+  } else if (locales.length === 5) {
+    sentence += "in all locales";
+  } else if (locales.length === 1) {
+    sentence += "in " + locales[0] + " locales ";
+  } else if (locales.length === 2) {
+    sentence += "in " + locales.slice(0, locales.length - 1).join(", ") + " or " + locales[locales.length -1] + " locales";
   } else {
-    sentence += "in " + locales.join(", ") + " locales";
+    sentence += "in " + locales.slice(0, locales.length - 1).join(", ") + ", or " + locales[locales.length -1] + " locales";
   }
 
   if (partOfPTTNetwork) {
