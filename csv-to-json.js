@@ -19,7 +19,9 @@ function csvToJson(csv){
             obj[headers[j]] = currentline[j];
         }
 
-        result.push(obj);
+        if (obj["School Name"] !== undefined || obj["IHE Name"] !== undefined) {
+            result.push(obj);
+        }
 
     }
 
