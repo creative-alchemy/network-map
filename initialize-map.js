@@ -232,6 +232,14 @@ function initializeMap(schoolJson, universityJson) {
     el.addEventListener("click", function() {
       popup.remove();
 
+      // Clear out current markers
+      var markers = document.querySelectorAll('.marker');
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].style.display = 'none';
+      }
+
+      el.style.display = 'block';
+
       var universityName = university['IHE Name'];
 
       var titleEl = document.getElementById('modal-title');
@@ -241,6 +249,28 @@ function initializeMap(schoolJson, universityJson) {
 
       // Get partners of the clicked university
       var zoomMarkers = IHEPartnersDictionary[universityName] || [];
+
+      zoomMarkers.forEach(function(school) {
+        // Exit early if there is no school name;
+        if (school["School Name"] === undefined || school["School Name"] === null || school["School Name"] === "") {
+          return;
+        }
+
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker marker__school marker__zoomed';
+
+        el.addEventListener("mouseenter", function() {
+          popup.setLngLat([school.Longitude, school.Latitude])
+            .setHTML(generateDetailedPopupHTML(school))
+            .addTo(map);
+        });
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+          .setLngLat([school.Longitude, school.Latitude])
+          .addTo(map);
+      });
 
       zoomMarkers.push(university);
 
@@ -271,6 +301,17 @@ function initializeMap(schoolJson, universityJson) {
     if (!e.originalEvent.target.classList.contains("marker")) {
       popup.remove();
       zoomToMarkers(window.filteredFeatures);
+
+      var zoomedMarkers = document.querySelectorAll('.marker__zoomed');
+      for (var i = 0; i < zoomedMarkers.length; i++) {
+        zoomedMarkers[i].remove();
+      }
+
+      // Reverts all markers to visible
+      var markers = document.querySelectorAll('.marker');
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].style.display = 'block';
+      }
     }
   });
 
