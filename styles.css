@@ -96,10 +96,10 @@
 }
 
 /* Mapbox tweaks */
-.mapboxgl-popup-content {
+/* .mapboxgl-popup-content {
   max-width: 360px;
   width: 100vw;
-}
+} */
 
 /* Markers */
 .marker {

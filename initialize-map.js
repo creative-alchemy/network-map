@@ -53,6 +53,11 @@ function initializeMap(schoolJson, universityJson) {
   // Add zoom and rotation controls to the map.
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
+  var popup = new mapboxgl.Popup({
+    closeOnClick: true,
+    closeButton: false,
+  });
+
   // Populate with all the schools
   schoolJson.forEach(function(school) {
     // Exit early if there is no school name;
@@ -63,6 +68,16 @@ function initializeMap(schoolJson, universityJson) {
     // create a HTML element for each feature
     var el = document.createElement('div');
     el.className = 'marker marker__school';
+
+    el.addEventListener("mouseenter", function() {
+      popup.setLngLat([school.Longitude, school.Latitude])
+        .setText(school["School Name"])
+        .addTo(map);
+    });
+
+    el.addEventListener("mouseleave", function() {
+      // popup.remove();
+    });
 
     // make a marker for each feature and add to the map
     new mapboxgl.Marker(el)
@@ -80,6 +95,16 @@ function initializeMap(schoolJson, universityJson) {
     // create a HTML element for each feature
     var el = document.createElement('div');
     el.className = 'marker marker__preparation-program';
+
+    el.addEventListener("mouseenter", function() {
+      popup.setLngLat([university.Longitude, university.Latitude])
+        .setText(university["IHE Name"])
+        .addTo(map);
+    });
+
+    el.addEventListener("mouseleave", function() {
+      // popup.remove();
+    });
 
     // make a marker for each feature and add to the map
     new mapboxgl.Marker(el)
