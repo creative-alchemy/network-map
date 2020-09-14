@@ -27,14 +27,16 @@
 }
 
 #map-legend {
+  background-color: white;
+  opacity: 0.8;
+  padding: 20px;
   position: absolute;
-  display: flex;
   top: 80px;
-  left: 30px;
+  left: 20px;
 }
 
 #map-legend__preparation-program {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
@@ -46,7 +48,7 @@
 }
 
 #map-legend__school {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
@@ -65,6 +67,21 @@
   margin-left: 5px;
 }
 
+#click-hint {
+  font-size: 12px;
+}
+
+#filter-explanations {
+  background-color: white;
+  bottom: 20px;
+  font-family: Arial;
+  left: 410px;
+  opacity: 0.8;
+  padding: 20px;
+  position: absolute;
+  scrollbar-width: none;
+}
+
 #filter-results-by {
   background-color: white;
   bottom: 20px;
@@ -75,7 +92,7 @@
   padding: 20px;
   position: absolute;
   scrollbar-width: none;
-  top: 120px;
+  top: 185px;
 }
 
 #filter-results-by:hover {
