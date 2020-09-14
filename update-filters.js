@@ -85,21 +85,17 @@ var updateFilters = function(element) {
 
     if (marker["IHE Name"]) {
       // For IHEs, check type
-      if (
-        filters["preparation-programs:type:public"] ||
-        filters["preparation-programs:type:private"]
-      ) {
-        var foundAnIHETypeMatch = false;
-        if (
-          filters["preparation-programs:type:public"] && marker["Type"] === "Public" ||
-          filters["preparation-programs:type:private"] && marker["Type"] === "Private"
-        ) {
-          foundAnIHETypeMatch = true;
-        }
 
-        if (foundAnIHETypeMatch === false) {
-          return false;
-        }
+      var foundAnIHETypeMatch = false;
+      if (
+        filters["preparation-programs:type:public"] && marker["Type"] === "Public" ||
+        filters["preparation-programs:type:private"] && marker["Type"] === "Private"
+      ) {
+        foundAnIHETypeMatch = true;
+      }
+
+      if (foundAnIHETypeMatch === false) {
+        return false;
       }
 
       // For IHEs, check size
