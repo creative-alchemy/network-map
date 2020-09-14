@@ -103,19 +103,23 @@
 
 /* Markers */
 .marker {
-  border: 3px solid white;
+  border: 2px solid white;
   cursor: pointer;
   width: 15px;
   height: 15px;
-  transition: transform 100ms;
-  transition-timing-function: ease-in;
-  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
-  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+  transition: border 50ms;
+  transition: width 50ms;
+  transition: height 50ms;
+  transition-timing-function: ease-out;
+  /* -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.25);
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.25); */
 }
 
 .marker:hover {
-  transform: scale(1.5, 1.5);
+  border: 4px solid white;
+  width: 30px;
+  height: 30px;
 }
 
 .marker__preparation-program {

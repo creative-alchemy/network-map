@@ -88,6 +88,22 @@ map.on('load', function() {
 
   window.features = schoolFeatures.concat(universityFeatures);
 
+  window.features.forEach(function(feature) {
+    // create a HTML element for each feature
+    var el = document.createElement('div');
+
+    if (feature.properties["IHE Name "]) {
+      el.className = 'marker marker__preparation-program';
+    } else if (feature.properties["School Name"]) {
+      el.className = 'marker marker__school';
+    }
+
+    // make a marker for each feature and add to the map
+    new mapboxgl.Marker(el)
+      .setLngLat(feature.geometry.coordinates)
+      .addTo(map);
+  });
+
   zoomToAllFeatures();
 
   var popup = new mapboxgl.Popup({
@@ -250,9 +266,9 @@ map.on('load', function() {
   map.on('click', 'ihe-data', handleClick.bind(this, 'university'));
 
   map.on('mouseenter', 'school-data', handleClick.bind(this, 'school'));
-  // map.on("mouseleave", 'school-data', removePopup);
+  map.on("mouseleave", 'school-data', removePopup);
   map.on('mouseenter', 'ihe-data', handleClick.bind(this, 'school'));
-  // map.on("mouseleave", 'ihe-data', removePopup);
+  map.on("mouseleave", 'ihe-data', removePopup);
 });
 
 function forwardGeocoder(query) {

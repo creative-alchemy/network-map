@@ -331,6 +331,28 @@ var updateFilters = function(element) {
   map.setFilter('school-data', filterOptions);
   map.setFilter('ihe-data', filterOptions);
 
+  // Clear out current markers
+  var markers = document.querySelectorAll('.marker');
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].remove();
+  }
+
+  filteredFeatures.forEach(function(feature) {
+    // create a HTML element for each feature
+    var el = document.createElement('div');
+
+    if (feature.properties["IHE Name "]) {
+      el.className = 'marker marker__preparation-program';
+    } else if (feature.properties["School Name"]) {
+      el.className = 'marker marker__school';
+    }
+
+    // make a marker for each feature and add to the map
+    new mapboxgl.Marker(el)
+      .setLngLat(feature.geometry.coordinates)
+      .addTo(map);
+  });
+
   // Commented out because the specifications have changed: J.A
   // if (filteredFeatures.length > 1) {
   //   var bounds = new mapboxgl.LngLatBounds();
