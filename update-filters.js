@@ -507,7 +507,7 @@ function generateFilterSentence() {
     }
 
     if (key.includes("district-level-partnership") && filters[key] === true) {
-      secondaryPreparationProgramFilters.push("district level partnership");
+      secondaryPreparationProgramFilters.push("district level partnerships");
     }
 
     // Schools
@@ -595,7 +595,7 @@ function generateFilterSentence() {
   }
 
   if (secondaryPreparationProgramFilters.length > 0) {
-    sentence += "with " + secondaryPreparationProgramFilters.join(", ") + " ";
+    sentence += "with " + secondaryPreparationProgramFilters.join(" and ") + ", ";
   }
 
   if (schoolType.length === 0) {
