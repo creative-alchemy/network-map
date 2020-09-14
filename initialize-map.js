@@ -121,7 +121,7 @@ function initializeMap(schoolJson, universityJson) {
   // Add zoom and rotation controls to the map.
   map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-  var popup = new mapboxgl.Popup({
+  window.popup = new mapboxgl.Popup({
     closeOnClick: false,
     closeButton: false,
   });

@@ -59,15 +59,15 @@ var updateFilters = function(element) {
   }
 
   // Filters by disqualification
-  window.filteredFeatures = features.filter(function(feature) {
+  window.filteredFeatures = allMarkers.filter(function(marker) {
     // Check locales
     var foundALocaleMatch = false;
     if (
-      filters["global:locale:urban"] && feature.properties["Locale"] === "Urban" ||
-      filters["global:locale:suburban"] && feature.properties["Locale"].includes("Suburb") ||
-      filters["global:locale:rural"] && feature.properties["Locale"] === "Rural" ||
-      filters["global:locale:city"] && feature.properties["Locale"] === "City" ||
-      filters["global:locale:town"] && feature.properties["Locale"] === "Town"
+      filters["global:locale:urban"] && marker["Locale"] === "Urban" ||
+      filters["global:locale:suburban"] && marker["Locale"].includes("Suburb") ||
+      filters["global:locale:rural"] && marker["Locale"] === "Rural" ||
+      filters["global:locale:city"] && marker["Locale"] === "City" ||
+      filters["global:locale:town"] && marker["Locale"] === "Town"
     ) {
       foundALocaleMatch = true;
     }
@@ -76,7 +76,7 @@ var updateFilters = function(element) {
       return false;
     }
 
-    if (feature.properties["IHE Name "]) {
+    if (marker["IHE Name"]) {
       // For IHEs, check type
       if (
         filters["preparation-programs:type:public"] ||
@@ -84,8 +84,8 @@ var updateFilters = function(element) {
       ) {
         var foundAnIHETypeMatch = false;
         if (
-          filters["preparation-programs:type:public"] && feature.properties["Type"] === "Public" ||
-          filters["preparation-programs:type:private"] && feature.properties["Type"] === "Private"
+          filters["preparation-programs:type:public"] && marker["Type"] === "Public" ||
+          filters["preparation-programs:type:private"] && marker["Type"] === "Private"
         ) {
           foundAnIHETypeMatch = true;
         }
@@ -103,9 +103,9 @@ var updateFilters = function(element) {
       ) {
         var foundAnIHESizeMatch = false;
         if (
-          filters["preparation-programs:size:large"] && feature.properties["Size"] === "Large" ||
-          filters["preparation-programs:size:medium"] && feature.properties["Size"] === "Mid" ||
-          filters["preparation-programs:size:small"] && feature.properties["Size"] === "Small"
+          filters["preparation-programs:size:large"] && marker["Size"] === "Large" ||
+          filters["preparation-programs:size:medium"] && marker["Size"] === "Mid" ||
+          filters["preparation-programs:size:small"] && marker["Size"] === "Small"
         ) {
           foundAnIHESizeMatch = true;
         }
@@ -118,7 +118,7 @@ var updateFilters = function(element) {
       if (filters["preparation-programs:full-year-clinical-placements-available"]) {
         foundAnIHESizeMatch = false;
 
-        if (feature.properties["Year-long Residency (Any Program)"] === 'Yes') {
+        if (marker["Year-long Residency (Any Program)"] === 'Yes') {
           foundAnIHESizeMatch = true;
         }
 
@@ -130,7 +130,7 @@ var updateFilters = function(element) {
       if (filters["preparation-programs:district-level-partnership"]) {
         foundAnIHESizeMatch = false;
 
-        if (feature.properties["District Level Partnership"] === 'Yes') {
+        if (marker["District Level Partnership"] === 'Yes') {
           foundAnIHESizeMatch = true;
         }
 
@@ -140,7 +140,7 @@ var updateFilters = function(element) {
       }
     }
 
-    if (feature.properties["School Name"]) {
+    if (marker["School Name"]) {
       // For schools, check type
       if (
         filters["schools:type:public"] ||
@@ -149,9 +149,9 @@ var updateFilters = function(element) {
       ) {
         var foundASchoolTypeMatch = false;
         if (
-          filters["schools:type:public"] && feature.properties["Type"] === "Public" ||
-          filters["schools:type:private"] && feature.properties["Type"] === "Private" ||
-          filters["schools:type:charter"] && feature.properties["Type"] === "Charter"
+          filters["schools:type:public"] && marker["Type"] === "Public" ||
+          filters["schools:type:private"] && marker["Type"] === "Private" ||
+          filters["schools:type:charter"] && marker["Type"] === "Charter"
         ) {
           foundASchoolTypeMatch = true;
         }
@@ -169,9 +169,9 @@ var updateFilters = function(element) {
       ) {
         var foundASchoolSizeMatch = false;
         if (
-          filters["schools:size:large"] && feature.properties["Type/Size"] === "Large" ||
-          filters["schools:size:medium"] && feature.properties["Type/Size"] === "Mid" ||
-          filters["schools:size:small"] && feature.properties["Type/Size"] === "Small"
+          filters["schools:size:large"] && marker["Type/Size"] === "Large" ||
+          filters["schools:size:medium"] && marker["Type/Size"] === "Mid" ||
+          filters["schools:size:small"] && marker["Type/Size"] === "Small"
         ) {
           foundASchoolSizeMatch = true;
         }
@@ -189,10 +189,10 @@ var updateFilters = function(element) {
       ) {
         var foundAGradeLevelMatch = false;
         if (
-          filters["schools:grade-level:elementary"] && feature.properties["Grade Level"] === "Elementary" ||
-          filters["schools:grade-level:middle"] && feature.properties["Grade Level"] === "Middle" ||
-          filters["schools:grade-level:high"] && feature.properties["Grade Level"] === "High" ||
-          feature.properties["Grade Level"] === "Other"
+          filters["schools:grade-level:elementary"] && marker["Grade Level"] === "Elementary" ||
+          filters["schools:grade-level:middle"] && marker["Grade Level"] === "Middle" ||
+          filters["schools:grade-level:high"] && marker["Grade Level"] === "High" ||
+          marker["Grade Level"] === "Other"
         ) {
           foundAGradeLevelMatch = true;
         }
@@ -205,14 +205,14 @@ var updateFilters = function(element) {
 
       // Check if school supports high-needs
       if (filters["schools:high-needs"]) {
-        if (feature.properties["High-Needs School"] === "Yes") {
+        if (marker["High-Needs School"] === "Yes") {
           return true;
         }
       }
 
       // For schools, check for what they host
       if (filters["schools:hosts-pre-clinical-hours"]) {
-        if (feature.properties["Hosts Pre-Clinical Placement (Field-Placement)"] === "Yes") {
+        if (marker["Hosts Pre-Clinical Placement (Field-Placement)"] === "Yes") {
           return true;
         } else {
           return false;
@@ -220,7 +220,7 @@ var updateFilters = function(element) {
       }
 
       if (filters["schools:hosts-culminating-clinical-placements"]) {
-        if (feature.properties["Hosts Culminating Clinical Placement"] === "Yes") {
+        if (marker["Hosts Culminating Clinical Placement"] === "Yes") {
           return true;
         } else {
           return false;
@@ -228,7 +228,7 @@ var updateFilters = function(element) {
       }
 
       if (filters["schools:hosts-year-long-clinical-placements"]) {
-        if (feature.properties["Hosts Culminating Year-Long Clinical Placement"] === "Yes") {
+        if (marker["Hosts Culminating Year-Long Clinical Placement"] === "Yes") {
           return true;
         } else {
           return false;
@@ -236,7 +236,7 @@ var updateFilters = function(element) {
       }
 
       if (filters["schools:hosts-enrichment-programs"]) {
-        if (feature.properties["Hosts Enrichment Program"] === "Yes") {
+        if (marker["Hosts Enrichment Program"] === "Yes") {
           return true;
         } else {
           return false;
@@ -245,7 +245,7 @@ var updateFilters = function(element) {
 
       // For schools, check if it is or isn't a professional development school
       if (filters["schools:professional-development-school"]) {
-        if (feature.properties["Professional Development School (PDS Model)"] === "Yes") {
+        if (marker["Professional Development School (PDS Model)"] === "Yes") {
           return true;
         } else {
           return false;
@@ -259,7 +259,7 @@ var updateFilters = function(element) {
       if (currentLicensureAreas.length > 0) {
         var foundLicensureAreaMatch = false;
         currentLicensureAreas.forEach(function(licensureArea) {
-          if (feature.properties["Licensure Areas"] && feature.properties["Licensure Areas"].includes(licensureArea)) {
+          if (marker["Licensure Areas"] && marker["Licensure Areas"].includes(licensureArea)) {
             foundLicensureAreaMatch = true;
           }
         });
@@ -271,7 +271,7 @@ var updateFilters = function(element) {
     var filterByStateEnabled = false;
     var stateBounds = new mapboxgl.LngLatBounds();
     var numOfCheckedStates = 0;
-  
+
     for (var key in filters) {
       // If a state has been checked and it contains its bounding box
       if (key.includes('states:') && filters[key]) {
@@ -293,7 +293,7 @@ var updateFilters = function(element) {
         }
       }
 
-      var address = feature.properties['Address/Location'] || feature.properties['Address'];
+      var address = marker['Address/Location'] || marker['Address'];
 
       if (address.includes(' ' + statesCode + ' ')) {
         foundMatchingState = true;
@@ -306,11 +306,11 @@ var updateFilters = function(element) {
 
     // Check ptt-network
     if (filters["global:ptt-network"] === true) {
-      if (feature.properties["PTT Network"] === "Yes") {
+      if (marker["PTT Network"] === "Yes") {
         return true;
       }
     } else {
-      if (feature.properties["PTT Network"] === "Yes") {
+      if (marker["PTT Network"] === "Yes") {
         return false;
       }
     }
@@ -318,55 +318,87 @@ var updateFilters = function(element) {
     return true;
   });
 
-  // Combine all the filters and set them in Mapbox
-  var filterOptions = ['any'];
-  filteredFeatures.forEach(function(filterFeature) {
-    if (filterFeature.properties["IHE Name "]) {
-      filterOptions.push(['==', ['get', 'IHE Name '], filterFeature.properties["IHE Name "]]);
-    } else if (filterFeature.properties["School Name"]) {
-      filterOptions.push(['==', ['get', 'School Name'], filterFeature.properties["School Name"]]);
-    }
-  })
-
-  map.setFilter('school-data', filterOptions);
-  map.setFilter('ihe-data', filterOptions);
-
   // Clear out current markers
   var markers = document.querySelectorAll('.marker');
   for (var i = 0; i < markers.length; i++) {
     markers[i].remove();
   }
 
-  filteredFeatures.forEach(function(feature) {
+  filteredFeatures.forEach(function(marker) {
     // create a HTML element for each feature
     var el = document.createElement('div');
 
-    if (feature.properties["IHE Name "]) {
+    if (marker["IHE Name"]) {
       el.className = 'marker marker__preparation-program';
-    } else if (feature.properties["School Name"]) {
+      el.dataset.toggle = 'modal';
+      el.dataset.target = '#modal'
+
+      el.addEventListener("mouseenter", function() {
+        popup.setLngLat([marker.Longitude, marker.Latitude])
+          .setHTML('<h5><b>' + marker["IHE Name"] + '</b></h5>')
+          .addTo(map);
+      });
+
+      el.addEventListener("click", function() {
+        popup.remove();
+
+        var universityName = marker['IHE Name'];
+
+        var titleEl = document.getElementById('modal-title');
+        var bodyEl = document.getElementById('modal-body');
+        titleEl.innerHTML = "<b>" + universityName + "</b>";
+        bodyEl.innerHTML = generateDetailedPopupHTML(marker);
+
+        // Get partners of the clicked university
+        var zoomMarkers = IHEPartnersDictionary[universityName] || [];
+
+        zoomMarkers.push(marker);
+
+        var IHEcenter = [marker.Longitude, marker.Latitude];
+
+        if (zoomMarkers.length > 1) {
+          var bounds = new mapboxgl.LngLatBounds();
+          zoomMarkers.forEach(function(marker) {
+            bounds.extend([marker.Longitude, marker.Latitude]);
+          });
+          map.fitBounds(bounds, { padding: 100, offset: [75, 0] });
+        } else if (zoomMarkers.length === 1) {
+            map.flyTo({
+              center: IHEcenter,
+              essential: true,
+              zoom: 8,
+            });
+        }
+      });
+    } else if (marker["School Name"]) {
       el.className = 'marker marker__school';
+      el.addEventListener("mouseenter", function() {
+        popup.setLngLat([marker.Longitude, marker.Latitude])
+          .setHTML(generateDetailedPopupHTML(marker))
+          .addTo(map);
+      });
     }
 
     // make a marker for each feature and add to the map
     new mapboxgl.Marker(el)
-      .setLngLat(feature.geometry.coordinates)
+      .setLngLat([marker.Longitude, marker.Latitude])
       .addTo(map);
   });
 
   // Commented out because the specifications have changed: J.A
-  // if (filteredFeatures.length > 1) {
-  //   var bounds = new mapboxgl.LngLatBounds();
-  //   filteredFeatures.forEach(function(feature) {
-  //     bounds.extend(feature.geometry.coordinates);
-  //   });
-  //   map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
-  // } else if (filteredFeatures.length === 1) {
-  //     map.flyTo({
-  //       center: filteredFeatures[0].geometry.coordinates,
-  //       essential: true,
-  //       zoom: 6,
-  //     });
-  // }
+  if (filteredFeatures.length > 1) {
+    var bounds = new mapboxgl.LngLatBounds();
+    filteredFeatures.forEach(function(marker) {
+      bounds.extend([marker.Longitude, marker.Latitude]);
+    });
+    map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
+  } else if (filteredFeatures.length === 1) {
+      map.flyTo({
+        center: [filteredFeatures[0].Longitude, filteredFeatures[0].Latitude],
+        essential: true,
+        zoom: 6,
+      });
+  }
 }
 
 var toggleAll = function(element) {
