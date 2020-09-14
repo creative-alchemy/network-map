@@ -5,6 +5,13 @@ var filters = {
   "global:locale:rural": true,
   "global:locale:city": true,
   "global:locale:town": true,
+  "preparation-programs:type:public": true,
+  "preparation-programs:type:private": true,
+  "preparation-programs:size:large": true,
+  "preparation-programs:size:medium": true,
+  "preparation-programs:size:small": true,
+  "preparation-programs:full-year-clinical-placements-available": false,
+  "preparation-programs:district-level-partnership": false,
 };
 var activeLicensureAreas = {};
 
