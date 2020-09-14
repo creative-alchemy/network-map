@@ -155,7 +155,7 @@ function initializeMap(schoolJson, universityJson) {
 
   window.popup = new mapboxgl.Popup({
     closeOnClick: false,
-    closeButton: false,
+    closeButton: true,
   });
 
   // Populate with all the schools
