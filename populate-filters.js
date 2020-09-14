@@ -27,11 +27,13 @@ var preparationPrograms = [
   {
     name: 'full-year-clinical-placements-available',
     label: 'Full-year clinical placements available',
+    secondary: true,
     defaultValue: false
   },
   {
     name: 'district-level-partnership',
     label: 'District-level partnership',
+    secondary: true,
     defaultValue: false
   }
 ];
@@ -557,12 +559,13 @@ var populateFilters = function(group, filters) {
   filters.forEach(function(filterObject) {
     var label = filterObject.label;
     var name = group + ":" + filterObject.name;
+    var secondaryClass = filterObject.secondary ? "secondary" : "";
 
     var filterContainer = document.createElement('div');
     filterContainer.classList.add("custom-control");
     filterContainer.classList.add("custom-checkbox");
     var filterString =
-        '<input class="custom-control-input ' + group + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" data-bbox=' + filterObject.bbox + ' onchange="updateFilters(this)" autocomplete="off" ' + (filterObject.defaultValue ? 'checked ' : '') + '> ' +
+        '<input class="custom-control-input ' + group + ' ' + secondaryClass + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" data-bbox=' + filterObject.bbox + ' onchange="updateFilters(this)" autocomplete="off" ' + (filterObject.defaultValue ? 'checked ' : '') + '> ' +
         '<label class="custom-control-label" for="' + name + '">' + label + '</label>';
     filterContainer.innerHTML = filterString;
     collapse.append(filterContainer);

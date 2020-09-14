@@ -21,7 +21,7 @@ var updateFilters = function(element) {
       }
     });
   } else {
-    container.find('input:not(.licensure-areas)').each(function() {
+    container.find('input:not(.licensure-areas):not(.secondary').each(function() {
       if ($(this).prop('checked') === false) {
         allChecked = false;
       }
@@ -407,7 +407,7 @@ var toggleAll = function(element) {
   if ($(element).hasClass('licensure-areas')) {
     checkboxChildren = $(element).parent().siblings().find('input');
   } else {
-    checkboxChildren = $(element).parent().siblings().find('input:not(.licensure-areas)');
+    checkboxChildren = $(element).parent().siblings().find('input:not(.licensure-areas):not(.secondary)');
   }
 
   if (currentCheckboxState === true) {
