@@ -87,31 +87,37 @@ var schools = [
   {
     name: 'high-needs',
     label: 'High-needs school',
+    secondary: true,
     defaultValue: false
   },
   {
     name: 'hosts-pre-clinical-hours',
     label: 'Hosts pre-clinical hours',
+    secondary: true,
     defaultValue: false
   },
     {
     name: 'hosts-culminating-clinical-placements',
     label: 'Hosts culminating clinical placements',
+    secondary: true,
     defaultValue: false
   },
   {
     name: 'hosts-year-long-clinical-placements',
     label: 'Hosts year-long clinical placements',
+    secondary: true,
     defaultValue: false
   },
   {
     name: 'hosts-enrichment-programs',
     label: 'Hosts enrichment programs',
+    secondary: true,
     defaultValue: false
   },
   {
     name: 'professional-development-school',
     label: 'Professional development school',
+    secondary: true,
     defaultValue: false
   },
 ];
