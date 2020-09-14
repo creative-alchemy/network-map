@@ -144,25 +144,25 @@
           </div>
         </form>
       </div>
-      <script src="./init-map.js"></script>
-      <script src="./populate-filters.js"></script>
-      <script src="./update-filters.js"></script>
-      <!-- <script src="csv-to-json.js"></script>
+      <!-- <script src="./init-map.js"></script> -->
+      <script src="csv-to-json.js"></script>
       <script src="initialize-map.js"></script>
       <script>
-      // Fetch a csv
-      fetch('schools.csv')
-          .then(function(data) { return data.text() })
-          .then(function(schoolCsv) {
+        // Fetch a csv
+        fetch('schools.csv')
+        .then(function(data) { return data.text() })
+        .then(function(schoolCsv) {
               fetch('universities.csv')
-                  .then(function(data) { return data.text() })
-                  .then(function(universityCsv) {
-                      var schoolJson = csvToJson(schoolCsv);
-                      var universityJson = csvToJson(universityCsv);
-                      console.log({ schoolJson, universityJson });
-                      initializeMap(schoolJson, universityJson);
-                  })
-          });
-      </script> -->
+              .then(function(data) { return data.text() })
+              .then(function(universityCsv) {
+                var schoolJson = csvToJson(schoolCsv);
+                var universityJson = csvToJson(universityCsv);
+                console.log({ schoolJson, universityJson });
+                initializeMap(schoolJson, universityJson);
+              })
+            });
+            </script>
+      <script src="./populate-filters.js"></script>
+      <script src="./update-filters.js"></script>
     </body>
 </html>
