@@ -44,8 +44,20 @@ function generateDetailedPopupHTML(marker) {
   if (properties["High-Needs School"]) {
     description += "<b>High-Needs School:</b> " + properties["High-Needs School"] + "<br />";
   }
+  if (properties["Hosts Pre-Clinical Placement (Field-Placement)"]) {
+    description += "<b>Hosts Pre-Clinical Placement (Field-Placement):</b> " + properties["Hosts Pre-Clinical Placement (Field-Placement)"] + "<br />";
+  }
+  if (properties["Hosts Culminating Clinical Placement"]) {
+    description += "<b>Hosts Culminating Clinical Placement:</b> " + properties["Hosts Culminating Clinical Placement"] + "<br />";
+  }
   if (properties["Hosts Culminating Year-Long Clinical Placement"]) {
     description += "<b>Hosts Culminating Year-Long Clinical Placement:</b> " + properties["Hosts Culminating Year-Long Clinical Placement"] + "<br />";
+  }
+  if (properties["Hosts Enrichment Program"]) {
+    description += "<b>Hosts Enrichment Program:</b> " + properties["Hosts Enrichment Program"] + "<br />";
+  }
+  if (properties["Professional Development School (PDS Model)"]) {
+    description += "<b>Professional Development School (PDS Model):</b> " + properties["Professional Development School (PDS Model)"] + "<br />";
   }
   if (properties["Year-long Residency (Any Program)"]) {
     description += "<b>Year-long Residency (Any Program):</b> " + properties["Year-long Residency (Any Program)"] + "<br />";
@@ -98,6 +110,7 @@ function zoomToMarkers(markers) {
 }
 
 function initializeMap(schoolJson, universityJson) {
+  console.log({ schoolJson, universityJson });
   mapboxgl.accessToken = 'pk.eyJ1IjoiY3JlYXRpdmVhbGNoZW15IiwiYSI6ImNrY3hncmZsaDAzd2Uycm1kMDMzendla2oifQ.Ipc4OYyTLjhevQR9_Y8TBA';
   window.map = new mapboxgl.Map({
     container: 'map',
