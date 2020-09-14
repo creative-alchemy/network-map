@@ -10,6 +10,8 @@ var filters = {
   "preparation-programs:size:large": true,
   "preparation-programs:size:medium": true,
   "preparation-programs:size:small": true,
+  "preparation-programs:size:fringe": true,
+  "preparation-programs:size:distant": true,
   "preparation-programs:full-year-clinical-placements-available": false,
   "preparation-programs:district-level-partnership": false,
   "schools:type:public": true,
@@ -207,13 +209,17 @@ var updateFilters = function(element) {
       if (
         filters["schools:size:large"] ||
         filters["schools:size:medium"] ||
-        filters["schools:size:small"]
+        filters["schools:size:small"] ||
+        filters["schools:size:fringe"] ||
+        filters["schools:size:distant"]
       ) {
         var foundASchoolSizeMatch = false;
         if (
           filters["schools:size:large"] && marker["Type/Size"] === "Large" ||
           filters["schools:size:medium"] && marker["Type/Size"] === "Mid" ||
-          filters["schools:size:small"] && marker["Type/Size"] === "Small"
+          filters["schools:size:small"] && marker["Type/Size"] === "Small" ||
+          filters["schools:size:fringe"] && marker["Type/Size"] === "Fringe" ||
+          filters["schools:size:distant"] && marker["Type/Size"] === "Distant"
         ) {
           foundASchoolSizeMatch = true;
         }

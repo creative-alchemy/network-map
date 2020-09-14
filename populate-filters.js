@@ -70,6 +70,16 @@ var schools = [
     defaultValue: true
   },
   {
+    name: 'size:fringe',
+    label: 'Fringe',
+    defaultValue: true
+  },
+  {
+    name: 'size:distant',
+    label: 'Distant',
+    defaultValue: true
+  },
+  {
     name: 'grade-level:elementary',
     label: 'Elementary school',
     defaultValue: true
