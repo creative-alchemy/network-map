@@ -100,3 +100,29 @@
   max-width: 360px;
   width: 100vw;
 }
+
+/* Markers */
+.marker {
+  border: 3px solid white;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  transition: transform 100ms;
+  transition-timing-function: ease-in;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.25);
+}
+
+.marker:hover {
+  transform: scale(1.5, 1.5);
+}
+
+.marker__preparation-program {
+  background-color: rgb(255, 96, 29);
+  border-radius: 100%;
+}
+
+.marker__school {
+  background-color: #c31fff;
+}
