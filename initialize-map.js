@@ -62,7 +62,7 @@ function generateDetailedPopupHTML(marker) {
   if (IHEPartners.length > 0) {
     description += "<li><b>School Partners:</b> <ul>";
     IHEPartners.forEach(function(IHEPartner) {
-      description += "<li>" + IHEPartner.properties["School Name"] + "</li>";
+      description += "<li>" + IHEPartner["School Name"] + "</li>";
     });
     description += "</ul></li>";
   }
@@ -131,7 +131,13 @@ function initializeMap(schoolJson, universityJson) {
 
     el.addEventListener("mouseenter", function() {
       popup.setLngLat([school.Longitude, school.Latitude])
-        .setText(school["School Name"])
+      .setHTML('<h5><b>' + school["School Name"] + '</b></h5>')
+      .addTo(map);
+    });
+
+    el.addEventListener("click", function() {
+      popup.setLngLat([school.Longitude, school.Latitude])
+        .setHTML(generateDetailedPopupHTML(school))
         .addTo(map);
     });
 
@@ -143,6 +149,8 @@ function initializeMap(schoolJson, universityJson) {
 
   var createIHEPartnersDictionary = function() {
     var IHEPartnersDictionary = {};
+
+    console.log({ schoolJson })
 
     schoolJson.forEach(function(schoolMarker) {
       var IHEPartner1 = schoolMarker['IHE Partner 1'];
@@ -169,6 +177,7 @@ function initializeMap(schoolJson, universityJson) {
   }
 
   window.IHEPartnersDictionary = createIHEPartnersDictionary();
+  console.log(IHEPartnersDictionary);
 
   // Populate with all the universitys
   universityJson.forEach(function(university) {
@@ -183,7 +192,7 @@ function initializeMap(schoolJson, universityJson) {
 
     el.addEventListener("mouseenter", function() {
       popup.setLngLat([university.Longitude, university.Latitude])
-        .setText(university["IHE Name"])
+        .setHTML('<h5><b>' + university["IHE Name"] + '</b></h5>')
         .addTo(map);
     });
 
