@@ -586,8 +586,12 @@ function generateFilterSentence() {
     sentence += "No preparation programs ";
   } else if (preparationProgramType.length === 5) {
     sentence += "All preparation programs ";
+  } else if (preparationProgramType.length === 1) {
+    sentence += preparationProgramType[0] + " preparation programs ";
+  } else if (preparationProgramType.length === 2) {
+    sentence += preparationProgramType.slice(0, preparationProgramType.length - 1).join(", ") + " or " + preparationProgramType[preparationProgramType.length -1] + " preparation programs ";
   } else {
-    sentence += preparationProgramType.join(", ") + " preparation programs ";
+    sentence += preparationProgramType.slice(0, preparationProgramType.length - 1).join(", ") + ", or " + preparationProgramType[preparationProgramType.length -1] + " preparation programs ";
   }
 
   if (secondaryPreparationProgramFilters.length > 0) {
