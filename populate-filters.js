@@ -1,94 +1,116 @@
 var preparationPrograms = [
   {
     name: 'type:public',
-    label: 'Public'
+    label: 'Public',
+    defaultValue: true
   },
   {
     name: 'type:private',
-    label: 'Private'
+    label: 'Private',
+    defaultValue: true
   },
   {
     name: 'size:large',
-    label: 'Large'
+    label: 'Large',
+    defaultValue: true
   },
   {
     name: 'size:medium',
-    label: 'Medium'
+    label: 'Medium',
+    defaultValue: true
   },
   {
     name: 'size:small',
-    label: 'Small'
+    label: 'Small',
+    defaultValue: true
   },
   {
     name: 'full-year-clinical-placements-available',
-    label: 'Full-year clinical placements available'
+    label: 'Full-year clinical placements available',
+    defaultValue: false
   },
   {
     name: 'district-level-partnership',
-    label: 'District-level partnership'
+    label: 'District-level partnership',
+    defaultValue: false
   }
 ];
 
 var schools = [
   {
     name: 'type:public',
-    label: 'Public'
+    label: 'Public',
+    defaultValue: true
   },
   {
     name: 'type:private',
-    label: 'Private'
+    label: 'Private',
+    defaultValue: true
   },
   {
     name: 'type:charter',
-    label: 'Charter'
+    label: 'Charter',
+    defaultValue: true
   },
   {
     name: 'size:large',
-    label: 'Large'
+    label: 'Large',
+    defaultValue: true
   },
   {
     name: 'size:medium',
-    label: 'Medium'
+    label: 'Medium',
+    defaultValue: true
   },
   {
     name: 'size:small',
-    label: 'Small'
+    label: 'Small',
+    defaultValue: true
   },
   {
     name: 'grade-level:elementary',
-    label: 'Elementary school'
+    label: 'Elementary school',
+    defaultValue: true
   },
   {
     name: 'grade-level:middle',
-    label: 'Middle school'
+    label: 'Middle school',
+    defaultValue: true
   },
   {
     name: 'grade-level:high',
-    label: 'High school'
+    label: 'High school',
+    defaultValue: true
   },
   {
     name: 'high-needs',
-    label: 'High-needs school'
+    label: 'High-needs school',
+    defaultValue: false
   },
   {
     name: 'hosts-pre-clinical-hours',
-    label: 'Hosts pre-clinical hours'
+    label: 'Hosts pre-clinical hours',
+    defaultValue: false
   },
     {
     name: 'hosts-culminating-clinical-placements',
-    label: 'Hosts culminating clinical placements'
+    label: 'Hosts culminating clinical placements',
+    defaultValue: false
   },
   {
     name: 'hosts-year-long-clinical-placements',
-    label: 'Hosts year-long clinical placements'
+    label: 'Hosts year-long clinical placements',
+    defaultValue: false
   },
   {
     name: 'hosts-enrichment-programs',
-    label: 'Hosts enrichment programs'
+    label: 'Hosts enrichment programs',
+    defaultValue: false
   },
   {
     name: 'professional-development-school',
-    label: 'Professional development school'
+    label: 'Professional development school',
+    defaultValue: false
   },
 ];
 
@@ -96,359 +118,435 @@ var states = [
   {
     name: 'AL',
     label: 'Alabama',
-    bbox: '-88.473227,30.223334,-84.88908,35.008028'
+    bbox: '-88.473227,30.223334,-84.88908,35.008028',
+    defaultValue: true
   },
   {
     name: 'AK',
     label: 'Alaska',
-    bbox: '-179.148909,51.214183,-179.77847,71.365162'
+    bbox: '-179.148909,51.214183,-179.77847,71.365162',
+    defaultValue: true
   },
   {
     name: 'AZ',
     label: 'Arizona',
-    bbox: '-114.81651,31.332177,-109.045223,37.00426'
+    bbox: '-114.81651,31.332177,-109.045223,37.00426',
+    defaultValue: true
   },
   {
     name: 'AR',
     label: 'Arkansas',
-    bbox: '-94.617919,33.004106,-89.644395,36.4996'
+    bbox: '-94.617919,33.004106,-89.644395,36.4996',
+    defaultValue: true
   },
   {
     name: 'CA',
     label: 'California',
-    bbox: '-124.409591,32.534156,-114.131211,42.009518'
+    bbox: '-124.409591,32.534156,-114.131211,42.009518',
+    defaultValue: true
   },
   {
     name: 'CO',
     label: 'Colorado',
-    bbox: '-109.060253,36.992426,-102.041524,41.003444'
+    bbox: '-109.060253,36.992426,-102.041524,41.003444',
+    defaultValue: true
   },
   {
     name: 'CT',
     label: 'Connecticut',
-    bbox: '-73.727775,40.980144,-71.786994,42.050587'
+    bbox: '-73.727775,40.980144,-71.786994,42.050587',
+    defaultValue: true
   },
   {
     name: 'DE',
     label: 'Delaware',
-    bbox: '-75.788658,38.451013,-75.048939,39.839007'
+    bbox: '-75.788658,38.451013,-75.048939,39.839007',
+    defaultValue: true
   },
   {
     name: 'DC',
     label: 'District of Columbia',
-    bbox: '-77.119759,38.791645,-76.909395,38.99511'
+    bbox: '-77.119759,38.791645,-76.909395,38.99511',
+    defaultValue: true
   },
   {
     name: 'FL',
     label: 'Florida',
-    bbox: '-87.634938,24.523096,-80.031362,31.000888'
+    bbox: '-87.634938,24.523096,-80.031362,31.000888',
+    defaultValue: true
   },
   {
     name: 'GA',
     label: 'Georgia',
-    bbox: '-85.605165,30.357851,-80.839729,35.000659'
+    bbox: '-85.605165,30.357851,-80.839729,35.000659',
+    defaultValue: true
   },
   {
     name: 'HI',
     label: 'Hawaii',
-    bbox: '-178.334698,18.910361,-154.806773,28.402123'
+    bbox: '-178.334698,18.910361,-154.806773,28.402123',
+    defaultValue: true
   },
   {
     name: 'ID',
     label: 'Idaho',
-    bbox: '-117.243027,41.988057,-111.043564,49.001146'
+    bbox: '-117.243027,41.988057,-111.043564,49.001146',
+    defaultValue: true
   },
   {
     name: 'IL',
     label: 'Illinois',
-    bbox: '-91.513079,36.970298,-87.494756,42.508481'
+    bbox: '-91.513079,36.970298,-87.494756,42.508481',
+    defaultValue: true
   },
   {
     name: 'IN',
     label: 'Indiana',
-    bbox: '-88.09776,37.771742,-84.784579,41.760592'
+    bbox: '-88.09776,37.771742,-84.784579,41.760592',
+    defaultValue: true
   },
   {
     name: 'IA',
     label: 'Iowa',
-    bbox: '-96.639704,40.375501,-90.140061,43.501196'
+    bbox: '-96.639704,40.375501,-90.140061,43.501196',
+    defaultValue: true
   },
   {
     name: 'KS',
     label: 'Kansas',
-    bbox: '-102.051744,36.993016,-94.588413,40.003162'
+    bbox: '-102.051744,36.993016,-94.588413,40.003162',
+    defaultValue: true
   },
   {
     name: 'KY',
     label: 'Kentucky',
-    bbox: '-89.571509,36.497129,-81.964971,39.147458'
+    bbox: '-89.571509,36.497129,-81.964971,39.147458',
+    defaultValue: true
   },
   {
     name: 'LA',
     label: 'Louisiana',
-    bbox: '-94.043147,28.928609,-88.817017,33.019457'
+    bbox: '-94.043147,28.928609,-88.817017,33.019457',
+    defaultValue: true
   },
   {
      name: 'ME',
      label: 'Maine',
-     bbox: '-71.083924,42.977764,-66.949895,47.459686'
-  },
+     bbox: '-71.083924,42.977764,-66.949895,47.459686',
+    defaultValue: true
+    },
   {
     name: 'MD',
     label: 'Maryland',
-    bbox: '-79.487651,37.911717,-75.048939,39.723043'
+    bbox: '-79.487651,37.911717,-75.048939,39.723043',
+    defaultValue: true
   },
   {
     name: 'MA',
     label: 'Massachusetts',
-    bbox: '-73.508142,41.237964,-69.928393,42.886589'
+    bbox: '-73.508142,41.237964,-69.928393,42.886589',
+    defaultValue: true
   },
   {
     name: 'MI',
     label:'Michigan',
-    bbox: '-90.418136,41.696118,-82.413474,48.2388'
+    bbox: '-90.418136,41.696118,-82.413474,48.2388',
+    defaultValue: true
   },
   {
     name: 'MN',
     label: 'Minnesota',
-    bbox: '-97.239209,43.499356,-89.491739,49.384358'
+    bbox: '-97.239209,43.499356,-89.491739,49.384358',
+    defaultValue: true
   },
   {
     name: 'MS',
     label: 'Mississippi',
-    bbox: '-91.655009,30.173943,-88.097888,34.996052'
+    bbox: '-91.655009,30.173943,-88.097888,34.996052',
+    defaultValue: true
   },
   {
     name: 'MO',
     label: 'Missouri',
-    bbox: '-95.774704,35.995683,-89.098843,40.61364'
+    bbox: '-95.774704,35.995683,-89.098843,40.61364',
+    defaultValue: true
   },
   {
     name: 'MT',
     label: 'Montana',
-    bbox: '-116.050003,44.358221,-104.039138,49.00139'
+    bbox: '-116.050003,44.358221,-104.039138,49.00139',
+    defaultValue: true
   },
   {
     name: 'NE',
     label: 'Nebraska',
-    bbox: '-104.053514,39.999998,-95.30829,43.001708'
+    bbox: '-104.053514,39.999998,-95.30829,43.001708',
+    defaultValue: true
   },
   {
     name: 'NV',
     label: 'Nevada',
-    bbox: '-120.005746,35.001857,-114.039648,42.002207'
+    bbox: '-120.005746,35.001857,-114.039648,42.002207',
+    defaultValue: true
   },
   {
     name: 'NH',
     label: 'New Hampshire',
-    bbox: '-72.557247,42.69699,-70.610621,45.305476'
+    bbox: '-72.557247,42.69699,-70.610621,45.305476',
+    defaultValue: true
   },
   {
     name: 'NJ',
     label: 'New Jersey',
-    bbox: '-75.559614,38.928519,-73.893979,41.357423'
+    bbox: '-75.559614,38.928519,-73.893979,41.357423',
+    defaultValue: true
   },
   {
     name: 'NM',
     label: 'New Mexico',
-    bbox: '-109.050173,31.332301,-103.001964,37.000232'
+    bbox: '-109.050173,31.332301,-103.001964,37.000232',
+    defaultValue: true
   },
   {
     name: 'NY',
     label: 'New York',
-    bbox: '-79.762152,40.496103,-71.856214,45.01585'
+    bbox: '-79.762152,40.496103,-71.856214,45.01585',
+    defaultValue: true
   },
   {
     name: 'NC',
     label: 'North Carolina',
-    bbox: '-84.321869,33.842316,-75.460621,36.588117'
+    bbox: '-84.321869,33.842316,-75.460621,36.588117',
+    defaultValue: true
   },
   {
     name: 'ND',
     label: 'North Dakota',
-    bbox: '-104.0489,45.935054,-96.554507,49.000574'
+    bbox: '-104.0489,45.935054,-96.554507,49.000574',
+    defaultValue: true
   },
   {
     name: 'OH',
     label: 'Ohio',
-    bbox: '-84.820159,38.403202,-80.518693,41.977523'
+    bbox: '-84.820159,38.403202,-80.518693,41.977523',
+    defaultValue: true
   },
   {
     name: 'OK',
     label: 'Oklahoma',
-    bbox: '-103.002565,33.615833,-94.430662,37.002206'
+    bbox: '-103.002565,33.615833,-94.430662,37.002206',
+    defaultValue: true
   },
   {
     name: 'OR',
     label: 'Oregon',
-    bbox: '-124.566244,41.991794,-116.463504,46.292035'
+    bbox: '-124.566244,41.991794,-116.463504,46.292035',
+    defaultValue: true
   },
   {
     name: 'PA',
     label: 'Pennsylvania',
-    bbox: '-80.519891,39.7198,-74.689516,42.26986'
+    bbox: '-80.519891,39.7198,-74.689516,42.26986',
+    defaultValue: true
   },
   {
     name: 'RI',
     label: 'Rhode Island',
-    bbox: '-71.862772,41.146339,-71.12057,42.018798'
+    bbox: '-71.862772,41.146339,-71.12057,42.018798',
+    defaultValue: true
   },
   {
     name: 'SC',
     label: 'South Carolina',
-    bbox: '-83.35391,32.0346,-78.54203,35.215402'
+    bbox: '-83.35391,32.0346,-78.54203,35.215402',
+    defaultValue: true
   },
   {
     name: 'SD',
     label: 'South Dakota',
-    bbox: '-104.057698,42.479635,-96.436589,45.94545'
+    bbox: '-104.057698,42.479635,-96.436589,45.94545',
+    defaultValue: true
   },
   {
     name: 'TN',
     label: 'Tennessee',
-    bbox: '-90.310298,34.982972,-81.6469,36.678118'
+    bbox: '-90.310298,34.982972,-81.6469,36.678118',
+    defaultValue: true
   },
   {
     name: 'TX',
     label: 'Texas',
-    bbox: '-106.645646,25.837377,-93.508292,36.500704'
+    bbox: '-106.645646,25.837377,-93.508292,36.500704',
+    defaultValue: true
   },
   {
     name: 'UT',
     label: 'Utah',
-    bbox: '-114.052962,36.997968,-109.041058,42.001567'
+    bbox: '-114.052962,36.997968,-109.041058,42.001567',
+    defaultValue: true
   },
   {
     name: 'VT',
     label: 'Vermont',
-    bbox: '-73.43774,42.726853,-71.464555,45.016659'
+    bbox: '-73.43774,42.726853,-71.464555,45.016659',
+    defaultValue: true
   },
   {
     name: 'VA',
     label: 'Virginia',
-    bbox: '-83.675395,36.540738,-75.242266,39.466012'
+    bbox: '-83.675395,36.540738,-75.242266,39.466012',
+    defaultValue: true
   },
   {
     name: 'WA',
     label: 'Washington',
-    bbox: '-124.763068,45.543541,-116.915989,49.002494'
+    bbox: '-124.763068,45.543541,-116.915989,49.002494',
+    defaultValue: true
   },
   {
     name: 'WV',
     label: 'West Virginia',
-    bbox: '-82.644739,37.201483,-77.719519,40.638801'
+    bbox: '-82.644739,37.201483,-77.719519,40.638801',
+    defaultValue: true
   },
   {
     name: 'WI',
     label: 'Wisconsin',
-    bbox: '-92.888114,42.491983,-86.805415,47.080621'
+    bbox: '-92.888114,42.491983,-86.805415,47.080621',
+    defaultValue: true
   },
   {
     name: 'WY',
     label: 'Wyoming',
-    bbox: '-111.056888,40.994746,-104.05216,45.005904'
+    bbox: '-111.056888,40.994746,-104.05216,45.005904',
+    defaultValue: true
   }];
 
 var licensureAreas = [
   {
     name: 'licensure-areas:agriculture',
-    label: 'Agriculture'
+    label: 'Agriculture',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:biology-7-12',
-    label: 'Biology 7-12'
+    label: 'Biology 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:carpentry-7-12',
-    label: 'Carpentry 7-12'
+    label: 'Carpentry 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:chemistry-7-12',
-    label: 'Chemistry 7-12'
+    label: 'Chemistry 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:childhood-education-grades-1-6',
-    label: 'Childhood Education (Grades 1-6)'
+    label: 'Childhood Education (Grades 1-6)',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:cosmetology-barbering-7-12',
-    label: 'Cosmetology/Barbering 7-12'
+    label: 'Cosmetology/Barbering 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:deaf-and-hard-of-hearing',
-    label: 'Deaf And Hard Of Hearing'
+    label: 'Deaf And Hard Of Hearing',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:early-childhood-education-birth-grade-2',
-    label: 'Early Childhood Education (Birth-Grade 2)'
+    label: 'Early Childhood Education (Birth-Grade 2)',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:earth-science-7-12',
-    label: 'Earth Science 7-12'
+    label: 'Earth Science 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:english-language-arts-7-12',
-    label: 'English Language Arts 7-12'
+    label: 'English Language Arts 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:english-to-speakers-of-other-languages',
-    label: 'English To Speakers Of Other Languages'
+    label: 'English To Speakers Of Other Languages',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:family-and-consumer-sciences',
-    label: 'Family And Consumer Sciences'
+    label: 'Family And Consumer Sciences',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:french-7-12',
-    label: 'French 7-12'
+    label: 'French 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:health-education',
-    label: 'Health Education'
+    label: 'Health Education',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:music',
-    label: 'Music'
+    label: 'Music',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:physical-education',
-    label: 'Physical Education'
+    label: 'Physical Education',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:physics-7-12',
-    label: 'Physics 7-12'
+    label: 'Physics 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:social-studies-7-12',
-    label: 'Social Studies 7-12'
+    label: 'Social Studies 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:spansih-7-12',
-    label: 'Spanish 7-12'
+    label: 'Spanish 7-12',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:speech-and-language-disabilities',
-    label: 'Speech And Language Disabilities'
+    label: 'Speech And Language Disabilities',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:students-with-disabilities-birth-grade-2',
-    label: 'Students With Disabilities (Birth - Grade 2)'
+    label: 'Students With Disabilities (Birth - Grade 2)',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:sudents-with-disabilites-grades-1-6',
-    label: 'Students With Disabilities (Grades 1-6)'
+    label: 'Students With Disabilities (Grades 1-6)',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:students-with-disabilities-grade-7-12-generalist',
-    label: 'Students With Disabilities - Grades 7-12 - Generalist'
+    label: 'Students With Disabilities - Grades 7-12 - Generalist',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:technology-education',
-    label: 'Technology Education'
+    label: 'Technology Education',
+    defaultValue: false
   },
   {
     name: 'licensure-areas:visual-art',
-    label: 'Visual Art'
+    label: 'Visual Art',
+    defaultValue: false
   }
 ];
 
@@ -464,7 +562,7 @@ var populateFilters = function(group, filters) {
     filterContainer.classList.add("custom-control");
     filterContainer.classList.add("custom-checkbox");
     var filterString =
-        '<input class="custom-control-input ' + group + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" data-bbox=' + filterObject.bbox + ' onchange="updateFilters(this)" autocomplete="off"> ' +
+        '<input class="custom-control-input ' + group + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" data-bbox=' + filterObject.bbox + ' onchange="updateFilters(this)" autocomplete="off" ' + (filterObject.defaultValue ? 'checked ' : '') + '> ' +
         '<label class="custom-control-label" for="' + name + '">' + label + '</label>';
     filterContainer.innerHTML = filterString;
     collapse.append(filterContainer);
