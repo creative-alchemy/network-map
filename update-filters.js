@@ -20,6 +20,8 @@ var filters = {
   "schools:size:large": true,
   "schools:size:medium": true,
   "schools:size:small": true,
+  "schools:size:fringe": true,
+  "schools:size:distant": true,
   "schools:grade-level:elementary": true,
   "schools:grade-level:middle": true,
   "schools:grade-level:high": true,
@@ -178,6 +180,8 @@ var updateFilters = function(element) {
         filters["schools:size:large"] === false &&
         filters["schools:size:medium"] === false &&
         filters["schools:size:small"] === false &&
+        filters["schools:size:fringe"] === false &&
+        filters["schools:size:distant"] === false &&
         filters["schools:grade-level:elementary"] === false &&
         filters["schools:grade-level:middle"] === false &&
         filters["schools:grade-level:high"] === false
@@ -437,8 +441,6 @@ var updateFilters = function(element) {
       .setLngLat([marker.Longitude, marker.Latitude])
       .addTo(map);
   });
-
-  console.log({ preparationProgramsCount, schoolCount })
 
   preparationCountEl = document.getElementById('preparation-program__count');
   schoolCountEl = document.getElementById('school__count');

@@ -238,10 +238,13 @@ function initializeMap(schoolJson, universityJson) {
   map.on("click", function(e) {
     if (!e.originalEvent.target.classList.contains("marker")) {
       popup.remove();
+      console.log(window.filteredFeatures);
+      zoomToMarkers(window.filteredFeatures);
     }
   });
 
   window.allMarkers = schoolJson.concat(universityJson);
+  window.filteredFeatures = window.allMarkers.slice();
 
   zoomToMarkers(window.allMarkers);
 
