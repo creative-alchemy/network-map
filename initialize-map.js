@@ -2,15 +2,34 @@
 function forwardGeocoder(query) {
   var matchingFeatures = [];
 
-  features.forEach(function(feature) {
-    var schoolOrUniversityName = feature.properties['School Name'] || feature.properties['IHE Name '];
+  allMarkers.forEach(function(marker) {
+    var schoolOrUniversityName = "";
+    if (marker['School Name'] !== undefined) {
+      schoolOrUniversityName = marker['School Name'];
+    } else if (marker['IHE Name'] !== undefined) {
+      schoolOrUniversityName = marker['IHE Name'];
+    }
 
-    if (schoolOrUniversityName.toLowerCase().search(query.toLowerCase()) !== -1) {
-      feature['place_name'] = schoolOrUniversityName;
-      feature['center'] = feature.geometry.coordinates;
-      matchingFeatures.push(feature);
+    if (schoolOrUniversityName.toLowerCase().includes(query.toLowerCase())) {
+      marker['place_name'] = schoolOrUniversityName;
+      marker['center'] = [marker.Longitude, marker.Latitude];
+      matchingFeatures.push({
+        type: "Feature",
+        properties: marker,
+        place_name: schoolOrUniversityName,
+        center: [marker.Longitude, marker.Latitude],
+        geometry: {
+          coordinates: [
+            marker.Longitude,
+            marker.Latitude
+          ],
+          type: "Point"
+        }
+      });
     }
   });
+
+  console.log({matchingFeatures})
 
   return matchingFeatures;
 }
