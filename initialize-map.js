@@ -15,9 +15,23 @@ function forwardGeocoder(query) {
   return matchingFeatures;
 }
 
+function zoomToMarkers(markers) {
+  if (markers.length > 1) {
+    var bounds = new mapboxgl.LngLatBounds();
+
+    window.allMarkers.forEach(function(marker) {
+      if (marker.Longitude && marker.Latitude) {
+        bounds.extend([marker.Longitude, marker.Latitude]);
+      }
+    });
+
+    map.fitBounds(bounds, { padding: 100, offset: [100, 0] });
+  }
+}
+
 function initializeMap(schoolJson, universityJson) {
   mapboxgl.accessToken = 'pk.eyJ1IjoiY3JlYXRpdmVhbGNoZW15IiwiYSI6ImNrY3hncmZsaDAzd2Uycm1kMDMzendla2oifQ.Ipc4OYyTLjhevQR9_Y8TBA';
-  var map = new mapboxgl.Map({
+  window.map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/creativealchemy/ckf1yi5i420yb19oarf18bh5z',
     center: [-100.5795, 39.8283], // center of U.S.
@@ -72,4 +86,8 @@ function initializeMap(schoolJson, universityJson) {
       .setLngLat([university.Longitude, university.Latitude])
       .addTo(map);
   });
+
+  window.allMarkers = schoolJson.concat(universityJson);
+
+  zoomToMarkers(window.allMarkers);
 }
