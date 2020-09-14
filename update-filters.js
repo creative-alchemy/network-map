@@ -453,6 +453,8 @@ var updateFilters = function(element) {
   preparationCountEl.innerText = "(" + preparationProgramsCount + ")";
   schoolCountEl.innerText = "(" + schoolCount + ")";
 
+  generateFilterSentence(filters);
+
   // Commented out because the specifications have changed: J.A
   if (filteredFeatures.length > 1) {
     var bounds = new mapboxgl.LngLatBounds();
@@ -467,6 +469,159 @@ var updateFilters = function(element) {
         zoom: 6,
       });
   }
+}
+
+function generateFilterSentence() {
+  console.log(filters);
+
+  var sentence = "";
+  var preparationProgramType = [];
+  var secondaryPreparationProgramFilters = [];
+  var schoolType = [];
+  var secondarySchoolFilters = [];
+
+  var locales = [];
+  var partOfPTTNetwork = false;
+
+  for (var key in filters) {
+    // Preparation programs
+    if (key.includes("preparation-programs:type:public") && filters[key] === true) {
+      preparationProgramType.push(key.split(":")[2])
+    }
+    if (key.includes("preparation-programs:type:private") && filters[key] === true) {
+      preparationProgramType.push(key.split(":")[2])
+    }
+    if (key.includes("preparation-programs:size:large") && filters[key] === true) {
+      preparationProgramType.push(key.split(":")[2])
+    }
+    if (key.includes("preparation-programs:size:medium") && filters[key] === true) {
+      preparationProgramType.push(key.split(":")[2])
+    }
+    if (key.includes("preparation-programs:size:small") && filters[key] === true) {
+      preparationProgramType.push(key.split(":")[2])
+    }
+
+    // Preparation programs secondary filters
+    if (key.includes("full-year-clinical-placements-available") && filters[key] === true) {
+      secondaryPreparationProgramFilters.push("full-year clinical placements available");
+    }
+
+    if (key.includes("district-level-partnership") && filters[key] === true) {
+      secondaryPreparationProgramFilters.push("district level partnership");
+    }
+
+    // Schools
+    if (key.includes("schools:type:public") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("schools:type:private") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("schools:type:charter") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("schools:size:large") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("schools:size:medium") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("schools:size:small") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("schools:size:distant") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("schools:size:fringe") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("grade-level:elementary") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("grade-level:middle") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+    if (key.includes("grade-level:high") && filters[key] === true) {
+      schoolType.push(key.split(":")[2])
+    }
+
+    // Schools secondary filters
+    if (key.includes("high-needs") && filters[key] === true) {
+      secondarySchoolFilters.push("support high needs");
+    }
+
+    if (key.includes("hosts-pre-clinical-hours") && filters[key] === true) {
+      secondarySchoolFilters.push("host pre-clinical hours");
+    }
+
+    if (key.includes("hosts-culminating-clinical-placements") && filters[key] === true) {
+      secondarySchoolFilters.push("host culminating clinical placements");
+    }
+
+    if (key.includes("hosts-year-long-clinical-placements") && filters[key] === true) {
+      secondarySchoolFilters.push("host year long clinical placements");
+    }
+
+    if (key.includes("hosts-enrichment-programs") && filters[key] === true) {
+      secondarySchoolFilters.push("host enrichment programs");
+    }
+
+    if (key.includes("professional-development-school") && filters[key] === true) {
+      secondarySchoolFilters.push("support professional development");
+    }
+
+    // Locale
+    if (key.includes("locale") && filters[key] === true) {
+      locales.push(key.split(":")[2]);
+    }
+
+    // PTT Network
+    if (key.includes("ptt-network") && filters[key] === true) {
+      partOfPTTNetwork = true;
+    }
+  }
+  console.log(secondaryPreparationProgramFilters);
+
+  if (preparationProgramType.length === 0) {
+    sentence += "No preparation programs ";
+  } else if (preparationProgramType.length === 5) {
+    sentence += "All preparation programs ";
+  } else {
+    sentence += preparationProgramType.join(", ") + " preparation programs ";
+  }
+
+  if (secondaryPreparationProgramFilters.length > 0) {
+    sentence += "with " + secondaryPreparationProgramFilters.join(", ") + " ";
+  }
+
+  if (schoolType.length === 0) {
+    sentence += "and no schools ";
+  } else if (schoolType.length === 11) {
+    sentence += "and all schools ";
+  } else {
+    sentence += "and " + schoolType.join(", ") + " schools ";
+  }
+
+  if (secondarySchoolFilters.length > 0) {
+    sentence += "that can " + secondarySchoolFilters.join(", ") + " ";
+  }
+
+  if (locales.length === 0) {
+    sentence += "in " + 0 + " locales";
+  } else {
+    sentence += "in " + locales.join(", ") + " locales";
+  }
+
+  if (partOfPTTNetwork) {
+    sentence += " that are part of the Prepared to Teach Learning Network"
+  }
+
+  sentence += ".";
+
+  var capitalized = sentence.charAt(0).toUpperCase() + sentence.slice(1);
+  console.log({ capitalized })
+  var explanationEl = document.getElementById('filter-explanations__explanation');
+  explanationEl.innerText = capitalized;
 }
 
 var toggleAll = function(element) {

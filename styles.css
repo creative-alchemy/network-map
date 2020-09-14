@@ -80,6 +80,7 @@
   padding: 20px;
   position: absolute;
   scrollbar-width: none;
+  width: 50%;
 }
 
 #filter-results-by {
@@ -93,6 +94,7 @@
   position: absolute;
   scrollbar-width: none;
   top: 185px;
+  width: 367px;
 }
 
 #filter-results-by:hover {
