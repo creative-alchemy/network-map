@@ -4,15 +4,12 @@
 
 #map-title {
   background: rgba(255, 96, 29, 0.3);
+  font-size: 30px;
+  font-weight: bold;
   left: 20px;
   padding: 5px 20px;
   position: absolute;
   top: 15px;
-}
-
-#map-title h1 {
-  font-size: 30px;
-  margin-bottom: 0px;
 }
 
 #geocoder {
@@ -154,4 +151,29 @@
 .marker:active {
   outline: none;
   border: none;
+}
+
+
+@media only screen and (max-width: 480px) {
+  #map-title {
+    background: rgba(255, 96, 29, 0.3);
+    font-size: 10px;
+    left: 0px;
+    padding: 5px 5px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+  }
+
+  #filter-results-by {
+    display: none;
+  }
+
+  #filter-explanations {
+    display: none;
+  }
+
+  #geocoder {
+    display: none;
+  }
 }
