@@ -109,6 +109,10 @@
   margin-bottom: 10px;
 }
 
+#filter-results-by #filter-results-by__close {
+  display: none;
+}
+
 .sub-contents {
   padding-left: 20px;
 }
@@ -261,6 +265,25 @@
     margin-left: 5px;
     padding: 10px;
     width: 100%;
+  }
+
+  #filter-results-by {
+    bottom: 0px;
+    display: none;
+    left: 0px;
+    opacity: 1;
+    top: 0px;
+    width: 100%;
+    z-index: 2;
+  }
+
+  #filter-results-by #filter-results-by__close {
+    display: block;
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    top: 20px;
+    right: 20px;
   }
 }
 

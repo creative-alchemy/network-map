@@ -1,4 +1,3 @@
-
 function forwardGeocoder(query) {
   var matchingFeatures = [];
 
@@ -326,3 +325,11 @@ function initializeMap(schoolJson, universityJson) {
   preparationCountEl.innerText = "(" + universityJson.length + ")";
   schoolCountEl.innerText = "(" + schoolJson.length + ")";
 }
+
+$('#filters').on('click', function() {
+  $('#filter-results-by').css('display', 'block');
+});
+
+$('#filter-results-by__close').on('click', function() {
+  $('#filter-results-by').css('display', 'none');
+});
