@@ -199,6 +199,7 @@
   #geocoder {
     left: 5px;
     margin-right: 5px;
+    width: 100%;
   }
 
   #geocoder .mapboxgl-ctrl-geocoder {
@@ -284,13 +285,6 @@
     width: 15px;
     top: 20px;
     right: 20px;
-  }
-}
-
-@media only screen and (max-width: 320px) {
-  #geocoder {
-    width: 70%;
-    overflow: hidden;
   }
 }
 
