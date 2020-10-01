@@ -123,7 +123,13 @@ function zoomToMarkers(markers) {
       }
     });
 
-    map.fitBounds(bounds, { padding: 100, offset: [75, 0] });
+    // If in desktop view add padding to fit map with filters menu on left
+    if (screen.width > 480) {
+      map.fitBounds(bounds, { padding: 100, offset: [75, 0] });
+    } else {
+      map.fitBounds(bounds, { padding: 50 });
+    }
+
   }
 }
 
@@ -280,7 +286,14 @@ function initializeMap(schoolJson, universityJson) {
         zoomMarkers.forEach(function(marker) {
           bounds.extend([marker.Longitude, marker.Latitude]);
         });
-        map.fitBounds(bounds, { padding: 100, offset: [75, 0] });
+
+        // If in desktop view add padding to fit map with filters menu on left
+        if (screen.width > 480) {
+          map.fitBounds(bounds, { padding: 100, offset: [75, 0] });
+        } else {
+          map.fitBounds(bounds, { padding: 50 });
+        }
+
       } else if (zoomMarkers.length === 1) {
           map.flyTo({
             center: IHEcenter,
