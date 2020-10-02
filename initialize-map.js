@@ -28,8 +28,6 @@ function forwardGeocoder(query) {
     }
   });
 
-  console.log({matchingFeatures})
-
   return matchingFeatures;
 }
 
@@ -134,7 +132,6 @@ function zoomToMarkers(markers) {
 }
 
 function initializeMap(schoolJson, universityJson) {
-  console.log({ schoolJson, universityJson });
   mapboxgl.accessToken = 'pk.eyJ1IjoiY3JlYXRpdmVhbGNoZW15IiwiYSI6ImNrY3hncmZsaDAzd2Uycm1kMDMzendla2oifQ.Ipc4OYyTLjhevQR9_Y8TBA';
   window.map = new mapboxgl.Map({
     container: 'map',
