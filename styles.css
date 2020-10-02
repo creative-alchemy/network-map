@@ -2,20 +2,31 @@
   position: absolute;
 }
 
-#map-title {
-  background: rgba(255, 96, 29, 0.3);
-  font-size: 30px;
-  font-weight: bold;
-  left: 20px;
-  padding: 5px 20px;
+#controls {
   position: absolute;
-  top: 15px;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
 }
 
-.geocoder-container {
-  position: absolute;
-  left: 540px;
-  top: 20px;
+#label-and-geocoder {
+  align-items: center;
+  display: flex;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+#map-title {
+  background: rgba(255, 96, 29, 0.3);
+  display: inline-block;
+  padding: 5px 20px;
+  margin-right: 20px
+}
+
+#map-title h1 {
+  font-size: 30px;
+  margin-bottom: 0px;
 }
 
 #geocoder {
@@ -25,18 +36,17 @@
 #filters {
   display: none;
 }
-
 #geocoder .mapboxgl-ctrl-geocoder {
   width: initial;
 }
 
 #map-legend {
   background-color: white;
+  display: inline-block;
   opacity: 0.8;
   padding: 20px;
-  position: absolute;
-  top: 80px;
-  left: 20px;
+  margin: 0 20px;
+  margin-bottom: 20px;
 }
 
 #map-legend__preparation-program {
@@ -89,16 +99,15 @@
 
 #filter-results-by {
   background-color: white;
-  bottom: 20px;
   font-family: Arial;
-  left: 20px;
   opacity: 0.8;
   overflow-y: scroll;
+  margin: 0 20px;
+  margin-bottom: 20px;
   padding: 20px;
-  position: absolute;
   scrollbar-width: none;
-  top: 185px;
-  width: 367px;
+  width: 377px;
+  height: 100%;
 }
 
 #filter-results-by:hover {
@@ -163,6 +172,7 @@
   outline: none;
   border: none;
 }
+
 
 
 @media only screen and (max-width: 480px) {
