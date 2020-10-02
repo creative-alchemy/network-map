@@ -89,12 +89,12 @@
   background-color: white;
   bottom: 20px;
   font-family: Arial;
-  left: 410px;
+  left: 418px;
   opacity: 0.8;
   padding: 20px;
   position: absolute;
   scrollbar-width: none;
-  width: 50%;
+  margin-right: 50px;
 }
 
 #filter-results-by {
@@ -103,11 +103,10 @@
   opacity: 0.8;
   overflow-y: scroll;
   margin: 0 20px;
-  margin-bottom: 20px;
   padding: 20px;
   scrollbar-width: none;
   width: 377px;
-  height: 100%;
+  height: calc(100% - 210px);
 }
 
 #filter-results-by:hover {
