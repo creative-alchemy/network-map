@@ -584,7 +584,7 @@ var populateFilters = function(group, filters) {
         '<input class="custom-control-input ' + group + ' ' + secondaryClass + '" type="checkbox" id="' + name + '" value="' + label + '" name="' + name + '" data-bbox=' + filterObject.bbox + ' onchange="updateFilters(this)" autocomplete="off" ' + (filterObject.defaultValue ? 'checked ' : '') + '> ' +
         '<label class="custom-control-label" for="' + name + '">' + label + '</label>';
     filterContainer.innerHTML = filterString;
-    collapse.append(filterContainer);
+    collapse.appendChild(filterContainer);
   });
 
   if (collapseId === 'preparation-programs__collapse') {
