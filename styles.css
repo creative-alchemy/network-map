@@ -192,6 +192,7 @@
     background-color: #1565c0;
     border-radius: 2px;
     color: white;
+    cursor: pointer;
     display: flex;
     font-size: 12px;
     height: 40px;
